@@ -1,0 +1,454 @@
+/* ============================================================
+   Beyond Borders Adventures — theme.css (mobile-first)
+
+   BRAND PALETTE — "Safari Daylight": all-white background,
+   brand green + gold accents from the logo, deep green footer.
+   ┌─────────────────┬──────────┬────────────────────────────┐
+   │ White           │ #ffffff  │ page & section backgrounds │
+   │ Card White      │ #ffffff  │ cards, forms (border+shadow)│
+   │ Warm Hairline   │ #e7e3d8  │ borders, dividers          │
+   │ Forest Green    │ #2e5233  │ headings, primary buttons  │
+   │ Deep Forest     │ #223d26  │ footer (client favourite)  │
+   │ Embroidered Gold│ #c0902f  │ CTAs, accents              │
+   │ Antique Gold    │ #997022  │ links, eyebrows            │
+   │ Sunset Amber    │ #d8752b  │ meta highlights            │
+   │ Charcoal Olive  │ #3f463e  │ body text                  │
+   └─────────────────┴──────────┴────────────────────────────┘
+   Load AFTER bootstrap.min.css.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   Design tokens
+   ------------------------------------------------------------ */
+:root {
+  /* Bootstrap overrides */
+  --bs-body-bg: #ffffff;
+  --bs-body-color: #3f463e;
+  --bs-body-font-family: "Jost", system-ui, sans-serif;
+  --bs-body-font-weight: 400;
+  --bs-body-line-height: 1.7;
+  --bs-border-radius: 0.5rem;
+  --bs-border-radius-lg: 0.75rem;
+  --bs-border-color: #e7e3d8;
+  --bs-heading-color: #2e5233;
+  --bs-link-color: #997022;
+  --bs-link-hover-color: #7a5a1b;
+  --bs-secondary-color: rgba(63, 70, 62, 0.72);
+
+  /* Brand tokens */
+  --bba-bg: #ffffff;
+  --bba-surface: #ffffff;
+  --bba-sand: #ffffff;        /* all-white per client — sections separated by hairlines */
+  --bba-green: #2e5233;       /* Forest Green */
+  --bba-green-deep: #223d26;  /* Deep Forest — the footer green the client likes */
+  --bba-ink: #2e5233;
+  --bba-body: #3f463e;        /* Charcoal Olive */
+  --bba-muted: rgba(63, 70, 62, 0.65);
+  --bba-gold: #c0902f;        /* Embroidered Gold */
+  --bba-gold-dark: #997022;   /* Antique Gold */
+  --bba-gold-light: #edb96a;
+  --bba-gold-tint: rgba(192, 144, 47, 0.12);
+  --bba-sun: #d8752b;         /* Sunset Amber */
+  --bba-line: #e7e3d8;        /* Warm Hairline */
+  --bba-overlay: linear-gradient(180deg, rgba(30, 34, 20, 0.45), rgba(24, 27, 15, 0.82));
+  --bba-shadow: 0 8px 26px rgba(62, 60, 40, 0.10);
+  --bba-font-display: "Playfair Display", Georgia, serif;
+  --bba-font-body: "Jost", system-ui, sans-serif;
+}
+
+/* ------------------------------------------------------------
+   Base (mobile-first: values below are the phone defaults)
+   ------------------------------------------------------------ */
+h1, h2, h3 { font-family: var(--bba-font-display); font-weight: 500; }
+section { padding-top: 3rem; padding-bottom: 3rem; }
+
+.bba-eyebrow {
+  font-family: var(--bba-font-body);
+  font-size: 0.76rem; font-weight: 500;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--bba-gold-dark);
+}
+.bba-rule {
+  width: 56px; height: 2px;
+  background: var(--bba-gold);
+  border: 0; opacity: 1;
+  margin: 1.25rem 0;
+}
+.bba-rule-center { margin-left: auto; margin-right: auto; }
+.section-sand { background: var(--bba-sand); border-top: 1px solid var(--bba-line); border-bottom: 1px solid var(--bba-line); }
+
+/* ------------------------------------------------------------
+   Buttons — themed via Bootstrap 5.3 button CSS vars.
+   44px+ tap height on touch screen.
+   ------------------------------------------------------------ */
+.btn-bba-green, .btn-bba-gold, .btn-bba-outline, .btn-bba-outline-light {
+  --bs-btn-padding-x: 1.6rem;
+  --bs-btn-padding-y: 0.7rem;
+  --bs-btn-font-size: 0.82rem;
+  font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+}
+.btn-bba-green {
+  --bs-btn-bg: var(--bba-green);
+  --bs-btn-border-color: var(--bba-green);
+  --bs-btn-color: #ffffff;
+  --bs-btn-hover-bg: var(--bba-green-deep);
+  --bs-btn-hover-border-color: var(--bba-green-deep);
+  --bs-btn-hover-color: #ffffff;
+  --bs-btn-active-bg: var(--bba-green-deep);
+  --bs-btn-active-border-color: var(--bba-green-deep);
+  --bs-btn-active-color: #ffffff;
+}
+.btn-bba-gold {
+  --bs-btn-bg: var(--bba-gold);
+  --bs-btn-border-color: var(--bba-gold);
+  --bs-btn-color: #ffffff;
+  --bs-btn-hover-bg: var(--bba-gold-dark);
+  --bs-btn-hover-border-color: var(--bba-gold-dark);
+  --bs-btn-hover-color: #ffffff;
+  --bs-btn-active-bg: var(--bba-gold-dark);
+  --bs-btn-active-border-color: var(--bba-gold-dark);
+  --bs-btn-active-color: #ffffff;
+}
+.btn-bba-outline {
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color: var(--bba-green);
+  --bs-btn-color: var(--bba-green);
+  --bs-btn-hover-bg: var(--bba-green);
+  --bs-btn-hover-border-color: var(--bba-green);
+  --bs-btn-hover-color: #ffffff;
+  --bs-btn-active-bg: var(--bba-green);
+  --bs-btn-active-border-color: var(--bba-green);
+  --bs-btn-active-color: #ffffff;
+}
+.btn-bba-outline-light {
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color: rgba(255, 255, 255, 0.75);
+  --bs-btn-color: #ffffff;
+  --bs-btn-hover-bg: transparent;
+  --bs-btn-hover-border-color: var(--bba-gold-light);
+  --bs-btn-hover-color: var(--bba-gold-light);
+  --bs-btn-active-bg: transparent;
+  --bs-btn-active-border-color: var(--bba-gold-light);
+  --bs-btn-active-color: var(--bba-gold-light);
+}
+
+/* Hero & CTA buttons: full-width on phones, inline from ≥576px */
+.bba-hero .btn, .bba-cta-band .btn { width: 100%; }
+@media (min-width: 576px) {
+  .bba-hero .btn, .bba-cta-band .btn { width: auto; }
+}
+
+/* ------------------------------------------------------------
+   Navbar & brand
+   ------------------------------------------------------------ */
+.bba-navbar {
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--bba-line);
+}
+.bba-logo { height: 44px; width: auto; }
+.bba-wordmark {
+  font-family: var(--bba-font-display);
+  font-size: 1rem; font-weight: 600; line-height: 1.15;
+  color: var(--bba-green);
+}
+.bba-wordmark small {
+  display: block; font-family: var(--bba-font-body);
+  font-size: 0.62rem; font-weight: 500;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--bba-gold-dark);
+}
+.bba-navbar .nav-link {
+  color: var(--bba-green);
+  font-size: 0.8rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding-top: 0.6rem; padding-bottom: 0.6rem; /* comfortable tap height */
+}
+.bba-navbar .nav-link:hover, .bba-navbar .nav-link:focus,
+.bba-navbar .nav-link.active { color: var(--bba-gold-dark); }
+.bba-navbar .navbar-collapse {
+  border-top: 1px solid var(--bba-line);
+  margin-top: 0.75rem; padding-top: 0.75rem;
+}
+@media (min-width: 992px) {
+  .bba-logo { height: 52px; }
+  .bba-navbar .nav-link { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+  .bba-navbar .navbar-collapse { border-top: 0; margin-top: 0; padding-top: 0; }
+}
+
+/* ------------------------------------------------------------
+   Hero (home) + page header (subpages)
+   ------------------------------------------------------------ */
+.bba-hero {
+  display: flex; align-items: center;
+  background-image: var(--bba-overlay), url("https://picsum.photos/seed/grove-18/1800/1100");
+  background-size: cover; background-position: center;
+  padding-top: 3.5rem; padding-bottom: 3.5rem;
+}
+.bba-hero h1 { font-size: clamp(2.3rem, 5vw, 4rem); line-height: 1.15; color: #ffffff; }
+.bba-hero .bba-eyebrow { color: var(--bba-gold-light); }
+.bba-hero .lead { color: rgba(255, 255, 255, 0.9); font-weight: 300; max-width: 38rem; }
+@media (min-width: 768px) {
+  .bba-hero { padding-top: 5rem; padding-bottom: 5rem; }
+}
+
+.bba-page-header {
+  background-color: var(--bba-green-deep);
+  background-image: var(--bba-overlay), url("https://picsum.photos/seed/sunset-22/1800/700");
+  background-size: cover; background-position: center;
+  padding-top: 3rem; padding-bottom: 3rem;
+}
+.bba-page-header h1 { color: #ffffff; font-size: clamp(1.9rem, 4vw, 2.8rem); }
+.bba-page-header p { color: rgba(255, 255, 255, 0.85); max-width: 42rem; margin-bottom: 0; }
+.bba-page-header .bba-eyebrow { color: var(--bba-gold-light); }
+@media (min-width: 768px) {
+  .bba-page-header { padding-top: 3.5rem; padding-bottom: 3.5rem; }
+}
+
+/* ------------------------------------------------------------
+   Intro (Jambo welcome section)
+   ------------------------------------------------------------ */
+.bba-intro { border-bottom: 1px solid var(--bba-line); }
+.bba-intro .tagline {
+  font-family: var(--bba-font-display); font-style: italic;
+  font-size: 1.15rem; color: var(--bba-gold-dark);
+}
+
+/* ------------------------------------------------------------
+   Search bar (stacked on phones, one row from ≥992px)
+   ------------------------------------------------------------ */
+.bba-search {
+  background: var(--bba-surface);
+  border: 1px solid var(--bba-line);
+  border-radius: var(--bs-border-radius-lg);
+  box-shadow: var(--bba-shadow);
+}
+.bba-search .form-label {
+  font-size: 0.68rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--bba-gold-dark); margin-bottom: 0.15rem;
+}
+.bba-search .form-control, .bba-search .form-select {
+  border: 0; padding-left: 0; background: transparent;
+  color: var(--bba-green); font-weight: 400;
+}
+.bba-search .form-control::placeholder { color: var(--bba-muted); }
+.bba-search .form-control:focus, .bba-search .form-select:focus { box-shadow: none; }
+.bba-search .cell { border-bottom: 1px solid var(--bba-line); }
+.bba-search .cell:last-of-type { border-bottom: 0; }
+@media (min-width: 992px) {
+  .bba-search .cell { border-bottom: 0; border-right: 1px solid var(--bba-line); }
+  .bba-search .cell:last-of-type { border-right: 0; }
+}
+
+/* ------------------------------------------------------------
+   Category buttons / links
+   ------------------------------------------------------------ */
+.bba-cat {
+  width: 100%;
+  background: var(--bba-surface);
+  border: 1px solid var(--bba-line);
+  border-radius: var(--bs-border-radius);
+  display: flex; align-items: center; gap: 0.8rem;
+  padding: 0.95rem 1.1rem; height: 100%;
+  text-align: left; text-decoration: none;
+  color: var(--bba-green);
+  font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+  box-shadow: var(--bba-shadow);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.bba-cat:hover { border-color: var(--bba-gold); color: var(--bba-green); }
+.bba-cat i { color: var(--bba-gold-dark); font-size: 1.2rem; }
+.bba-cat.active { background: var(--bba-green); border-color: var(--bba-green); color: #ffffff; }
+.bba-cat.active i { color: var(--bba-gold-light); }
+
+/* ------------------------------------------------------------
+   Package & blog cards
+   ------------------------------------------------------------ */
+.bba-card {
+  background: var(--bba-surface);
+  border: 1px solid var(--bba-line);
+  border-radius: var(--bs-border-radius);
+  overflow: hidden; height: 100%;
+  box-shadow: var(--bba-shadow);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.bba-card:hover { border-color: var(--bba-gold); }
+.bba-card img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+.bba-card h3 { font-size: 1.2rem; }
+.bba-card .duration {
+  font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--bba-sun); font-weight: 500;
+}
+.bba-card .price { font-family: var(--bba-font-display); color: var(--bba-gold-dark); font-size: 1.1rem; white-space: nowrap; }
+.bba-card .price small { display: block; font-family: var(--bba-font-body); font-size: 0.7rem; color: var(--bba-muted); }
+.bba-card .btn { white-space: nowrap; }
+.bba-filter-note { color: var(--bba-muted); font-size: 0.9rem; }
+.bba-empty {
+  border: 1px dashed var(--bba-line); border-radius: var(--bs-border-radius);
+  color: var(--bba-muted); background: var(--bba-surface);
+}
+.bba-post {
+  background: var(--bba-surface); border: 1px solid var(--bba-line);
+  border-radius: var(--bs-border-radius); overflow: hidden; height: 100%;
+  box-shadow: var(--bba-shadow);
+  transition: border-color 0.2s ease;
+}
+.bba-post:hover { border-color: var(--bba-gold); }
+.bba-post img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.bba-post .date { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--bba-muted); }
+
+/* ------------------------------------------------------------
+   About / story
+   ------------------------------------------------------------ */
+.bba-tagline {
+  font-family: var(--bba-font-display); font-style: italic;
+  font-size: clamp(1.3rem, 2.6vw, 1.9rem); line-height: 1.45; color: var(--bba-green);
+}
+.bba-vm { border-top: 2px solid var(--bba-gold); padding-top: 1.5rem; height: 100%; }
+.bba-vm h3 { font-size: 1.35rem; }
+
+/* ------------------------------------------------------------
+   CTA band
+   ------------------------------------------------------------ */
+.bba-cta-band {
+  background-image: var(--bba-overlay), url("https://picsum.photos/seed/dusk-ridge/1800/900");
+  background-size: cover; background-position: center;
+}
+.bba-cta-band h2 { color: #ffffff; }
+.bba-cta-band p { color: rgba(255, 255, 255, 0.9); }
+.bba-cta-band .bba-eyebrow { color: var(--bba-gold-light); }
+.bba-cta-band .contact-line { color: var(--bba-gold-light); font-size: 1.15rem; font-weight: 500; letter-spacing: 0.06em; }
+.bba-cta-band .contact-line a { color: var(--bba-gold-light); text-decoration: none; }
+.bba-cta-band .contact-line a:hover { color: #ffffff; }
+
+/* ------------------------------------------------------------
+   Why book with us
+   ------------------------------------------------------------ */
+.bba-trust-item { display: flex; gap: 1rem; align-items: flex-start; }
+.bba-trust-item i {
+  flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 46px; height: 46px; border-radius: 50%;
+  background: var(--bba-gold-tint); color: var(--bba-green); font-size: 1.15rem;
+}
+.bba-trust-item h3 { font-size: 1rem; font-family: var(--bba-font-body); font-weight: 500; }
+.bba-trust-item p { font-size: 0.95rem; }
+.bba-badge-slot {
+  border: 1px dashed var(--bba-gold);
+  color: var(--bba-gold-dark);
+  font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase;
+  border-radius: var(--bs-border-radius);
+  padding: 0.5rem 0.9rem; display: inline-block;
+}
+
+/* ------------------------------------------------------------
+   Testimonials
+   ------------------------------------------------------------ */
+.bba-quote { border-left: 2px solid var(--bba-gold); padding-left: 1.25rem; }
+.bba-quote p { font-family: var(--bba-font-display); font-style: italic; font-size: 1.08rem; color: var(--bba-green); }
+.bba-quote footer { font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--bba-muted); }
+
+/* ------------------------------------------------------------
+   Forms (custom trip enquiry, contact)
+   ------------------------------------------------------------ */
+.bba-form {
+  background: var(--bba-surface);
+  border: 1px solid var(--bba-line);
+  border-radius: var(--bs-border-radius-lg);
+  box-shadow: var(--bba-shadow);
+}
+.bba-form .form-label {
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--bba-gold-dark);
+}
+.bba-form .form-control, .bba-form .form-select {
+  background-color: #ffffff;
+  border-color: var(--bba-line);
+  color: var(--bba-body);
+  min-height: 44px; /* touch-friendly */
+}
+.bba-form textarea.form-control { min-height: unset; }
+.bba-form .form-control::placeholder { color: var(--bba-muted); }
+.bba-form .form-control:focus, .bba-form .form-select:focus {
+  border-color: var(--bba-green);
+  box-shadow: 0 0 0 0.2rem rgba(46, 82, 51, 0.12);
+}
+
+/* ------------------------------------------------------------
+   Steps (how it works)
+   ------------------------------------------------------------ */
+.bba-step .num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--bba-gold-tint);
+  font-family: var(--bba-font-display);
+  color: var(--bba-gold-dark); font-size: 1.2rem;
+}
+.bba-step h3 { font-size: 1.1rem; font-family: var(--bba-font-body); font-weight: 500; }
+
+/* ------------------------------------------------------------
+   Gallery
+   ------------------------------------------------------------ */
+.bba-gallery img {
+  width: 100%; aspect-ratio: 4 / 3; object-fit: cover;
+  border-radius: var(--bs-border-radius);
+  border: 1px solid var(--bba-line);
+}
+.bba-gallery figcaption { font-size: 0.8rem; color: var(--bba-muted); margin-top: 0.4rem; }
+
+/* ------------------------------------------------------------
+   Contact & FAQ
+   ------------------------------------------------------------ */
+.bba-contact-card {
+  background: var(--bba-surface);
+  border: 1px solid var(--bba-line);
+  border-radius: var(--bs-border-radius);
+  box-shadow: var(--bba-shadow);
+  height: 100%;
+}
+.bba-contact-card i { color: var(--bba-gold-dark); font-size: 1.5rem; }
+.bba-contact-card h3 { font-size: 1.05rem; font-family: var(--bba-font-body); font-weight: 500; }
+.accordion {
+  --bs-accordion-bg: var(--bba-surface);
+  --bs-accordion-border-color: var(--bba-line);
+  --bs-accordion-btn-color: var(--bba-green);
+  --bs-accordion-active-bg: var(--bba-gold-tint);
+  --bs-accordion-active-color: var(--bba-green);
+  --bs-accordion-btn-focus-box-shadow: 0 0 0 0.2rem rgba(46, 82, 51, 0.12);
+}
+.accordion-button { font-weight: 500; }
+
+/* ------------------------------------------------------------
+   Footer & WhatsApp
+   ------------------------------------------------------------ */
+.bba-footer { background: var(--bba-green-deep); color: #ccd6c9; padding-top: 3.5rem; padding-bottom: 1.5rem; }
+.bba-footer .bba-wordmark { color: #ffffff; }
+.bba-footer .bba-wordmark small { color: var(--bba-gold-light); }
+.bba-footer .bba-eyebrow { color: var(--bba-gold-light); }
+.bba-footer a { color: #ccd6c9; text-decoration: none; }
+.bba-footer a:hover { color: var(--bba-gold-light); }
+.bba-footer .tagline { font-family: var(--bba-font-display); font-style: italic; color: var(--bba-gold-light); }
+.bba-footer .social a {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 42px; height: 42px; border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.25); color: var(--bba-gold-light);
+}
+.bba-footer .social a:hover { border-color: var(--bba-gold); }
+.bba-footer .footer-line { border-top: 1px solid rgba(255, 255, 255, 0.15); }
+.bba-footer .fineprint { font-size: 0.75rem; color: rgba(204, 214, 201, 0.7); }
+.bba-whatsapp {
+  position: fixed; right: 1.25rem; bottom: 1.25rem; z-index: 1080;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 54px; height: 54px; border-radius: 50%;
+  background: #25d366; color: #fff; font-size: 1.6rem;
+  box-shadow: 0 6px 18px rgba(34, 61, 38, 0.35);
+}
+.bba-whatsapp:hover { color: #fff; transform: scale(1.06); }
+
+/* ------------------------------------------------------------
+   Larger screens (mobile-first: scale UP from the defaults)
+   ------------------------------------------------------------ */
+@media (min-width: 768px) {
+  section { padding-top: 4rem; padding-bottom: 4rem; }
+  .bba-footer { padding-top: 4rem; }
+}

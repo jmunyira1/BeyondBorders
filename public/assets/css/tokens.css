@@ -1,0 +1,120 @@
+/* Hallmark · design-system: design.md · designed-as-app
+ * theme: custom "Sunset Savanna" · vibe: "golden-hour grassland, warm dust, big sky"
+ * paper: oklch(96% 0.015 75) · accent: oklch(55% 0.15 40)
+ * display: Fraunces · body: Switzer · axes: light / roman-serif / warm (40°)
+ * studied: no · context: user-confirmed · Beyond Borders Adventures
+ */
+
+:root {
+  /* ---- Colour ------------------------------------------------ */
+  --color-paper:        oklch(96% 0.015 75);
+  --color-paper-2:      oklch(93.5% 0.017 75);
+  --color-paper-3:      oklch(90% 0.018 75);
+  --color-ink:          oklch(21% 0.012 60);
+  --color-ink-2:        oklch(38% 0.012 60);
+  --color-muted:        oklch(44% 0.012 65);
+  --color-rule:         oklch(84% 0.015 75);
+  --color-rule-2:       oklch(88% 0.015 75);
+  --color-accent:       oklch(52% 0.15 40);
+  --color-accent-hover: oklch(45% 0.14 40);
+  --color-accent-ink:   oklch(96.5% 0.012 75);
+  --color-accent-tint:  oklch(52% 0.15 40 / 0.1);
+  --color-focus:        oklch(54% 0.2 40);
+  --color-whatsapp:     #25d366; /* WhatsApp brand green — widget only, palette-exempt */
+  --color-whatsapp-ink: #ffffff;
+  --color-basalt:       oklch(20% 0.015 50);
+  --color-basalt-2:     oklch(24% 0.016 50);
+  --color-basalt-ink:   oklch(93% 0.012 75);
+  --color-basalt-muted: oklch(72% 0.012 70);
+  --color-basalt-rule:  oklch(32% 0.014 55);
+  --color-good:         oklch(45% 0.09 150);
+  --color-good-tint:    oklch(45% 0.09 150 / 0.08);
+  --color-bad:          oklch(45% 0.16 30);
+  --color-bad-tint:     oklch(45% 0.16 30 / 0.07);
+  --color-scrim:        linear-gradient(180deg, oklch(22% 0.02 55 / 0.18), oklch(16% 0.02 55 / 0.62));
+
+  /* ---- Type -------------------------------------------------- */
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-body:    "Switzer", ui-sans-serif, system-ui, sans-serif;
+
+  --text-xs:   0.8rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-md:   1.25rem;
+  --text-lg:   1.5625rem;
+  --text-xl:   1.9531rem;
+  --text-2xl:  2.4414rem;
+  --text-display-s: clamp(2.1rem, 3vw + 1rem, 3.4rem);
+  --text-display:   clamp(2.75rem, 5vw + 1rem, 5rem);
+
+  /* ---- Space (4pt) ------------------------------------------- */
+  --space-3xs: 0.125rem;
+  --space-2xs: 0.25rem;
+  --space-xs:  0.5rem;
+  --space-sm:  0.75rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 9rem;
+
+  /* ---- Rules, radii, depth ----------------------------------- */
+  --rule-hair: 1px;
+  --radius-card:  0;
+  --radius-input: 2px;
+  --radius-pill:  999px;
+  --shadow-whisper: 0 1px 2px oklch(20% 0.01 60 / 0.05);
+
+  /* ---- Motion ------------------------------------------------ */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in:     cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long:  420ms;
+
+  /* ---- Z scale ----------------------------------------------- */
+  --z-base: 1;
+  --z-raised: 10;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+
+  /* ---- Bootstrap 5.3 bridge ---------------------------------- */
+  --bs-body-bg: var(--color-paper);
+  --bs-body-color: var(--color-ink);
+  --bs-body-font-family: var(--font-body);
+  --bs-body-font-weight: 400;
+  --bs-body-line-height: 1.65;
+  --bs-border-radius: var(--radius-input);
+  --bs-border-radius-lg: var(--radius-input);
+  --bs-border-color: var(--color-rule);
+  --bs-heading-color: var(--color-ink);
+  --bs-link-color: var(--color-accent);
+  --bs-link-hover-color: var(--color-accent-hover);
+  --bs-secondary-color: var(--color-ink-2);
+
+  /* ---- Legacy --bba-* bridge (app.css: WhatsApp widget, chips,
+          htmx feedback, pager) — aliased, never redefined below -- */
+  --bba-bg: var(--color-paper);
+  --bba-surface: var(--color-paper);
+  --bba-sand: var(--color-paper-2);
+  --bba-green: var(--color-ink);
+  --bba-green-deep: var(--color-basalt);
+  --bba-ink: var(--color-ink);
+  --bba-body: var(--color-ink);
+  --bba-muted: var(--color-muted);
+  --bba-gold: var(--color-accent);
+  --bba-gold-dark: var(--color-accent-hover);
+  --bba-gold-light: var(--color-basalt-muted);
+  --bba-gold-tint: var(--color-accent-tint);
+  --bba-sun: var(--color-accent);
+  --bba-line: var(--color-rule);
+  --bba-overlay: var(--color-scrim);
+  --bba-shadow: var(--shadow-whisper);
+  --bba-font-display: var(--font-display);
+  --bba-font-body: var(--font-body);
+}

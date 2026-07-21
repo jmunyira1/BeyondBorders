@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beyond Borders Adventures — Kenya Safaris, Tours &amp; Travel</title>
+<meta name="description" content="Discover the magic of Kenya with Beyond Borders Adventures — safaris, beach holidays, mountain treks, cultural experiences and tailor-made trips for local and international travelers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<link href="theme.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="navbar navbar-expand-lg bba-navbar sticky-top py-2">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+      <img class="bba-logo" src="logo-nav.png" alt="Beyond Borders Adventures logo">
+      <span class="bba-wordmark">Beyond Borders<small>Adventures</small></span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+        <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="packages.html">Tours &amp; Packages</a></li>
+        <li class="nav-item"><a class="nav-link" href="custom-trips.html">Custom Trips</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item mt-2 mt-lg-0"><a class="btn btn-bba-green" href="packages.html">Book Now</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header class="bba-hero">
+  <div class="container">
+    <div class="col-lg-9">
+      <p class="bba-eyebrow mb-3">Kenya's Finest Adventures Await</p>
+      <h1>Explore Kenya.<br>Experience the Extraordinary.</h1>
+      <hr class="bba-rule">
+      <p class="lead mb-4">Safaris, beach holidays, mountain treks and cultural experiences — organized end to end, clearly priced, and booked in minutes.</p>
+      <div class="d-flex flex-wrap gap-3">
+        <a href="packages.html" class="btn btn-bba-gold">Explore Packages</a>
+        <a href="custom-trips.html" class="btn btn-bba-outline-light">Plan a Custom Trip</a>
+      </div>
+    </div>
+
+    <!-- Search -->
+    <form class="bba-search row g-0 align-items-center mt-5 p-3" action="packages.html" method="get" aria-label="Search trips">
+      <div class="col-lg-4 cell px-3 py-2">
+        <label class="form-label" for="q-dest">Destination</label>
+        <input class="form-control" id="q-dest" name="q" type="text" placeholder="e.g. Maasai Mara, Diani…">
+      </div>
+      <div class="col-lg-3 cell px-3 py-2">
+        <label class="form-label" for="q-type">Trip type</label>
+        <select class="form-select" id="q-type" name="cat">
+          <option value="">Any type</option>
+          <option value="safari">Safari</option>
+          <option value="beach">Beach holiday</option>
+          <option value="adventure">Adventure</option>
+          <option value="culture">Cultural experience</option>
+          <option value="corporate">Corporate retreat</option>
+        </select>
+      </div>
+      <div class="col-lg-3 cell px-3 py-2">
+        <label class="form-label" for="q-budget">Budget</label>
+        <select class="form-select" id="q-budget" name="budget">
+          <option value="">Any budget</option>
+          <option>Under KES 10,000</option>
+          <option>KES 10,000 – 30,000</option>
+          <option>KES 30,000+</option>
+        </select>
+      </div>
+      <div class="col-lg-2 px-3 py-2 d-grid">
+        <button class="btn btn-bba-green" type="submit"><i class="bi bi-search me-2" aria-hidden="true"></i>Search</button>
+      </div>
+    </form>
+  </div>
+</header>
+
+<!-- Intro -->
+<section class="bba-intro">
+  <div class="container text-center">
+    <div class="col-lg-9 mx-auto">
+      <p class="bba-eyebrow mb-2">Company Overview</p>
+      <h2 class="display-6 mb-3">Jambo! Karibu Kenya.</h2>
+      <p class="mb-3">Discover the magic of Kenya with Beyond Borders Adventures — your trusted partner for luxury, budget-friendly and tailor-made travel experiences. We specialize in unforgettable Kenya safaris, wildlife tours, mountain trekking, beach holidays, cultural experiences, weekend getaways and nature adventures for both local and international travelers.</p>
+      <p class="mb-3">Born in Kenya and inspired by its breathtaking beauty, we create authentic, safe and seamless journeys that turn every trip into a lifetime memory. Your next great adventure starts with us.</p>
+      <p class="tagline mb-2">"We don't just do trips — we make memories that translate to stories worth telling."</p>
+      <a href="about.html" class="fw-medium">More about us <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- Categories -->
+<section class="pb-0" aria-label="Browse by category">
+  <div class="container">
+    <div class="row g-3 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5">
+      <div class="col"><a class="bba-cat" href="packages.html?cat=safari"><i class="bi bi-binoculars" aria-hidden="true"></i>Safaris</a></div>
+      <div class="col"><a class="bba-cat" href="packages.html?cat=beach"><i class="bi bi-umbrella" aria-hidden="true"></i>Beach Holidays</a></div>
+      <div class="col"><a class="bba-cat" href="packages.html?cat=adventure"><i class="bi bi-signpost-2" aria-hidden="true"></i>Adventures</a></div>
+      <div class="col"><a class="bba-cat" href="packages.html?cat=culture"><i class="bi bi-calendar-event" aria-hidden="true"></i>Cultural Experiences</a></div>
+      <div class="col"><a class="bba-cat" href="packages.html?cat=corporate"><i class="bi bi-people" aria-hidden="true"></i>Corporate Retreats</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured packages -->
+<section>
+  <div class="container">
+    <div class="d-flex flex-wrap justify-content-between align-items-end mb-4 gap-2">
+      <div>
+        <p class="bba-eyebrow mb-2">Tours &amp; Packages</p>
+        <h2 class="display-6 mb-0">Featured packages</h2>
+      </div>
+      <a href="packages.html" class="fw-medium">View all packages <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <article class="bba-card">
+          <img src="https://picsum.photos/seed/grove-18/900/600" alt="Golden savannah grasslands of the Maasai Mara">
+          <div class="p-4">
+            <p class="duration mb-2">3 Days · 2 Nights · Safari</p>
+            <h3>Maasai Mara Safari</h3>
+            <p class="text-body-secondary mb-3">Game drives across the Mara plains in search of the Big Five, with nights at a tented camp.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="price"><small>From</small>KES 25,000</span>
+              <a href="packages.html" class="btn btn-bba-outline btn-sm">Book Now</a>
+            </div>
+          </div>
+        </article>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <article class="bba-card">
+          <img src="https://picsum.photos/seed/dune-5/900/600" alt="White sand and turquoise water at Diani Beach">
+          <div class="p-4">
+            <p class="duration mb-2">4 Days · 3 Nights · Beach</p>
+            <h3>Diani Beach Getaway</h3>
+            <p class="text-body-secondary mb-3">Four days on Kenya's award-winning south coast — white sand, warm ocean and dhow sunsets.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="price"><small>From</small>KES 32,000</span>
+              <a href="packages.html" class="btn btn-bba-outline btn-sm">Book Now</a>
+            </div>
+          </div>
+        </article>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <article class="bba-card">
+          <img src="https://picsum.photos/seed/cliff-12/900/600" alt="Elephant herds grazing in Amboseli National Park">
+          <div class="p-4">
+            <p class="duration mb-2">2 Days · 1 Night · Safari</p>
+            <h3>Amboseli Elephant Experience</h3>
+            <p class="text-body-secondary mb-3">Amboseli's famous elephant herds with Mount Kilimanjaro as the backdrop.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="price"><small>From</small>KES 18,500</span>
+              <a href="packages.html" class="btn btn-bba-outline btn-sm">Book Now</a>
+            </div>
+          </div>
+        </article>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <article class="bba-card">
+          <img src="https://picsum.photos/seed/dusk-ridge/900/600" alt="Lake Nakuru shoreline at dusk">
+          <div class="p-4">
+            <p class="duration mb-2">5 Days · 4 Nights · Safari Combo</p>
+            <h3>Mara + Lake Nakuru Combo</h3>
+            <p class="text-body-secondary mb-3">Nakuru's flamingos and rhino sanctuary, then the open plains of the Mara.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="price"><small>From</small>KES 55,000</span>
+              <a href="packages.html" class="btn btn-bba-outline btn-sm">Book Now</a>
+            </div>
+          </div>
+        </article>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <article class="bba-card">
+          <img src="https://picsum.photos/seed/trail-8/900/600" alt="Hiking trail on the rim of Mt. Longonot crater">
+          <div class="p-4">
+            <p class="duration mb-2">1 Day · Adventure</p>
+            <h3>Mt. Longonot Day Hike</h3>
+            <p class="text-body-secondary mb-3">A guided crater-rim hike above the Great Rift Valley — back in Nairobi by dusk.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="price"><small>From</small>KES 4,500</span>
+              <a href="packages.html" class="btn btn-bba-outline btn-sm">Book Now</a>
+            </div>
+          </div>
+        </article>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <article class="bba-card">
+          <img src="https://picsum.photos/seed/ember-25/900/600" alt="Walkway at the Bomas of Kenya cultural centre">
+          <div class="p-4">
+            <p class="duration mb-2">1 Day · Cultural</p>
+            <h3>Bomas &amp; Giraffe Centre Tour</h3>
+            <p class="text-body-secondary mb-3">Traditional dance at Bomas of Kenya, then eye-to-eye with Rothschild giraffes.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="price"><small>From</small>KES 6,000</span>
+              <a href="packages.html" class="btn btn-bba-outline btn-sm">Book Now</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA band -->
+<section class="bba-cta-band">
+  <div class="container text-center">
+    <p class="bba-eyebrow mb-3">Custom Trips</p>
+    <h2 class="display-6 mb-3">Ready for the adventure of a lifetime?</h2>
+    <p class="col-lg-8 mx-auto mb-4">Private safaris, honeymoons, corporate staff retreats and cultural events — tell us the occasion, the group and the budget, and we plan the whole journey end to end.</p>
+    <div class="d-flex flex-wrap gap-3 justify-content-center mb-3">
+      <a href="custom-trips.html" class="btn btn-bba-gold btn-lg">Plan a Custom Trip</a>
+      <a href="contact.html" class="btn btn-bba-outline-light btn-lg">Talk to us</a>
+    </div>
+    <p class="contact-line mb-0"><i class="bi bi-telephone me-2" aria-hidden="true"></i><a href="tel:+254700000000">+254 700 000 000</a></p>
+  </div>
+</section>
+
+<!-- Why book with us -->
+<section>
+  <div class="container">
+    <div class="text-center mb-5">
+      <p class="bba-eyebrow mb-2">Why Book With Us</p>
+      <h2 class="display-6">Travel, handled properly.</h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-3">
+        <div class="bba-trust-item">
+          <i class="bi bi-receipt" aria-hidden="true"></i>
+          <div>
+            <h3>Transparent pricing</h3>
+            <p class="text-body-secondary mb-0">Inclusions spelled out on every package — the price you see is the price you pay.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="bba-trust-item">
+          <i class="bi bi-shield-lock" aria-hidden="true"></i>
+          <div>
+            <h3>Secure payments</h3>
+            <p class="text-body-secondary mb-0">Pay securely online with M-Pesa or card, with instant confirmation.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="bba-trust-item">
+          <i class="bi bi-geo-alt" aria-hidden="true"></i>
+          <div>
+            <h3>Local experts</h3>
+            <p class="text-body-secondary mb-0">Journeys planned by Kenyans who know the parks, coast and seasons first-hand.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="bba-trust-item">
+          <i class="bi bi-patch-check" aria-hidden="true"></i>
+          <div>
+            <h3>Accountable</h3>
+            <p class="text-body-secondary mb-2">One point of contact from enquiry to your journey home.</p>
+            <span class="bba-badge-slot">Licensed &amp; Registered</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="section-sand">
+  <div class="container">
+    <div class="text-center mb-5">
+      <p class="bba-eyebrow mb-2">Guest Words</p>
+      <h2 class="display-6">What travelers say.</h2>
+    </div>
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-6 col-lg-4">
+        <blockquote class="bba-quote">
+          <p>"Every detail was arranged before we even thought to ask. The Mara felt like it was ours alone."</p>
+          <footer>Happy Traveler, Nairobi</footer>
+        </blockquote>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <blockquote class="bba-quote">
+          <p>"Seamless from first message to final transfer. Our staff retreat ran itself — we just showed up."</p>
+          <footer>Corporate Client, Mombasa</footer>
+        </blockquote>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <blockquote class="bba-quote">
+          <p>"Paying by M-Pesa and having everything confirmed the same day made it completely effortless."</p>
+          <footer>Happy Traveler, Kisumu</footer>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery teaser -->
+<section>
+  <div class="container">
+    <div class="d-flex flex-wrap justify-content-between align-items-end mb-4 gap-2">
+      <div>
+        <p class="bba-eyebrow mb-2">Gallery</p>
+        <h2 class="display-6 mb-0">Moments from the road</h2>
+      </div>
+      <a href="gallery.html" class="fw-medium">View full gallery <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+    </div>
+    <div class="row g-3 bba-gallery">
+      <div class="col-6 col-lg-3"><img src="https://picsum.photos/seed/grove-18/700/525" alt="Savannah at golden hour"></div>
+      <div class="col-6 col-lg-3"><img src="https://picsum.photos/seed/dune-5/700/525" alt="Turquoise surf on the coast"></div>
+      <div class="col-6 col-lg-3"><img src="https://picsum.photos/seed/bush-15/700/525" alt="Rift Valley ridges at dusk"></div>
+      <div class="col-6 col-lg-3"><img src="https://picsum.photos/seed/canopy-2/700/525" alt="Misty highland forest"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Blog teaser -->
+<section class="section-sand">
+  <div class="container">
+    <div class="d-flex flex-wrap justify-content-between align-items-end mb-4 gap-2">
+      <div>
+        <p class="bba-eyebrow mb-2">The Journal</p>
+        <h2 class="display-6 mb-0">Notes from the road</h2>
+      </div>
+      <a href="blog.html" class="fw-medium">All posts <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <article class="bba-post">
+          <img src="https://picsum.photos/seed/sunset-22/800/450" alt="Golden light over the savannah at dusk">
+          <div class="p-4">
+            <p class="date mb-2">July 2026 · 5 min read</p>
+            <h3 class="h5">When to see the Great Migration</h3>
+            <a href="blog.html">Read the story</a>
+          </div>
+        </article>
+      </div>
+      <div class="col-md-4">
+        <article class="bba-post">
+          <img src="https://picsum.photos/seed/meadow-13/800/450" alt="Green highland forest in central Kenya">
+          <div class="p-4">
+            <p class="date mb-2">June 2026 · 4 min read</p>
+            <h3 class="h5">What to pack for your first safari</h3>
+            <a href="blog.html">Read the story</a>
+          </div>
+        </article>
+      </div>
+      <div class="col-md-4">
+        <article class="bba-post">
+          <img src="https://picsum.photos/seed/rift-valley/800/450" alt="Palm trees along the Kenyan coast">
+          <div class="p-4">
+            <p class="date mb-2">June 2026 · 6 min read</p>
+            <h3 class="h5">Coast or safari first? Planning both</h3>
+            <a href="blog.html">Read the story</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Vision & Mission -->
+<section class="section-sand">
+  <div class="container">
+    <div class="text-center mb-5">
+      <p class="bba-eyebrow mb-2">Where We're Headed</p>
+      <h2 class="display-6">Our Vision &amp; Mission</h2>
+    </div>
+    <div class="row g-4 g-lg-5 justify-content-center">
+      <div class="col-md-6 col-lg-5">
+        <div class="bba-vm">
+          <h3>Our Vision</h3>
+          <p class="mb-0">To become Kenya's most trusted and preferred travel and adventure company, showcasing Kenya as a destination of endless beauty, unforgettable experiences, and world-class adventures.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-5">
+        <div class="bba-vm">
+          <h3>Our Mission</h3>
+          <p class="mb-0">To deliver world-class travel experiences through exceptional service, unforgettable adventures, and sustainable tourism while creating lasting memories for every traveler.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer id="contact" class="bba-footer">
+  <div class="container">
+    <div class="row g-4 pb-4">
+      <div class="col-lg-4">
+        <span class="bba-wordmark h5 d-block mb-1">Beyond Borders<small>Adventures</small></span>
+        <p class="tagline mb-3">Explore and Enjoy</p>
+        <p class="mb-0">Discover the magic of Kenya — luxury, budget-friendly and tailor-made travel experiences for local and international travelers.</p>
+      </div>
+      <div class="col-6 col-lg-2 offset-lg-1">
+        <p class="bba-eyebrow mb-3">Explore</p>
+        <ul class="list-unstyled d-grid gap-2">
+          <li><a href="packages.html">Tours &amp; Packages</a></li>
+          <li><a href="custom-trips.html">Custom Trips</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="blog.html">Blog</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <p class="bba-eyebrow mb-3">Company</p>
+        <ul class="list-unstyled d-grid gap-2">
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-3">
+        <p class="bba-eyebrow mb-3">Contact</p>
+        <ul class="list-unstyled d-grid gap-2">
+          <li><a href="tel:+254700000000"><i class="bi bi-telephone me-2" aria-hidden="true"></i>+254 700 000 000</a></li>
+          <li><a href="mailto:info@beyondbordersadventures.co.ke"><i class="bi bi-envelope me-2" aria-hidden="true"></i>info@beyondbordersadventures.co.ke</a></li>
+          <li><a href="https://wa.me/254700000000"><i class="bi bi-whatsapp me-2" aria-hidden="true"></i>WhatsApp us</a></li>
+        </ul>
+        <div class="social d-flex gap-2 mt-3">
+          <a href="#" aria-label="Instagram"><i class="bi bi-instagram" aria-hidden="true"></i></a>
+          <a href="#" aria-label="Facebook"><i class="bi bi-facebook" aria-hidden="true"></i></a>
+          <a href="#" aria-label="TikTok"><i class="bi bi-tiktok" aria-hidden="true"></i></a>
+          <a href="#" aria-label="X (Twitter)"><i class="bi bi-twitter-x" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-line pt-3 d-flex flex-wrap justify-content-between gap-2">
+      <span class="fineprint">© 2026 Beyond Borders Adventures. All rights reserved.</span>
+      <span class="fineprint">Nairobi, Kenya · Online-first travel company</span>
+    </div>
+  </div>
+</footer>
+
+<a class="bba-whatsapp" href="https://wa.me/254700000000" aria-label="Chat with us on WhatsApp">
+  <i class="bi bi-whatsapp" aria-hidden="true"></i>
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

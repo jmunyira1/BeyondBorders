@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact Us — Beyond Borders Adventures</title>
+<meta name="description" content="Talk to Beyond Borders Adventures — call, WhatsApp or email us about safaris, beach holidays, custom trips and corporate retreats across Kenya.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<link href="theme.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="navbar navbar-expand-lg bba-navbar sticky-top py-2">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+      <img class="bba-logo" src="logo-nav.png" alt="Beyond Borders Adventures logo">
+      <span class="bba-wordmark">Beyond Borders<small>Adventures</small></span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="packages.html">Tours &amp; Packages</a></li>
+        <li class="nav-item"><a class="nav-link" href="custom-trips.html">Custom Trips</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+        <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
+        <li class="nav-item mt-2 mt-lg-0"><a class="btn btn-bba-green" href="packages.html">Book Now</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Page header -->
+<header class="bba-page-header">
+  <div class="container">
+    <p class="bba-eyebrow mb-2">Contact</p>
+    <h1>Talk to us</h1>
+    <p class="mt-3">Questions, bookings or a trip idea you want to think out loud? We're online and quick to reply.</p>
+  </div>
+</header>
+
+<!-- Contact channels -->
+<section>
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="bba-contact-card p-4 text-center">
+          <i class="bi bi-whatsapp" aria-hidden="true"></i>
+          <h3 class="mt-3">WhatsApp</h3>
+          <p class="text-body-secondary mb-3">The fastest way to reach us — usually within minutes.</p>
+          <a href="https://wa.me/254700000000" class="btn btn-bba-green btn-sm">Chat on WhatsApp</a>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="bba-contact-card p-4 text-center">
+          <i class="bi bi-telephone" aria-hidden="true"></i>
+          <h3 class="mt-3">Call us</h3>
+          <p class="text-body-secondary mb-3">Mon–Sat, 8am–6pm EAT. We're happy to talk through options.</p>
+          <a href="tel:+254700000000" class="btn btn-bba-outline btn-sm">+254 700 000 000</a>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="bba-contact-card p-4 text-center">
+          <i class="bi bi-envelope" aria-hidden="true"></i>
+          <h3 class="mt-3">Email</h3>
+          <p class="text-body-secondary mb-3">For itineraries, quotes and anything in writing.</p>
+          <a href="mailto:info@beyondbordersadventures.co.ke" class="btn btn-bba-outline btn-sm">Send an email</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Message form + FAQs -->
+<section class="section-sand">
+  <div class="container">
+    <div class="row g-4 g-lg-5">
+      <div class="col-lg-6">
+        <p class="bba-eyebrow mb-2">Send a Message</p>
+        <h2 class="display-6 mb-4">We reply within 24 hours</h2>
+        <form class="bba-form p-4" action="#" aria-label="Contact form">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label" for="c-name">Your name</label>
+              <input class="form-control" id="c-name" type="text" placeholder="Jane Wanjiku">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="c-contact">Email or phone</label>
+              <input class="form-control" id="c-contact" type="text" placeholder="you@example.com">
+            </div>
+            <div class="col-12">
+              <label class="form-label" for="c-subject">Subject</label>
+              <select class="form-select" id="c-subject">
+                <option>Booking a package</option>
+                <option>Custom trip enquiry</option>
+                <option>Corporate retreat</option>
+                <option>Payment question</option>
+                <option>Something else</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <label class="form-label" for="c-message">Message</label>
+              <textarea class="form-control" id="c-message" rows="5" placeholder="How can we help?"></textarea>
+            </div>
+            <div class="col-12">
+              <button class="btn btn-bba-gold" type="submit">Send Message</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-lg-6">
+        <p class="bba-eyebrow mb-2">FAQs</p>
+        <h2 class="display-6 mb-4">Quick answers</h2>
+        <div class="accordion" id="faq">
+          <div class="accordion-item">
+            <h3 class="accordion-header">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">How do I pay for a trip?</button>
+            </h3>
+            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faq">
+              <div class="accordion-body">You can pay securely online by M-Pesa or card. You'll receive written confirmation as soon as your payment is received, and a receipt for your records.</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">What's included in the package price?</button>
+            </h3>
+            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faq">
+              <div class="accordion-body">Every package lists its inclusions — typically transport, park or entry fees, accommodation and a guide. If something isn't listed, just ask and we'll confirm in writing before you pay.</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">Can you handle groups and corporate retreats?</button>
+            </h3>
+            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faq">
+              <div class="accordion-body">Yes — from small families to whole offices. Tell us the group size, dates and budget through the <a href="custom-trips.html">Custom Trips</a> page and we'll send an itinerary and quote within 24 hours.</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">Do you serve international travelers?</button>
+            </h3>
+            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faq">
+              <div class="accordion-body">Absolutely. We plan trips for both Kenyan and international travelers, and can advise on the best seasons, connections from the airport, and what to expect on the ground.</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5" aria-expanded="false" aria-controls="faq5">Where are your offices?</button>
+            </h3>
+            <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faq">
+              <div class="accordion-body">We're an online-first company based in Nairobi — it keeps our prices honest. Everything from enquiry to booking happens by phone, WhatsApp or email, and we meet you where your trip begins.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA band -->
+<section class="bba-cta-band">
+  <div class="container text-center">
+    <h2 class="display-6 mb-3">Ready when you are.</h2>
+    <p class="contact-line mb-0"><i class="bi bi-telephone me-2" aria-hidden="true"></i><a href="tel:+254700000000">+254 700 000 000</a><span class="mx-3">·</span><i class="bi bi-whatsapp me-2" aria-hidden="true"></i><a href="https://wa.me/254700000000">WhatsApp us</a></p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bba-footer">
+  <div class="container">
+    <div class="row g-4 pb-4">
+      <div class="col-lg-4">
+        <span class="bba-wordmark h5 d-block mb-1">Beyond Borders<small>Adventures</small></span>
+        <p class="tagline mb-3">Explore and Enjoy</p>
+        <p class="mb-0">Discover the magic of Kenya — luxury, budget-friendly and tailor-made travel experiences for local and international travelers.</p>
+      </div>
+      <div class="col-6 col-lg-2 offset-lg-1">
+        <p class="bba-eyebrow mb-3">Explore</p>
+        <ul class="list-unstyled d-grid gap-2">
+          <li><a href="packages.html">Tours &amp; Packages</a></li>
+          <li><a href="custom-trips.html">Custom Trips</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="blog.html">Blog</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <p class="bba-eyebrow mb-3">Company</p>
+        <ul class="list-unstyled d-grid gap-2">
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-3">
+        <p class="bba-eyebrow mb-3">Contact</p>
+        <ul class="list-unstyled d-grid gap-2">
+          <li><a href="tel:+254700000000"><i class="bi bi-telephone me-2" aria-hidden="true"></i>+254 700 000 000</a></li>
+          <li><a href="mailto:info@beyondbordersadventures.co.ke"><i class="bi bi-envelope me-2" aria-hidden="true"></i>info@beyondbordersadventures.co.ke</a></li>
+          <li><a href="https://wa.me/254700000000"><i class="bi bi-whatsapp me-2" aria-hidden="true"></i>WhatsApp us</a></li>
+        </ul>
+        <div class="social d-flex gap-2 mt-3">
+          <a href="#" aria-label="Instagram"><i class="bi bi-instagram" aria-hidden="true"></i></a>
+          <a href="#" aria-label="Facebook"><i class="bi bi-facebook" aria-hidden="true"></i></a>
+          <a href="#" aria-label="TikTok"><i class="bi bi-tiktok" aria-hidden="true"></i></a>
+          <a href="#" aria-label="X (Twitter)"><i class="bi bi-twitter-x" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-line pt-3 d-flex flex-wrap justify-content-between gap-2">
+      <span class="fineprint">© 2026 Beyond Borders Adventures. All rights reserved.</span>
+      <span class="fineprint">Nairobi, Kenya · Online-first travel company</span>
+    </div>
+  </div>
+</footer>
+
+<a class="bba-whatsapp" href="https://wa.me/254700000000" aria-label="Chat with us on WhatsApp">
+  <i class="bi bi-whatsapp" aria-hidden="true"></i>
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

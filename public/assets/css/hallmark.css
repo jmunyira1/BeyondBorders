@@ -1,0 +1,591 @@
+/* Hallmark · pre-emit critique: P4 H5 E4 S4 R5 V4
+ * Hallmark · genre: editorial · design-system: design.md · designed-as-app
+ * macrostructures: Marquee Hero (marketing) · Catalogue (listings) · Long Document (content)
+ * H6 photographic-fold knobs: image=full-bleed 72dvh, caption=lower-left, text=overlaid
+ * F6 product-grid knobs: ratio=4/3, density=3-up, action=View trip →
+ * nav: N6 masthead (adapted, sticky, Bootstrap collapse) · footer: Ft5 statement (width=38ch, rule=hairline)
+ * theme: custom "Sunset Savanna" · tone: editorial-warm · anchor hue: 40° terracotta
+ * motion: none (editorial default-off) — functional transitions only
+ * contrast: pass (40–41) · slop: pass (42–45; nav is N6-adapted — single-row masthead kept
+ *   for booking-site usability + Bootstrap collapse boundary) · honest: pass (46)
+ * chrome: pass (47) · tokens: pass (48) · responsive: pass (49) · icons: pass (30)
+ * mobile: pass (34, 49, 50–57) — verified 320/375/414/768/1280 on all 10 public pages
+ *
+ * Load order: bootstrap.min.css → tokens.css → hallmark.css → app.css.
+ * The original theme.css is preserved on disk but no longer linked.
+ */
+
+/* ------------------------------------------------------------
+   Base
+   ------------------------------------------------------------ */
+html { overflow-x: clip; }
+body { overflow-x: clip; background: var(--color-paper); color: var(--color-ink); }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 550;
+  font-style: normal;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+::selection { background: var(--color-accent-tint); }
+
+a { text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+a:hover { text-decoration-thickness: 2px; }
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+  border-radius: var(--radius-input);
+}
+
+.container { max-width: 72rem; }
+
+/* Small-caps meta label — dates, durations, breadcrumbs, price labels.
+   Never a decorative section eyebrow. */
+.bba-eyebrow, .bb-meta {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+.bb-meta a { color: inherit; text-decoration: none; }
+.bb-meta a:hover { color: var(--color-accent); text-decoration: underline; }
+
+.bba-rule { width: 3.5rem; height: 2px; background: var(--color-accent); border: 0; opacity: 1; margin: var(--space-lg) 0; }
+.bba-rule-center { margin-inline: auto; }
+
+section { padding-block: var(--space-2xl); }
+.section-sand { background: var(--color-paper-2); border-block: var(--rule-hair) solid var(--color-rule); }
+
+.tabular-nums { font-variant-numeric: tabular-nums; }
+.bb-display-s { font-size: var(--text-display-s); }
+
+/* ------------------------------------------------------------
+   Buttons — geometry shared, fill decides rank.
+   Primary (terracotta) appears once per view.
+   ------------------------------------------------------------ */
+.btn-bba-green, .btn-bba-gold, .btn-bba-outline, .btn-bba-outline-light {
+  --bs-btn-padding-x: 1.4rem;
+  --bs-btn-padding-y: 0.7rem;
+  --bs-btn-font-size: var(--text-sm);
+  --bs-btn-border-radius: var(--radius-card);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  min-height: 44px;
+  transition: background-color var(--dur-short) var(--ease-out),
+              border-color var(--dur-short) var(--ease-out),
+              color var(--dur-short) var(--ease-out),
+              transform var(--dur-micro) var(--ease-out);
+}
+.btn-bba-green:active, .btn-bba-gold:active, .btn-bba-outline:active, .btn-bba-outline-light:active { transform: translateY(1px); }
+
+/* Primary — the one terracotta action on the page */
+.btn-bba-gold {
+  --bs-btn-bg: var(--color-accent);
+  --bs-btn-border-color: var(--color-accent);
+  --bs-btn-color: var(--color-accent-ink);
+  --bs-btn-hover-bg: var(--color-accent-hover);
+  --bs-btn-hover-border-color: var(--color-accent-hover);
+  --bs-btn-hover-color: var(--color-accent-ink);
+  --bs-btn-active-bg: var(--color-accent-hover);
+  --bs-btn-active-border-color: var(--color-accent-hover);
+  --bs-btn-active-color: var(--color-accent-ink);
+}
+
+/* Form submit — quiet ink fill, keeps the accent budget for the journey CTAs */
+.btn-bba-green {
+  --bs-btn-bg: var(--color-ink);
+  --bs-btn-border-color: var(--color-ink);
+  --bs-btn-color: var(--color-paper);
+  --bs-btn-hover-bg: var(--color-basalt);
+  --bs-btn-hover-border-color: var(--color-basalt);
+  --bs-btn-hover-color: var(--color-basalt-ink);
+  --bs-btn-active-bg: var(--color-basalt);
+  --bs-btn-active-border-color: var(--color-basalt);
+  --bs-btn-active-color: var(--color-basalt-ink);
+}
+
+.btn-bba-outline {
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color: var(--color-ink);
+  --bs-btn-color: var(--color-ink);
+  --bs-btn-hover-bg: var(--color-ink);
+  --bs-btn-hover-border-color: var(--color-ink);
+  --bs-btn-hover-color: var(--color-paper);
+  --bs-btn-active-bg: var(--color-ink);
+  --bs-btn-active-border-color: var(--color-ink);
+  --bs-btn-active-color: var(--color-paper);
+}
+
+/* On basalt bands and the photographic fold */
+.btn-bba-outline-light {
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color: var(--color-basalt-muted);
+  --bs-btn-color: var(--color-basalt-ink);
+  --bs-btn-hover-bg: var(--color-basalt-ink);
+  --bs-btn-hover-border-color: var(--color-basalt-ink);
+  --bs-btn-hover-color: var(--color-basalt);
+  --bs-btn-active-bg: var(--color-basalt-ink);
+  --bs-btn-active-border-color: var(--color-basalt-ink);
+  --bs-btn-active-color: var(--color-basalt);
+}
+
+/* Typographic link CTA — “View trip →” */
+.bb-link {
+  font-weight: 500;
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  white-space: nowrap;
+}
+.bb-link:hover { color: var(--color-accent); text-decoration-thickness: 2px; }
+
+/* ------------------------------------------------------------
+   Masthead nav (N6, adapted to a sticky functional bar)
+   ------------------------------------------------------------ */
+.bb-mast {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  background: var(--color-paper);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  box-shadow: 0 4px 0 -3px var(--color-rule-2); /* the masthead double rule */
+}
+.bb-mast .navbar-brand { display: flex; align-items: center; gap: var(--space-sm); }
+.bb-logo { height: 42px; width: auto; }
+.bb-wordmark {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-md);
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+  color: var(--color-ink);
+}
+.bb-wordmark small {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+.bb-mast .nav-link {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ink-2);
+  white-space: nowrap;
+  padding-block: 0.6rem;
+}
+.bb-mast .nav-link:hover, .bb-mast .nav-link:focus-visible { color: var(--color-ink); }
+.bb-mast .nav-link.active {
+  color: var(--color-ink);
+  box-shadow: inset 0 -2px 0 var(--color-accent);
+}
+.bb-mast .navbar-toggler { border-color: var(--color-rule); border-radius: var(--radius-input); }
+.bb-mast .navbar-collapse { border-top: var(--rule-hair) solid var(--color-rule); margin-top: var(--space-sm); padding-top: var(--space-sm); }
+@media (min-width: 992px) {
+  .bb-mast .navbar-collapse { border-top: 0; margin-top: 0; padding-top: 0; }
+}
+
+/* ------------------------------------------------------------
+   Photographic fold (H6) — home hero
+   ------------------------------------------------------------ */
+.bb-fold { position: relative; min-height: 72dvh; display: flex; align-items: flex-end; padding: 0; }
+.bb-fold__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.bb-fold::after { content: ""; position: absolute; inset: 0; background: var(--color-scrim); }
+.bb-fold__copy {
+  position: relative;
+  z-index: var(--z-base);
+  width: 100%;
+  padding-block: var(--space-2xl) var(--space-xl);
+}
+.bb-fold h1 {
+  color: var(--color-basalt-ink);
+  font-size: var(--text-display);
+  max-width: 16ch;
+  margin-bottom: var(--space-md);
+}
+.bb-fold .lead {
+  color: var(--color-basalt-muted);
+  font-weight: 400;
+  max-width: 46ch;
+  margin-bottom: var(--space-lg);
+}
+.bb-fold__caption {
+  position: relative;
+  z-index: var(--z-base);
+  color: var(--color-basalt-muted);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Search band — sits on the seam of the fold */
+.bb-search {
+  background: var(--color-paper);
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-card);
+}
+.bb-search .form-label {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: var(--space-3xs);
+}
+.bb-search .form-control, .bb-search .form-select {
+  border: 0;
+  padding-left: 0;
+  background: transparent;
+  color: var(--color-ink);
+  box-shadow: none;
+}
+.bb-search .form-control::placeholder { color: var(--color-muted); }
+.bb-search .cell { border-bottom: var(--rule-hair) solid var(--color-rule); }
+.bb-search .cell:last-of-type { border-bottom: 0; }
+@media (min-width: 992px) {
+  .bb-search .cell { border-bottom: 0; border-right: var(--rule-hair) solid var(--color-rule); }
+  .bb-search .cell:last-of-type { border-right: 0; }
+}
+
+/* ------------------------------------------------------------
+   Page head — listings + content pages (no photo banner)
+   ------------------------------------------------------------ */
+.bb-pagehead { padding-block: var(--space-2xl) var(--space-xl); border-bottom: var(--rule-hair) solid var(--color-rule); }
+.bb-pagehead h1 { font-size: var(--text-display-s); max-width: 22ch; margin-bottom: 0; }
+.bb-pagehead .bb-lede { color: var(--color-ink-2); max-width: 58ch; margin: var(--space-md) 0 0; }
+.bb-pagehead .bb-meta { margin-bottom: var(--space-sm); }
+
+/* ------------------------------------------------------------
+   Catalogue — package cards (F6), uniform on purpose
+   ------------------------------------------------------------ */
+.bb-item { position: relative; display: flex; flex-direction: column; height: 100%; }
+.bb-item h3 .stretched-link { color: inherit; text-decoration: none; }
+.bb-item__media {
+  display: block;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--color-paper-2);
+}
+.bb-item__media img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform var(--dur-long) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .bb-item:hover .bb-item__media img { transform: scale(1.02); }
+}
+.bb-item__body {
+  display: flex; flex-direction: column; flex-grow: 1; gap: var(--space-xs);
+  padding: var(--space-md) 0 var(--space-lg);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+}
+.bb-item h3 { font-size: var(--text-md); margin: 0; }
+.bb-item h3 a { color: inherit; text-decoration: none; }
+.bb-item h3 a:hover { color: var(--color-accent); }
+.bb-item__foot { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-md); margin-top: auto; padding-top: var(--space-xs); }
+.bb-price { font-variant-numeric: tabular-nums; font-weight: 500; color: var(--color-ink); white-space: nowrap; }
+.bb-price small { display: block; font-size: var(--text-xs); font-weight: 400; color: var(--color-muted); }
+
+/* Section head row above a catalogue grid */
+.bb-rowhead {
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xl);
+}
+.bb-rowhead h2 { font-size: var(--text-xl); margin: 0; }
+
+/* Category index — a hairline text row, not tiles */
+.bb-index { display: flex; flex-wrap: wrap; gap: var(--space-xs) 0; border-block: var(--rule-hair) solid var(--color-rule); padding-block: var(--space-sm); }
+.bb-index a, .bb-index button {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ink-2);
+  text-decoration: none;
+  background: none;
+  border: 0;
+  padding: var(--space-xs) var(--space-md);
+  min-height: 44px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.bb-index a:hover, .bb-index button:hover { color: var(--color-accent); }
+.bb-index .active { color: var(--color-ink); box-shadow: inset 0 -2px 0 var(--color-accent); }
+
+/* ------------------------------------------------------------
+   Statement band (basalt) — CTA close
+   ------------------------------------------------------------ */
+.bb-band { background: var(--color-basalt); color: var(--color-basalt-muted); padding-block: var(--space-3xl); }
+.bb-band h2 {
+  color: var(--color-basalt-ink);
+  font-size: var(--text-display-s);
+  max-width: 24ch;
+  margin-bottom: var(--space-md);
+}
+.bb-band p { max-width: 52ch; }
+.bb-band a:not(.btn) { color: var(--color-basalt-ink); }
+.bb-band .bb-meta { color: var(--color-basalt-muted); }
+
+/* ------------------------------------------------------------
+   Quotes — one huge (T3), supporting small (T1-ish)
+   ------------------------------------------------------------ */
+.bb-quote-huge {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-size: clamp(1.5rem, 2.2vw + 0.8rem, 2.4rem);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  max-width: 34ch;
+  margin: 0;
+}
+.bb-quote-huge + footer { margin-top: var(--space-lg); }
+
+.bba-quote { border-left: 2px solid var(--color-rule); padding-left: var(--space-lg); margin: 0; }
+.bba-quote p { font-family: var(--font-body); font-size: var(--text-base); color: var(--color-ink); }
+.bba-quote footer, .bb-quote-huge + footer {
+  font-size: var(--text-xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-muted);
+}
+
+/* ------------------------------------------------------------
+   Facts list (“why book with us”) — spec rows, not icon cards
+   ------------------------------------------------------------ */
+.bb-facts { display: grid; grid-template-columns: 1fr; }
+.bb-fact { display: grid; grid-template-columns: minmax(0, 14rem) minmax(0, 1fr); gap: var(--space-md) var(--space-xl); padding-block: var(--space-lg); border-top: var(--rule-hair) solid var(--color-rule); }
+.bb-fact:last-child { border-bottom: var(--rule-hair) solid var(--color-rule); }
+.bb-fact h3 { font-family: var(--font-body); font-size: var(--text-base); font-weight: 500; margin: 0; }
+.bb-fact p { color: var(--color-ink-2); margin: 0; max-width: 60ch; }
+@media (max-width: 40rem) { .bb-fact { grid-template-columns: 1fr; gap: var(--space-2xs); } }
+
+/* Steps (custom trips) */
+.bb-step { border-top: 2px solid var(--color-ink); padding-top: var(--space-md); height: 100%; }
+.bb-step .num {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-accent);
+}
+.bb-step h3 { font-family: var(--font-body); font-size: var(--text-base); font-weight: 500; margin: var(--space-2xs) 0 var(--space-xs); }
+
+/* Vision / mission */
+.bba-vm { border-top: 2px solid var(--color-ink); padding-top: var(--space-lg); height: 100%; }
+.bba-vm h3 { font-size: var(--text-md); }
+
+/* ------------------------------------------------------------
+   Long Document — articles, detail pages
+   ------------------------------------------------------------ */
+.bba-article { font-size: 1.0625rem; line-height: 1.7; max-width: 65ch; }
+.bba-article p { margin-bottom: var(--space-lg); }
+.bba-article img { max-width: 100%; height: auto; }
+
+.bb-lede-para { font-size: var(--text-md); line-height: 1.55; color: var(--color-ink-2); max-width: 58ch; }
+
+.bba-detail-hero img, .bba-post-hero img {
+  width: 100%;
+  height: clamp(15rem, 42vw, 26rem);
+  object-fit: cover;
+}
+
+.bba-meta-list { list-style: none; padding: 0; margin: 0; }
+.bba-meta-list li { display: flex; gap: var(--space-sm); padding: var(--space-xs) 0; border-bottom: var(--rule-hair) solid var(--color-rule); font-size: var(--text-sm); }
+.bba-meta-list li:last-child { border-bottom: 0; }
+.bba-meta-list .k { color: var(--color-muted); min-width: 7.5rem; }
+.bba-meta-list .v { font-weight: 500; color: var(--color-ink); font-variant-numeric: tabular-nums; }
+
+.bba-inclusions { list-style: none; padding: 0; margin: 0; }
+.bba-inclusions li { display: flex; gap: var(--space-xs); align-items: flex-start; padding: var(--space-2xs) 0; font-size: var(--text-sm); }
+.bba-inclusions i { margin-top: 0.28rem; font-size: 0.85rem; }
+.bba-inclusions .yes i { color: var(--color-good); }
+.bba-inclusions .no i, .bba-inclusions .no { color: var(--color-muted); }
+
+.bba-booking-card {
+  position: sticky;
+  top: 5.5rem;
+  border: var(--rule-hair) solid var(--color-rule);
+  background: var(--color-paper);
+}
+.bba-booking-card .price-row { border-bottom: var(--rule-hair) solid var(--color-rule); }
+.bba-booking-card .price-row .amount {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+/* ------------------------------------------------------------
+   Gallery
+   ------------------------------------------------------------ */
+.bba-gallery img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.bba-gallery figcaption { font-size: var(--text-xs); letter-spacing: 0.06em; color: var(--color-muted); margin-top: var(--space-2xs); }
+
+/* ------------------------------------------------------------
+   Filter bar + results (packages)
+   ------------------------------------------------------------ */
+.bba-filter { background: var(--color-paper); border: var(--rule-hair) solid var(--color-rule); }
+.bba-filter .form-label {
+  font-size: var(--text-xs); letter-spacing: 0.08em; text-transform: uppercase;
+  font-weight: 500; color: var(--color-muted); margin-bottom: var(--space-2xs);
+}
+.bba-filter .form-control, .bba-filter .form-select { border-color: var(--color-rule); }
+
+.bba-result-count { font-size: var(--text-sm); color: var(--color-muted); }
+.bba-filter-note { color: var(--color-muted); font-size: var(--text-sm); }
+.bba-empty { border: 1px dashed var(--color-rule); color: var(--color-muted); background: var(--color-paper); }
+
+/* Legacy tile class still used as buttons — quiet chips now */
+.bba-cat {
+  width: 100%;
+  display: flex; align-items: center; gap: var(--space-xs);
+  background: var(--color-paper);
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-card);
+  padding: var(--space-sm) var(--space-md);
+  min-height: 44px;
+  text-align: left; text-decoration: none; cursor: pointer;
+  color: var(--color-ink-2);
+  font-size: var(--text-xs); font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+  transition: border-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+}
+.bba-cat:hover { border-color: var(--color-ink-2); color: var(--color-ink); }
+.bba-cat i { color: var(--color-muted); font-size: 1.05rem; }
+.bba-cat.active { background: var(--color-ink); border-color: var(--color-ink); color: var(--color-paper); }
+.bba-cat.active i { color: var(--color-paper); }
+
+/* ------------------------------------------------------------
+   Forms
+   ------------------------------------------------------------ */
+.bba-form { background: var(--color-paper); border: var(--rule-hair) solid var(--color-rule); }
+.bba-form .form-label {
+  font-size: var(--text-xs); font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--color-muted);
+}
+.bba-form .form-control, .bba-form .form-select {
+  background-color: var(--color-paper);
+  border-color: var(--color-rule);
+  color: var(--color-ink);
+  border-radius: var(--radius-input);
+  min-height: 44px;
+}
+.bba-form textarea.form-control { min-height: unset; }
+.bba-form .form-control::placeholder { color: var(--color-muted); }
+.bba-form .form-control:focus, .bba-form .form-select:focus,
+.bba-filter .form-control:focus, .bba-filter .form-select:focus,
+.bb-search .form-control:focus, .bb-search .form-select:focus {
+  border-color: var(--color-ink-2);
+  box-shadow: 0 0 0 3px var(--color-accent-tint);
+}
+
+.bba-form .is-invalid, .bba-form .form-control.is-invalid, .bba-form .form-select.is-invalid { border-color: var(--color-bad); }
+.bba-field-error { display: block; margin-top: var(--space-2xs); font-size: var(--text-xs); color: var(--color-bad); }
+
+.bba-alert { border: var(--rule-hair) solid transparent; padding: var(--space-md); font-size: var(--text-sm); border-radius: var(--radius-input); }
+.bba-alert-success { background: var(--color-good-tint); border-color: var(--color-good); color: var(--color-good); }
+.bba-alert-error { background: var(--color-bad-tint); border-color: var(--color-bad); color: var(--color-bad); }
+
+/* FAQ accordion (Bootstrap) */
+.accordion {
+  --bs-accordion-bg: var(--color-paper);
+  --bs-accordion-border-color: var(--color-rule);
+  --bs-accordion-border-radius: var(--radius-card);
+  --bs-accordion-inner-border-radius: var(--radius-card);
+  --bs-accordion-btn-color: var(--color-ink);
+  --bs-accordion-active-bg: var(--color-paper-2);
+  --bs-accordion-active-color: var(--color-ink);
+  --bs-accordion-btn-focus-box-shadow: 0 0 0 3px var(--color-accent-tint);
+}
+.accordion-button { font-weight: 500; }
+
+/* Contact channels — text blocks with a top rule, not icon cards */
+.bb-channel { border-top: 2px solid var(--color-ink); padding-top: var(--space-md); height: 100%; }
+.bb-channel h3 { font-family: var(--font-body); font-size: var(--text-base); font-weight: 500; }
+.bb-channel p { color: var(--color-ink-2); font-size: var(--text-sm); }
+
+/* ------------------------------------------------------------
+   Statement footer (Ft5) — basalt
+   ------------------------------------------------------------ */
+.bb-foot { background: var(--color-basalt); color: var(--color-basalt-muted); padding: var(--space-3xl) 0 var(--space-lg); }
+.bb-foot__line {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--color-basalt-ink);
+  max-width: 38ch;
+  margin: 0 0 var(--space-2xl);
+}
+.bb-foot__grid { display: flex; flex-wrap: wrap; gap: var(--space-lg) var(--space-3xl); padding-block: var(--space-lg); border-top: var(--rule-hair) solid var(--color-basalt-rule); }
+.bb-foot__col { min-width: 0; }
+.bb-foot .bb-wordmark { color: var(--color-basalt-ink); }
+.bb-foot .bb-wordmark small { color: var(--color-basalt-muted); }
+.bb-foot a { color: var(--color-basalt-muted); text-decoration: none; white-space: nowrap; }
+.bb-foot a:hover { color: var(--color-basalt-ink); text-decoration: underline; }
+.bb-foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-xs); font-size: var(--text-sm); }
+.bb-foot__meta {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-xs) var(--space-lg);
+  padding-top: var(--space-md);
+  border-top: var(--rule-hair) solid var(--color-basalt-rule);
+  font-size: var(--text-xs);
+  color: var(--color-basalt-muted);
+}
+.bb-foot .social a {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px;
+  border: var(--rule-hair) solid var(--color-basalt-rule);
+  border-radius: var(--radius-pill);
+  color: var(--color-basalt-muted);
+}
+.bb-foot .social a:hover { border-color: var(--color-basalt-muted); color: var(--color-basalt-ink); text-decoration: none; }
+
+/* ------------------------------------------------------------
+   WhatsApp launcher (panel styles live in app.css)
+   ------------------------------------------------------------ */
+.bba-whatsapp {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 54px; height: 54px; border-radius: var(--radius-pill);
+  background: var(--color-whatsapp);
+  color: var(--color-whatsapp-ink); font-size: 1.6rem; border: 0; cursor: pointer;
+  box-shadow: var(--shadow-whisper);
+}
+.bba-whatsapp:hover { color: var(--color-whatsapp-ink); }
+
+/* ------------------------------------------------------------
+   Pagination
+   ------------------------------------------------------------ */
+.bba-pager .page-link {
+  color: var(--color-ink);
+  border-color: var(--color-rule);
+  border-radius: var(--radius-card);
+  background: var(--color-paper);
+  padding: 0.5rem 0.85rem;
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+}
+.bba-pager .page-item.active .page-link { background: var(--color-ink); border-color: var(--color-ink); color: var(--color-paper); }
+.bba-pager .page-link:hover { background: var(--color-paper-2); color: var(--color-ink); }
+.bba-pager .page-item.disabled .page-link { color: var(--color-muted); }
+
+/* ------------------------------------------------------------
+   Reduced motion
+   ------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 150ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 150ms !important;
+  }
+  .bb-item__media img { transition: none; }
+  .bb-item:hover .bb-item__media img { transform: none; }
+}

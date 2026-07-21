@@ -1,0 +1,215 @@
+/* ============================================================
+   Admin — same brand tokens as the public site, denser layout.
+   ============================================================ */
+
+body.bba-admin {
+  background: #f6f4ef;
+  font-family: var(--bba-font-body);
+  color: var(--bba-body);
+}
+
+/* ------------------------------------------------------------
+   Shell
+   ------------------------------------------------------------ */
+.bba-admin-shell { display: flex; min-height: 100vh; }
+
+.bba-side {
+  flex: 0 0 250px; width: 250px;
+  background: var(--bba-green-deep); color: rgba(255, 255, 255, 0.82);
+  display: flex; flex-direction: column;
+  position: sticky; top: 0; height: 100vh; overflow-y: auto;
+}
+.bba-side-brand {
+  padding: 1.1rem 1.25rem; border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.bba-side-brand img { width: 32px; height: 32px; object-fit: contain; }
+.bba-side-brand span {
+  font-family: var(--bba-font-display); font-size: 1rem;
+  color: #fff; line-height: 1.15;
+}
+.bba-side-brand small {
+  display: block; font-family: var(--bba-font-body);
+  font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--bba-gold-light);
+}
+
+.bba-side-nav { padding: 0.85rem 0.65rem; flex: 1 1 auto; }
+.bba-side-heading {
+  padding: 0.9rem 0.6rem 0.35rem; margin: 0;
+  font-size: 0.64rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.42);
+}
+.bba-side-link {
+  display: flex; align-items: center; gap: 0.65rem;
+  padding: 0.5rem 0.6rem; border-radius: 0.4rem;
+  color: rgba(255, 255, 255, 0.82); text-decoration: none;
+  font-size: 0.88rem; line-height: 1.3;
+}
+.bba-side-link:hover { background: rgba(255, 255, 255, 0.08); color: #fff; }
+.bba-side-link.active { background: var(--bba-gold); color: #22331f; font-weight: 500; }
+.bba-side-link i { font-size: 0.95rem; width: 1.1rem; text-align: center; }
+.bba-side-link .badge {
+  margin-left: auto; background: var(--bba-sun); color: #fff;
+  font-size: 0.68rem; font-weight: 500;
+}
+.bba-side-link.active .badge { background: #22331f; color: #fff; }
+
+.bba-side-foot {
+  padding: 0.85rem; border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.8rem;
+}
+
+.bba-main { flex: 1 1 auto; min-width: 0; }
+
+.bba-topbar {
+  background: #fff; border-bottom: 1px solid var(--bba-line);
+  padding: 0.85rem 1.5rem;
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+  position: sticky; top: 0; z-index: 20;
+}
+.bba-topbar h1 {
+  font-family: var(--bba-font-display); font-size: 1.35rem;
+  color: var(--bba-ink); margin: 0; line-height: 1.2;
+}
+.bba-topbar .sub { font-size: 0.82rem; color: var(--bba-muted); margin: 0; }
+
+.bba-content { padding: 1.5rem; }
+
+@media (max-width: 991.98px) {
+  .bba-side {
+    position: fixed; left: 0; top: 0; z-index: 1050;
+    transform: translateX(-100%); transition: transform 0.2s ease;
+  }
+  .bba-side.open { transform: translateX(0); }
+  .bba-admin-shell { display: block; }
+  .bba-content { padding: 1rem; }
+}
+.bba-side-backdrop {
+  display: none; position: fixed; inset: 0; z-index: 1040;
+  background: rgba(34, 51, 31, 0.5);
+}
+.bba-side-backdrop.show { display: block; }
+
+/* ------------------------------------------------------------
+   Cards, tables, stats
+   ------------------------------------------------------------ */
+.bba-panel {
+  background: #fff; border: 1px solid var(--bba-line);
+  border-radius: 0.65rem; box-shadow: 0 1px 2px rgba(62, 60, 40, 0.05);
+}
+.bba-panel-head {
+  padding: 0.9rem 1.15rem; border-bottom: 1px solid var(--bba-line);
+  display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.bba-panel-head h2 {
+  font-family: var(--bba-font-display); font-size: 1.05rem;
+  color: var(--bba-ink); margin: 0;
+}
+.bba-panel-body { padding: 1.15rem; }
+
+.bba-stat { padding: 1.1rem 1.15rem; }
+.bba-stat .k {
+  font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--bba-muted); margin-bottom: 0.35rem;
+}
+.bba-stat .v {
+  font-family: var(--bba-font-display); font-size: 1.85rem;
+  color: var(--bba-ink); line-height: 1;
+}
+.bba-stat .n { font-size: 0.78rem; color: var(--bba-muted); margin-top: 0.3rem; }
+
+.bba-table { margin: 0; font-size: 0.88rem; }
+.bba-table > :not(caption) > * > * { padding: 0.7rem 0.9rem; }
+.bba-table thead th {
+  background: #faf8f4; border-bottom: 1px solid var(--bba-line);
+  font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+  font-weight: 500; color: var(--bba-muted); white-space: nowrap;
+}
+.bba-table tbody tr:hover { background: #fbfaf7; }
+.bba-table td { vertical-align: middle; border-color: var(--bba-line); }
+.bba-thumb {
+  width: 52px; height: 38px; object-fit: cover; border-radius: 0.3rem;
+  background: #eee;
+}
+
+/* Status + type pills */
+.bba-pill {
+  display: inline-block; padding: 0.18rem 0.55rem; border-radius: 2rem;
+  font-size: 0.72rem; line-height: 1.4; white-space: nowrap;
+}
+.bba-pill-new      { background: rgba(216, 117, 43, 0.14); color: #a4521a; }
+.bba-pill-read     { background: rgba(63, 70, 62, 0.1);    color: var(--bba-body); }
+.bba-pill-replied  { background: rgba(46, 82, 51, 0.12);   color: var(--bba-green); }
+.bba-pill-closed   { background: rgba(63, 70, 62, 0.08);   color: var(--bba-muted); }
+.bba-pill-on       { background: rgba(46, 82, 51, 0.12);   color: var(--bba-green); }
+.bba-pill-off      { background: rgba(63, 70, 62, 0.1);    color: var(--bba-muted); }
+.bba-pill-featured { background: var(--bba-gold-tint);     color: var(--bba-gold-dark); }
+
+/* Forms */
+.bba-admin .form-label {
+  font-size: 0.78rem; font-weight: 500; color: var(--bba-body);
+  margin-bottom: 0.3rem;
+}
+.bba-admin .form-control,
+.bba-admin .form-select {
+  border-color: var(--bba-line); font-size: 0.9rem;
+}
+.bba-admin .form-control:focus,
+.bba-admin .form-select:focus {
+  border-color: var(--bba-gold); box-shadow: 0 0 0 3px var(--bba-gold-tint);
+}
+.bba-admin .form-text { font-size: 0.76rem; }
+
+.bba-admin .btn { font-size: 0.88rem; }
+.bba-admin .btn-sm { font-size: 0.8rem; }
+
+/* Toast strip for htmx feedback */
+#bba-toasts {
+  position: fixed; right: 1rem; bottom: 1rem; z-index: 1090;
+  display: flex; flex-direction: column; gap: 0.5rem; max-width: 22rem;
+}
+.bba-toast {
+  padding: 0.7rem 1rem; border-radius: 0.5rem; font-size: 0.86rem;
+  color: #fff; box-shadow: 0 8px 24px rgba(34, 61, 38, 0.28);
+  animation: bba-toast-in 0.18s ease-out;
+}
+.bba-toast-success { background: var(--bba-green); }
+.bba-toast-error   { background: #8c1d18; }
+@keyframes bba-toast-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Login page */
+.bba-login-wrap {
+  min-height: 100vh; display: grid; place-items: center; padding: 1.5rem;
+  background: var(--bba-green-deep);
+}
+.bba-login-card {
+  width: min(26rem, 100%); background: #fff;
+  border-radius: 0.9rem; overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+.bba-login-head { padding: 1.75rem 1.75rem 0; text-align: center; }
+.bba-login-head img { width: 54px; height: 54px; object-fit: contain; }
+.bba-login-head h1 {
+  font-family: var(--bba-font-display); font-size: 1.3rem;
+  color: var(--bba-ink); margin: 0.75rem 0 0.25rem;
+}
+.bba-login-head p { font-size: 0.85rem; color: var(--bba-muted); margin: 0; }
+.bba-login-body { padding: 1.5rem 1.75rem 1.75rem; }
+
+/* Sortable drag handle */
+.bba-handle { cursor: grab; color: var(--bba-muted); }
+
+/* Image preview in upload fields */
+.bba-img-preview {
+  width: 100%; max-width: 15rem; aspect-ratio: 3 / 2; object-fit: cover;
+  border-radius: 0.4rem; border: 1px solid var(--bba-line); background: #f3f1ec;
+}
+
+/* htmx swap feedback */
+.htmx-swapping { opacity: 0.35; transition: opacity 0.15s ease; }
+tr.htmx-swapping { background: rgba(179, 38, 30, 0.06) !important; }

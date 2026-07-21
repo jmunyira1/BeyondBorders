@@ -1,0 +1,257 @@
+/* ============================================================
+   Beyond Borders Adventures — additions on top of theme.css
+   theme.css is the untouched design system; everything the
+   dynamic build needed lives here.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   WhatsApp chat card
+   ------------------------------------------------------------ */
+.bba-wa { position: fixed; right: 1.25rem; bottom: 1.25rem; z-index: 1080; }
+.bba-wa .bba-whatsapp { position: static; border: 0; padding: 0; }
+
+.bba-wa-dot {
+  position: absolute; top: 2px; right: 2px;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--bba-sun); border: 2px solid #fff;
+}
+
+.bba-wa-panel {
+  position: absolute; right: 0; bottom: 68px;
+  width: min(21rem, calc(100vw - 2.5rem));
+  background: #fff; border-radius: 1rem; overflow: hidden;
+  box-shadow: 0 18px 48px rgba(34, 61, 38, 0.28);
+  transform-origin: bottom right;
+  animation: bba-wa-in 0.18s ease-out;
+}
+.bba-wa-panel[hidden] { display: none; }
+
+@keyframes bba-wa-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bba-wa-panel { animation: none; }
+}
+
+.bba-wa-head {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.85rem 1rem; background: var(--bba-green-deep); color: #fff;
+}
+.bba-wa-avatar {
+  flex: 0 0 auto; width: 40px; height: 40px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: #25d366; color: #fff; font-size: 1.25rem;
+}
+.bba-wa-who { flex: 1 1 auto; min-width: 0; }
+.bba-wa-name {
+  margin: 0; font-family: var(--bba-font-body); font-weight: 500;
+  font-size: 0.95rem; line-height: 1.3; color: #fff;
+}
+.bba-wa-role {
+  margin: 0; font-size: 0.78rem; line-height: 1.3;
+  color: rgba(255, 255, 255, 0.72);
+}
+.bba-wa-close {
+  flex: 0 0 auto; border: 0; background: transparent;
+  color: rgba(255, 255, 255, 0.75); font-size: 0.9rem;
+  padding: 0.25rem; line-height: 1; border-radius: 0.25rem;
+}
+.bba-wa-close:hover { color: #fff; }
+
+.bba-wa-body {
+  padding: 1.25rem 1rem;
+  background: #ece5dd url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cg fill='%23ffffff' fill-opacity='0.35'%3E%3Ccircle cx='8' cy='8' r='1.5'/%3E%3Ccircle cx='28' cy='22' r='1.5'/%3E%3C/g%3E%3C/svg%3E");
+  min-height: 7rem;
+}
+.bba-wa-bubble {
+  position: relative; background: #fff; color: var(--bba-body);
+  padding: 0.7rem 0.85rem 1.35rem; border-radius: 0 0.6rem 0.6rem 0.6rem;
+  font-size: 0.88rem; line-height: 1.55;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+  max-width: 95%;
+}
+.bba-wa-bubble::before {
+  content: ""; position: absolute; top: 0; left: -7px;
+  border: 7px solid transparent; border-top-color: #fff; border-right: 0;
+}
+.bba-wa-time {
+  position: absolute; right: 0.7rem; bottom: 0.4rem;
+  font-size: 0.68rem; color: var(--bba-muted);
+}
+
+.bba-wa-foot {
+  display: flex; align-items: flex-end; gap: 0.5rem;
+  padding: 0.65rem 0.75rem; background: #f4f1ea;
+  border-top: 1px solid var(--bba-line);
+}
+.bba-wa-input {
+  flex: 1 1 auto; resize: none; max-height: 6.5rem;
+  border: 1px solid var(--bba-line); border-radius: 1.25rem;
+  padding: 0.5rem 0.9rem; font-size: 0.88rem; line-height: 1.5;
+  font-family: var(--bba-font-body); background: #fff; color: var(--bba-body);
+}
+.bba-wa-input:focus {
+  outline: none; border-color: var(--bba-gold);
+  box-shadow: 0 0 0 3px var(--bba-gold-tint);
+}
+.bba-wa-send {
+  flex: 0 0 auto; width: 38px; height: 38px; border: 0; border-radius: 50%;
+  background: #25d366; color: #fff; font-size: 0.95rem;
+  display: grid; place-items: center;
+}
+.bba-wa-send:hover { background: #1da851; }
+.bba-wa-send:disabled { opacity: 0.5; }
+
+.bba-wa-note {
+  margin: 0; padding: 0.45rem 1rem 0.7rem; background: #f4f1ea;
+  font-size: 0.7rem; text-align: center; color: var(--bba-muted);
+}
+
+/* ------------------------------------------------------------
+   Packages filter bar
+   ------------------------------------------------------------ */
+.bba-filter {
+  background: #fff; border: 1px solid var(--bba-line);
+  border-radius: var(--bs-border-radius-lg); box-shadow: var(--bba-shadow);
+}
+.bba-filter .form-label {
+  font-size: 0.7rem; letter-spacing: 0.09em; text-transform: uppercase;
+  font-weight: 500; color: var(--bba-muted); margin-bottom: 0.3rem;
+}
+.bba-filter .form-control,
+.bba-filter .form-select {
+  border-color: var(--bba-line); font-size: 0.92rem;
+  padding-top: 0.5rem; padding-bottom: 0.5rem;
+}
+.bba-filter .form-control:focus,
+.bba-filter .form-select:focus {
+  border-color: var(--bba-gold); box-shadow: 0 0 0 3px var(--bba-gold-tint);
+}
+
+/* Active-filter pills above the results */
+.bba-chip {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.3rem 0.5rem 0.3rem 0.7rem; border-radius: 2rem;
+  background: var(--bba-gold-tint); border: 1px solid rgba(192, 144, 47, 0.3);
+  color: var(--bba-gold-dark); font-size: 0.8rem; line-height: 1;
+  text-decoration: none;
+}
+.bba-chip:hover { background: rgba(192, 144, 47, 0.2); color: var(--bba-gold-dark); }
+.bba-chip i { font-size: 0.7rem; opacity: 0.8; }
+
+.bba-result-count { font-size: 0.9rem; color: var(--bba-muted); }
+
+/* htmx loading state — dim the grid while the swap is in flight */
+#packages-results { position: relative; transition: opacity 0.15s ease; }
+#packages-results.bba-loading { opacity: 0.45; pointer-events: none; }
+
+.bba-spinner {
+  display: none;
+  position: absolute; top: 2.5rem; left: 50%; transform: translateX(-50%);
+  z-index: 3; padding: 0.5rem 1rem; border-radius: 2rem;
+  background: var(--bba-green-deep); color: #fff; font-size: 0.82rem;
+  box-shadow: var(--bba-shadow);
+}
+#packages-results.bba-loading .bba-spinner { display: block; }
+
+/* ------------------------------------------------------------
+   Category tiles as filter buttons (packages page)
+   ------------------------------------------------------------ */
+button.bba-cat { width: 100%; border: 1px solid var(--bba-line); background: #fff; cursor: pointer; }
+
+/* ------------------------------------------------------------
+   Package detail page
+   ------------------------------------------------------------ */
+.bba-detail-hero img {
+  width: 100%; height: clamp(15rem, 42vw, 26rem); object-fit: cover;
+  border-radius: var(--bs-border-radius-lg);
+}
+.bba-meta-list { list-style: none; padding: 0; margin: 0; }
+.bba-meta-list li {
+  display: flex; gap: 0.75rem; padding: 0.6rem 0;
+  border-bottom: 1px solid var(--bba-line); font-size: 0.92rem;
+}
+.bba-meta-list li:last-child { border-bottom: 0; }
+.bba-meta-list .k { color: var(--bba-muted); min-width: 7.5rem; }
+.bba-meta-list .v { font-weight: 500; color: var(--bba-ink); }
+
+.bba-inclusions { list-style: none; padding: 0; margin: 0; }
+.bba-inclusions li {
+  display: flex; gap: 0.6rem; align-items: flex-start;
+  padding: 0.35rem 0; font-size: 0.93rem;
+}
+.bba-inclusions i { margin-top: 0.28rem; font-size: 0.85rem; }
+.bba-inclusions .yes i { color: var(--bba-green); }
+.bba-inclusions .no  i { color: var(--bba-muted); }
+.bba-inclusions .no  { color: var(--bba-muted); }
+
+.bba-booking-card {
+  position: sticky; top: 5.5rem;
+  border: 1px solid var(--bba-line); border-radius: var(--bs-border-radius-lg);
+  background: #fff; box-shadow: var(--bba-shadow);
+}
+.bba-booking-card .price-row {
+  border-bottom: 1px solid var(--bba-line);
+}
+.bba-booking-card .price-row .amount {
+  font-family: var(--bba-font-display); font-size: 1.6rem; color: var(--bba-ink);
+  line-height: 1.2;
+}
+
+/* ------------------------------------------------------------
+   Forms — validation + success states
+   ------------------------------------------------------------ */
+.bba-form .is-invalid,
+.bba-form .form-control.is-invalid,
+.bba-form .form-select.is-invalid { border-color: #b3261e; }
+.bba-field-error { display: block; margin-top: 0.3rem; font-size: 0.8rem; color: #b3261e; }
+
+.bba-alert {
+  border-radius: var(--bs-border-radius); padding: 1rem 1.15rem;
+  font-size: 0.92rem; border: 1px solid transparent;
+}
+.bba-alert-success {
+  background: rgba(46, 82, 51, 0.08); border-color: rgba(46, 82, 51, 0.25);
+  color: var(--bba-green);
+}
+.bba-alert-error {
+  background: rgba(179, 38, 30, 0.07); border-color: rgba(179, 38, 30, 0.25);
+  color: #8c1d18;
+}
+
+/* Honeypot — must stay reachable to bots but invisible to people */
+.bba-hp {
+  position: absolute !important; left: -9999px !important;
+  width: 1px; height: 1px; overflow: hidden;
+}
+
+/* htmx request feedback on submit buttons */
+.htmx-request .bba-btn-label { opacity: 0.45; }
+.bba-btn-spin { display: none; }
+.htmx-request .bba-btn-spin { display: inline-block; }
+
+/* ------------------------------------------------------------
+   Blog post detail
+   ------------------------------------------------------------ */
+.bba-article { font-size: 1.03rem; }
+.bba-article p { margin-bottom: 1.15rem; }
+.bba-article img { max-width: 100%; height: auto; border-radius: var(--bs-border-radius); }
+
+.bba-post-hero img {
+  width: 100%; height: clamp(13rem, 38vw, 24rem); object-fit: cover;
+  border-radius: var(--bs-border-radius-lg);
+}
+
+/* ------------------------------------------------------------
+   Pagination
+   ------------------------------------------------------------ */
+.bba-pager .page-link {
+  color: var(--bba-green); border-color: var(--bba-line);
+  padding: 0.5rem 0.85rem; font-size: 0.9rem;
+}
+.bba-pager .page-item.active .page-link {
+  background: var(--bba-green); border-color: var(--bba-green); color: #fff;
+}
+.bba-pager .page-link:hover { background: var(--bba-gold-tint); color: var(--bba-gold-dark); }
+.bba-pager .page-item.disabled .page-link { color: var(--bba-muted); }
