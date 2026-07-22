@@ -114,6 +114,10 @@ sections tighter (`--space-2xl`), statement bands generous (`--space-3xl`).
 - Secondary: hairline-outlined ink chip, same geometry.
 - Tertiary: typographic link — “View trip →”, 1px underline, thickens on hover.
 - On basalt bands: primary stays terracotta, secondary is outlined basalt-ink.
+- Category chips (`.bb-index`): outlined pill buttons — hairline border, pill
+  radius, 44px height, paper fill; hover = paper-2 fill + darker border;
+  active = ink fill with paper text. They must read as pressable — never
+  bare text links. Harmonise with the `.bba-chip` active-filter pills.
 
 ## Per-page allowances
 

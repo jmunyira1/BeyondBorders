@@ -1,20 +1,33 @@
 [
-  { "date": "2026-07-22",
-    "scope": "app",
-    "macrostructure": "(unchanged) Marquee Hero / Catalogue / Long Document",
-    "theme": "custom",
-    "theme_axes": "light / roman-serif / warm (40)",
-    "vibe": "golden-hour grassland, warm dust, big sky",
-    "enrichment": "none",
-    "brief": "Mobile-first refactor: base=phone, min-width scale-ups, svh fold, 44px touch targets, safe areas" },
-  { "date": "2026-07-21",
-    "scope": "app",
-    "macrostructure": "Marquee Hero (marketing) / Catalogue (listings) / Long Document (content)",
-    "theme": "custom",
-    "theme_axes": "light / roman-serif / warm (40)",
-    "vibe": "golden-hour grassland, warm dust, big sky",
-    "nav": "N6 masthead (adapted)",
-    "footer": "Ft5 statement",
-    "enrichment": "H6 photographic fold (home only, placeholder photography)",
-    "brief": "Beyond Borders Adventures - full public-site redesign, Sunset Savanna system, design.md locked" }
+ {
+  "date": "2026-07-22",
+  "scope": "app",
+  "macrostructure": "(unchanged) Marquee Hero / Catalogue / Long Document",
+  "theme": "custom",
+  "theme_axes": "light / roman-serif / warm (40)",
+  "enrichment": "none",
+  "brief": "Affordance + flow pass: category chips became outlined pill buttons with hover/active states; home reordered search-categories-featured-intro; card hover echo"
+ },
+ {
+  "date": "2026-07-22",
+  "scope": "app",
+  "macrostructure": "(unchanged) Marquee Hero / Catalogue / Long Document",
+  "theme": "custom",
+  "theme_axes": "light / roman-serif / warm (40)",
+  "vibe": "golden-hour grassland, warm dust, big sky",
+  "enrichment": "none",
+  "brief": "Mobile-first refactor: base=phone, min-width scale-ups, svh fold, 44px touch targets, safe areas"
+ },
+ {
+  "date": "2026-07-21",
+  "scope": "app",
+  "macrostructure": "Marquee Hero (marketing) / Catalogue (listings) / Long Document (content)",
+  "theme": "custom",
+  "theme_axes": "light / roman-serif / warm (40)",
+  "vibe": "golden-hour grassland, warm dust, big sky",
+  "nav": "N6 masthead (adapted)",
+  "footer": "Ft5 statement",
+  "enrichment": "H6 photographic fold (home only, placeholder photography)",
+  "brief": "Beyond Borders Adventures - full public-site redesign, Sunset Savanna system, design.md locked"
+ }
 ]

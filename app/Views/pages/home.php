@@ -47,41 +47,23 @@
         <button class="btn btn-bba-green" type="submit"><i class="bi bi-search me-2" aria-hidden="true"></i>Search</button>
       </div>
     </form>
+
+    <?php // Category shortcuts belong to the search — one discovery block. ?>
+    <?php if ($categories !== []): ?>
+      <nav class="mt-4" aria-label="Browse by category">
+        <p class="bb-meta mb-2">Or browse by category</p>
+        <div class="bb-index">
+          <?php foreach ($categories as $category): ?>
+            <a href="<?= url_to('packages') ?>?category=<?= esc($category['slug'], 'url') ?>"><?= esc($category['name']) ?></a>
+          <?php endforeach; ?>
+          <a href="<?= url_to('packages') ?>">All trips&nbsp;→</a>
+        </div>
+      </nav>
+    <?php endif; ?>
   </div>
 </section>
 
-<!-- Intro — left-biased prose, not a centred block -->
-<section>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-7">
-        <h2 class="mb-4 bb-display-s"><?= esc(site('introHeading')) ?></h2>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-6 offset-lg-1">
-        <?= nl2paras(site('introBody'), 'mb-3') ?>
-        <p class="mt-4 mb-0"><a class="bb-link" href="<?= url_to('about') ?>">More about us&nbsp;→</a></p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Categories — a hairline index row, not tiles -->
-<?php if ($categories !== []): ?>
-<section class="py-0" aria-label="Browse by category">
-  <div class="container">
-    <div class="bb-index">
-      <?php foreach ($categories as $category): ?>
-        <a href="<?= url_to('packages') ?>?category=<?= esc($category['slug'], 'url') ?>"><?= esc($category['name']) ?></a>
-      <?php endforeach; ?>
-      <a href="<?= url_to('packages') ?>">All trips&nbsp;→</a>
-    </div>
-  </div>
-</section>
-<?php endif; ?>
-
-<!-- Featured packages — catalogue grid (F6) -->
+<!-- Featured packages — catalogue grid (F6), straight after the discovery block -->
 <?php if ($featured !== []): ?>
 <section>
   <div class="container">
@@ -99,6 +81,23 @@
   </div>
 </section>
 <?php endif; ?>
+
+<!-- Intro — who we are, after the trips have made the case -->
+<section class="section-sand">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7">
+        <h2 class="mb-4 bb-display-s"><?= esc(site('introHeading')) ?></h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 offset-lg-1">
+        <?= nl2paras(site('introBody'), 'mb-3') ?>
+        <p class="mt-4 mb-0"><a class="bb-link" href="<?= url_to('about') ?>">More about us&nbsp;→</a></p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- Statement band -->
 <section class="bb-band">
