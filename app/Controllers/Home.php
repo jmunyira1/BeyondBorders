@@ -17,6 +17,8 @@ class Home extends BaseController
             'activeNav'    => 'home',
             'categories'   => (new CategoryModel())->withPackageCounts(),
             'featured'     => (new PackageModel())->featured(6),
+            // Embedded so search-as-you-type runs with no network round-trip.
+            'searchIndex'  => (new PackageModel())->searchIndex(),
             'testimonials' => (new TestimonialModel())->active(3),
             'gallery'      => (new GalleryImageModel())->active(4),
             'posts'        => (new PostModel())->recent(3),

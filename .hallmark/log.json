@@ -6,6 +6,15 @@
   "theme": "custom",
   "theme_axes": "light / roman-serif / warm (40)",
   "enrichment": "none",
+  "brief": "Search perf: replaced per-keystroke htmx request (450-700ms) with embedded 7KB client-side index -> 0.2-1.4ms instant filtering"
+ },
+ {
+  "date": "2026-07-22",
+  "scope": "app",
+  "macrostructure": "(unchanged) Marquee Hero / Catalogue / Long Document",
+  "theme": "custom",
+  "theme_axes": "light / roman-serif / warm (40)",
+  "enrichment": "none",
   "brief": "Search-as-you-type: packages/suggest endpoint + combobox dropdown on home destination field (htmx, 250ms debounce, keyboard nav, no-JS fallback)"
  },
  {

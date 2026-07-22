@@ -159,6 +159,66 @@ class PackageModel extends Model
             ->findAll($limit);
     }
 
+    /**
+     * The whole searchable catalogue as a flat list, small enough (a few KB) to
+     * embed in the page so search-as-you-type runs client-side with no network
+     * round-trip. Rebuilt on every page render, so admin edits appear at once.
+     *
+     * `search` is the pre-lowercased haystack; `label`/`meta`/`url`/`group` are
+     * what the dropdown renders.
+     */
+    public function searchIndex(): array
+    {
+        helper(['url', 'site']); // callable outside a BaseController request too
+
+        $entries = [];
+
+        $packages = $this->withTaxonomies()
+            ->where('packages.is_active', 1)
+            ->orderBy('packages.is_featured', 'DESC')
+            ->orderBy('packages.sort_order', 'ASC')
+            ->findAll();
+
+        foreach ($packages as $row) {
+            $meta = array_filter([
+                $row['duration_label'] ?: null,
+                $row['price'] !== null ? 'From ' . money($row['price'], $row['currency']) : null,
+            ]);
+
+            $entries[] = [
+                'group'  => 'Trips',
+                'label'  => $row['title'],
+                'meta'   => implode(' · ', $meta),
+                'url'    => url_to('package', $row['slug']),
+                'search' => mb_strtolower(implode(' ', array_filter([
+                    $row['title'],
+                    $row['summary'],
+                    $row['destination_name'],
+                    $row['category_name'],
+                    $row['tour_type_name'],
+                ]))),
+            ];
+        }
+
+        foreach ([
+            ['Destinations', (new DestinationModel())->active(), 'destination'],
+            ['Categories',   (new CategoryModel())->active(),    'category'],
+            ['Tour types',   (new TourTypeModel())->active(),    'tour_type'],
+        ] as [$group, $rows, $param]) {
+            foreach ($rows as $row) {
+                $entries[] = [
+                    'group'  => $group,
+                    'label'  => $row['name'],
+                    'meta'   => 'Browse trips →',
+                    'url'    => url_to('packages') . '?' . $param . '=' . rawurlencode($row['slug']),
+                    'search' => mb_strtolower($row['name']),
+                ];
+            }
+        }
+
+        return $entries;
+    }
+
     public function findBySlug(string $slug): ?array
     {
         return $this->withTaxonomies()

@@ -21,18 +21,16 @@
 <section class="pt-4 pb-0">
   <div class="container">
     <form class="bb-search row g-0 align-items-center p-3" action="<?= url_to('packages') ?>" method="get" aria-label="Search trips">
-      <div class="col-lg-4 cell px-3 py-2 bb-suggest-wrap">
+      <div class="col-lg-4 cell px-3 py-2 bb-suggest-wrap"
+           data-custom-url="<?= esc(url_to('custom-trips'), 'attr') ?>"
+           data-packages-url="<?= esc(url_to('packages'), 'attr') ?>">
         <label class="form-label" for="q-dest">Destination</label>
-        <?php // Combobox: htmx fills the listbox as the visitor types; app.js
-              // handles keyboard navigation. Without JS this is a plain input. ?>
+        <?php // Combobox. The whole catalogue (a few KB) is embedded below, so
+              // app.js filters it locally — no request per keystroke. Without
+              // JavaScript this is a plain input and the form still submits. ?>
         <input class="form-control" id="q-dest" name="q" type="text" placeholder="e.g. Maasai Mara, Diani…"
                autocomplete="off" role="combobox" aria-expanded="false"
-               aria-autocomplete="list" aria-controls="q-dest-suggest"
-               hx-get="<?= url_to('packages-suggest') ?>"
-               hx-trigger="input changed delay:250ms"
-               hx-target="#q-dest-suggest"
-               hx-swap="innerHTML"
-               hx-sync="this:replace">
+               aria-autocomplete="list" aria-controls="q-dest-suggest">
         <div class="bb-suggest" id="q-dest-suggest" role="listbox" aria-label="Trip suggestions" hidden></div>
       </div>
       <div class="col-lg-3 cell px-3 py-2">
@@ -57,6 +55,13 @@
         <button class="btn btn-bba-green" type="submit"><i class="bi bi-search me-2" aria-hidden="true"></i>Search</button>
       </div>
     </form>
+
+    <?php // Search index for the combobox. Regenerated on every render, so
+          // anything the admin edits is reflected immediately. ?>
+    <script type="application/json" id="bb-search-index"><?= json_encode(
+        $searchIndex,
+        JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT
+    ) ?></script>
 
     <?php // Category shortcuts belong to the search — one discovery block. ?>
     <?php if ($categories !== []): ?>

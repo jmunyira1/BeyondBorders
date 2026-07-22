@@ -125,83 +125,167 @@
   })();
 
   /* ----------------------------------------------------------
-     Search suggestions — combobox behaviour for .bb-suggest-wrap.
-     htmx fetches the option fragment; this only manages showing,
-     hiding and keyboard navigation. Without JS the input is a
-     plain text field and the form submits normally.
+     Search suggestions — instant, client-side.
+
+     The whole catalogue (a few KB) is embedded in the page as
+     JSON, so filtering happens locally on every keystroke: no
+     network, no debounce, no waiting. Without JavaScript the
+     input is a plain text field and the form submits normally.
      ---------------------------------------------------------- */
-  document.querySelectorAll('.bb-suggest-wrap').forEach(function (wrap) {
-    var input = wrap.querySelector('input[role="combobox"]');
-    var box = wrap.querySelector('.bb-suggest');
-    if (!input || !box) return;
+  (function searchSuggest() {
+    var indexEl = document.getElementById('bb-search-index');
+    if (!indexEl) return;
 
-    var activeIndex = -1;
-
-    function options() {
-      return box.querySelectorAll('[role="option"]');
+    var index;
+    try {
+      index = JSON.parse(indexEl.textContent);
+    } catch (e) {
+      return; // Malformed index: leave the plain input alone.
     }
+    if (!Array.isArray(index) || index.length === 0) return;
 
-    function setExpanded(open) {
-      box.hidden = !open;
-      input.setAttribute('aria-expanded', open ? 'true' : 'false');
-      if (!open) setActive(-1);
-    }
+    var MIN_CHARS = 2;
+    var MAX_RESULTS = 8;
 
-    function setActive(index) {
-      var opts = options();
-      activeIndex = index;
-      input.removeAttribute('aria-activedescendant');
-      opts.forEach(function (opt, i) {
-        var on = i === index;
-        opt.classList.toggle('is-active', on);
-        opt.setAttribute('aria-selected', on ? 'true' : 'false');
-        if (on) {
-          input.setAttribute('aria-activedescendant', opt.id);
-          opt.scrollIntoView({ block: 'nearest' });
+    document.querySelectorAll('.bb-suggest-wrap').forEach(function (wrap) {
+      var input = wrap.querySelector('input[role="combobox"]');
+      var box = wrap.querySelector('.bb-suggest');
+      if (!input || !box) return;
+
+      var activeIndex = -1;
+
+      function setExpanded(open) {
+        box.hidden = !open;
+        input.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (!open) {
+          activeIndex = -1;
+          input.removeAttribute('aria-activedescendant');
+        }
+      }
+
+      function options() {
+        return box.querySelectorAll('[role="option"]');
+      }
+
+      function setActive(i) {
+        var opts = options();
+        activeIndex = i;
+        input.removeAttribute('aria-activedescendant');
+        opts.forEach(function (opt, n) {
+          var on = n === i;
+          opt.classList.toggle('is-active', on);
+          opt.setAttribute('aria-selected', on ? 'true' : 'false');
+          if (on) {
+            input.setAttribute('aria-activedescendant', opt.id);
+            opt.scrollIntoView({ block: 'nearest' });
+          }
+        });
+      }
+
+      // Whole-word-start matches rank above mid-word ones, so typing
+      // "mara" puts "Maasai Mara Safari" above a passing mention.
+      function search(q) {
+        var needle = q.toLowerCase();
+        var scored = [];
+
+        for (var i = 0; i < index.length; i++) {
+          var entry = index[i];
+          var at = entry.search.indexOf(needle);
+          if (at === -1) continue;
+
+          var label = entry.label.toLowerCase();
+          var score = 2;
+          if (label.indexOf(needle) === 0) score = 0;          // label starts with it
+          else if (label.indexOf(needle) !== -1) score = 1;     // appears in the label
+          else if (at === 0 || entry.search[at - 1] === ' ') score = 1.5;
+
+          scored.push({ entry: entry, score: score, at: at });
+        }
+
+        scored.sort(function (a, b) { return a.score - b.score || a.at - b.at; });
+        return scored.slice(0, MAX_RESULTS).map(function (s) { return s.entry; });
+      }
+
+      function esc(str) {
+        return String(str).replace(/[&<>"]/g, function (c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+        });
+      }
+
+      function render(results, q) {
+        if (results.length === 0) {
+          box.innerHTML =
+            '<div class="bb-suggest__empty" role="status">' +
+              '<p class="mb-1">We don\'t have a ready-made trip for “' + esc(q) + '” yet.</p>' +
+              '<p class="mb-2 bb-suggest__hint">Tell us what you have in mind and we\'ll plan it — or see everything that\'s ready to book.</p>' +
+              '<a href="' + esc(wrap.dataset.customUrl) + '" id="sg-opt-0" role="option" class="bb-suggest__option">Plan a custom trip&nbsp;→</a>' +
+              '<a href="' + esc(wrap.dataset.packagesUrl) + '" id="sg-opt-1" role="option" class="bb-suggest__option">View all packages&nbsp;→</a>' +
+            '</div>';
+          return;
+        }
+
+        var html = '<ul class="bb-suggest__list" role="presentation">';
+        var group = '';
+        var n = 0;
+
+        results.forEach(function (entry) {
+          if (entry.group !== group) {
+            group = entry.group;
+            html += '<li class="bb-suggest__group" role="presentation">' + esc(group) + '</li>';
+          }
+          html += '<li role="presentation">' +
+            '<a href="' + esc(entry.url) + '" id="sg-opt-' + (n++) + '" role="option" class="bb-suggest__option">' +
+              '<span class="bb-suggest__name">' + esc(entry.label) + '</span>' +
+              (entry.meta ? '<span class="bb-suggest__meta">' + esc(entry.meta) + '</span>' : '') +
+            '</a></li>';
+        });
+
+        box.innerHTML = html + '</ul>';
+      }
+
+      function update() {
+        var q = input.value.trim();
+        if (q.length < MIN_CHARS) {
+          setExpanded(false);
+          return;
+        }
+        render(search(q), q);
+        setExpanded(true);
+        setActive(-1);
+      }
+
+      // No debounce: the work is a filter over a few dozen rows.
+      input.addEventListener('input', update);
+
+      input.addEventListener('focus', function () {
+        if (input.value.trim().length >= MIN_CHARS) update();
+      });
+
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { setExpanded(false); return; }
+
+        var opts = options();
+        if (box.hidden || opts.length === 0) return;
+
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          setActive((activeIndex + 1) % opts.length);
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          setActive((activeIndex - 1 + opts.length) % opts.length);
+        } else if (e.key === 'Enter' && activeIndex >= 0) {
+          e.preventDefault(); // A highlighted suggestion beats submitting.
+          opts[activeIndex].click();
+        } else if (e.key === 'Tab') {
+          setExpanded(false);
         }
       });
-    }
 
-    // htmx swapped new suggestions in — open if there is anything to show.
-    box.addEventListener('htmx:afterSwap', function () {
-      setExpanded(box.innerHTML.trim() !== '');
+      document.addEventListener('click', function (e) {
+        if (!wrap.contains(e.target)) setExpanded(false);
+      });
     });
-
-    input.addEventListener('keydown', function (e) {
-      var opts = options();
-
-      if (e.key === 'Escape') {
-        setExpanded(false);
-        return;
-      }
-      if (box.hidden || opts.length === 0) return;
-
-      if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        setActive((activeIndex + 1) % opts.length);
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        setActive((activeIndex - 1 + opts.length) % opts.length);
-      } else if (e.key === 'Enter' && activeIndex >= 0) {
-        // A highlighted suggestion wins over submitting the form.
-        e.preventDefault();
-        opts[activeIndex].click();
-      } else if (e.key === 'Tab') {
-        setExpanded(false);
-      }
-    });
-
-    // Refocusing the field brings back the last suggestions.
-    input.addEventListener('focus', function () {
-      if (box.innerHTML.trim() !== '' && input.value.trim().length >= 2) {
-        setExpanded(true);
-      }
-    });
-
-    document.addEventListener('click', function (e) {
-      if (!wrap.contains(e.target)) setExpanded(false);
-    });
-  });
+  })();
 
   /* ----------------------------------------------------------
      Forms — disable submit while a request is in flight

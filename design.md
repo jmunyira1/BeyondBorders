@@ -106,13 +106,21 @@ sections tighter (`--space-2xl`), statement bands generous (`--space-3xl`).
 - Silent success — the swapped-in success panel is the confirmation; no toasts.
 - Focus rings appear instantly: `outline: 2px solid var(--color-focus); offset 3px`.
 - Hover affordances all have focus equivalents; hit targets ≥ 44px on touch.
-- Search-as-you-type (`.bb-suggest-wrap` combobox): htmx fetches
-  `packages/suggest` on input with a 250 ms debounce (`hx-sync: this:replace`),
-  minimum 2 characters. The dropdown appears instantly (no entrance animation),
-  supports Arrow/Enter/Escape with `aria-activedescendant`, and closes on
-  outside click. Options are plain links — without JS the input is a normal
-  text field and the form submits as usual. Empty result = honest empty state
-  with a custom-trip escape hatch, never a bare dead end.
+- Search-as-you-type (`.bb-suggest-wrap` combobox) is **client-side and
+  instant**. The whole searchable catalogue (~7 KB, 33 rows) is embedded in the
+  page as `<script type="application/json" id="bb-search-index">`, built by
+  `PackageModel::searchIndex()`. Filtering runs locally on every keystroke:
+  no network, no debounce, ~0.2–1.4 ms to render. Minimum 2 characters,
+  max 8 results, label-prefix matches ranked first.
+  The dropdown appears instantly (no entrance animation), supports
+  Arrow/Enter/Escape with `aria-activedescendant`, and closes on outside click.
+  Without JS the input is a plain text field and the form submits as usual.
+  Empty result = honest empty state naming the query, with both exits
+  (custom trip · all packages) — never a bare dead end.
+  **Rule: never re-introduce a per-keystroke request for this dataset.** The
+  server endpoint `packages/suggest` is retained as a fallback and for reuse,
+  but the index is regenerated per render so admin edits appear immediately.
+  Revisit only if the catalogue grows past a few hundred rows.
 
 ## CTA voice
 
