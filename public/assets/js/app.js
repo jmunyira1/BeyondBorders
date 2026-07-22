@@ -154,12 +154,34 @@
 
       var activeIndex = -1;
 
+      /* Keep the panel inside the visible viewport. On phones the search sits
+         low on the page and the on-screen keyboard eats the bottom half, so a
+         fixed 21rem panel would open almost entirely off-screen. Measure the
+         real space (visualViewport accounts for the keyboard) and either cap
+         the height or flip the panel above the field. */
+      function place() {
+        var vh = (window.visualViewport && window.visualViewport.height) || window.innerHeight;
+        var rect = input.getBoundingClientRect();
+        var GUTTER = 12;
+        // Clamp to the visible band so a field scrolled out of view can't
+        // report more room than the viewport actually has.
+        var below = vh - Math.max(rect.bottom, 0) - GUTTER;
+        var above = Math.min(rect.top, vh) - GUTTER;
+        var flip = below < 160 && above > below;
+
+        box.classList.toggle('is-above', flip);
+        box.style.setProperty('--bb-suggest-max', Math.max(120, flip ? above : below) + 'px');
+      }
+
       function setExpanded(open) {
         box.hidden = !open;
         input.setAttribute('aria-expanded', open ? 'true' : 'false');
-        if (!open) {
+        if (open) {
+          place();
+        } else {
           activeIndex = -1;
           input.removeAttribute('aria-activedescendant');
+          box.classList.remove('is-above');
         }
       }
 
@@ -284,6 +306,21 @@
       document.addEventListener('click', function (e) {
         if (!wrap.contains(e.target)) setExpanded(false);
       });
+
+      // Re-measure while the panel is open: scrolling, rotation, and the
+      // on-screen keyboard all change how much room there is.
+      ['scroll', 'resize'].forEach(function (evt) {
+        window.addEventListener(evt, function () {
+          if (!box.hidden) place();
+        }, { passive: true });
+      });
+      if (window.visualViewport) {
+        ['resize', 'scroll'].forEach(function (evt) {
+          window.visualViewport.addEventListener(evt, function () {
+            if (!box.hidden) place();
+          });
+        });
+      }
     });
   })();
 

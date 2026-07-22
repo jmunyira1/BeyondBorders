@@ -114,6 +114,12 @@ sections tighter (`--space-2xl`), statement bands generous (`--space-3xl`).
   max 8 results, label-prefix matches ranked first.
   The dropdown appears instantly (no entrance animation), supports
   Arrow/Enter/Escape with `aria-activedescendant`, and closes on outside click.
+  **It is viewport-aware:** JS measures the space around the field
+  (`visualViewport`, so the on-screen keyboard counts) and either caps the
+  panel height to what fits or flips it above the field (`.is-above`) when
+  there is more room up than down, re-measuring on scroll/resize. A fixed
+  `max-height` alone opens the panel off-screen on phones — the search sits
+  low on the page, so most of it lands below the fold.
   Without JS the input is a plain text field and the form submits as usual.
   Empty result = honest empty state naming the query, with both exits
   (custom trip · all packages) — never a bare dead end.

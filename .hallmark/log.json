@@ -6,6 +6,15 @@
   "theme": "custom",
   "theme_axes": "light / roman-serif / warm (40)",
   "enrichment": "none",
+  "brief": "Fix: suggestion dropdown opened off-screen on mobile (261px of 336px clipped). Now viewport-aware - caps height to available space, flips above the field, keyboard-aware via visualViewport"
+ },
+ {
+  "date": "2026-07-22",
+  "scope": "app",
+  "macrostructure": "(unchanged) Marquee Hero / Catalogue / Long Document",
+  "theme": "custom",
+  "theme_axes": "light / roman-serif / warm (40)",
+  "enrichment": "none",
   "brief": "Search perf: replaced per-keystroke htmx request (450-700ms) with embedded 7KB client-side index -> 0.2-1.4ms instant filtering"
  },
  {
