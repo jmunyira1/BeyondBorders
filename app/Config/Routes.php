@@ -12,6 +12,8 @@ $routes->get('/', 'Home::index', ['as' => 'home']);
 $routes->get('packages', 'Packages::index', ['as' => 'packages']);
 // Serves the results grid on its own for htmx swaps.
 $routes->get('packages/filter', 'Packages::filter', ['as' => 'packages-filter']);
+// Search-as-you-type suggestions; must sit above the (:segment) catch-all.
+$routes->get('packages/suggest', 'Packages::suggest', ['as' => 'packages-suggest']);
 $routes->get('packages/(:segment)', 'Packages::show/$1', ['as' => 'package']);
 $routes->post('packages/(:segment)/enquire', 'Packages::enquire/$1', ['as' => 'package-enquire']);
 

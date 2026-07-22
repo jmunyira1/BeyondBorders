@@ -6,6 +6,15 @@
   "theme": "custom",
   "theme_axes": "light / roman-serif / warm (40)",
   "enrichment": "none",
+  "brief": "Search-as-you-type: packages/suggest endpoint + combobox dropdown on home destination field (htmx, 250ms debounce, keyboard nav, no-JS fallback)"
+ },
+ {
+  "date": "2026-07-22",
+  "scope": "app",
+  "macrostructure": "(unchanged) Marquee Hero / Catalogue / Long Document",
+  "theme": "custom",
+  "theme_axes": "light / roman-serif / warm (40)",
+  "enrichment": "none",
   "brief": "Affordance + flow pass: category chips became outlined pill buttons with hover/active states; home reordered search-categories-featured-intro; card hover echo"
  },
  {

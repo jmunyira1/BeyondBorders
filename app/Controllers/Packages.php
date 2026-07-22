@@ -147,6 +147,43 @@ class Packages extends BaseController
         return $params === [] ? '' : '?' . http_build_query($params);
     }
 
+    /**
+     * Search-as-you-type suggestions. Returns a fragment for the combobox
+     * dropdown: matching trips first, then destination / category / tour-type
+     * shortcuts. An empty response collapses the dropdown client-side.
+     *
+     * A direct (non-htmx) hit is bounced to the packages page with the same
+     * keyword, so the endpoint never renders a bare fragment to a visitor.
+     */
+    public function suggest()
+    {
+        $q = trim((string) $this->request->getGet('q'));
+
+        if (! is_htmx()) {
+            return redirect()->to(url_to('packages') . ($q !== '' ? '?q=' . urlencode($q) : ''));
+        }
+
+        if (mb_strlen($q) < 2) {
+            return '';
+        }
+
+        $packages = (new PackageModel())->filtered(['q' => $q])->findAll(5);
+
+        // The taxonomies are small; match them in PHP rather than three queries.
+        $match = static fn (array $rows): array => array_values(array_filter(
+            $rows,
+            static fn (array $row): bool => mb_stripos($row['name'], $q) !== false
+        ));
+
+        return view('packages/_suggest', [
+            'q'            => $q,
+            'packages'     => $packages,
+            'destinations' => $match((new DestinationModel())->active()),
+            'categories'   => $match((new CategoryModel())->active()),
+            'tourTypes'    => $match((new TourTypeModel())->active()),
+        ]);
+    }
+
     /** Single package detail page. */
     public function show(string $slug): string
     {

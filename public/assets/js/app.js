@@ -125,6 +125,85 @@
   })();
 
   /* ----------------------------------------------------------
+     Search suggestions — combobox behaviour for .bb-suggest-wrap.
+     htmx fetches the option fragment; this only manages showing,
+     hiding and keyboard navigation. Without JS the input is a
+     plain text field and the form submits normally.
+     ---------------------------------------------------------- */
+  document.querySelectorAll('.bb-suggest-wrap').forEach(function (wrap) {
+    var input = wrap.querySelector('input[role="combobox"]');
+    var box = wrap.querySelector('.bb-suggest');
+    if (!input || !box) return;
+
+    var activeIndex = -1;
+
+    function options() {
+      return box.querySelectorAll('[role="option"]');
+    }
+
+    function setExpanded(open) {
+      box.hidden = !open;
+      input.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (!open) setActive(-1);
+    }
+
+    function setActive(index) {
+      var opts = options();
+      activeIndex = index;
+      input.removeAttribute('aria-activedescendant');
+      opts.forEach(function (opt, i) {
+        var on = i === index;
+        opt.classList.toggle('is-active', on);
+        opt.setAttribute('aria-selected', on ? 'true' : 'false');
+        if (on) {
+          input.setAttribute('aria-activedescendant', opt.id);
+          opt.scrollIntoView({ block: 'nearest' });
+        }
+      });
+    }
+
+    // htmx swapped new suggestions in — open if there is anything to show.
+    box.addEventListener('htmx:afterSwap', function () {
+      setExpanded(box.innerHTML.trim() !== '');
+    });
+
+    input.addEventListener('keydown', function (e) {
+      var opts = options();
+
+      if (e.key === 'Escape') {
+        setExpanded(false);
+        return;
+      }
+      if (box.hidden || opts.length === 0) return;
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setActive((activeIndex + 1) % opts.length);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setActive((activeIndex - 1 + opts.length) % opts.length);
+      } else if (e.key === 'Enter' && activeIndex >= 0) {
+        // A highlighted suggestion wins over submitting the form.
+        e.preventDefault();
+        opts[activeIndex].click();
+      } else if (e.key === 'Tab') {
+        setExpanded(false);
+      }
+    });
+
+    // Refocusing the field brings back the last suggestions.
+    input.addEventListener('focus', function () {
+      if (box.innerHTML.trim() !== '' && input.value.trim().length >= 2) {
+        setExpanded(true);
+      }
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!wrap.contains(e.target)) setExpanded(false);
+    });
+  });
+
+  /* ----------------------------------------------------------
      Forms — disable submit while a request is in flight
      ---------------------------------------------------------- */
   document.body.addEventListener('htmx:beforeRequest', function (e) {

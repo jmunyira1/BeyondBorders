@@ -21,9 +21,19 @@
 <section class="pt-4 pb-0">
   <div class="container">
     <form class="bb-search row g-0 align-items-center p-3" action="<?= url_to('packages') ?>" method="get" aria-label="Search trips">
-      <div class="col-lg-4 cell px-3 py-2">
+      <div class="col-lg-4 cell px-3 py-2 bb-suggest-wrap">
         <label class="form-label" for="q-dest">Destination</label>
-        <input class="form-control" id="q-dest" name="q" type="text" placeholder="e.g. Maasai Mara, Diani…">
+        <?php // Combobox: htmx fills the listbox as the visitor types; app.js
+              // handles keyboard navigation. Without JS this is a plain input. ?>
+        <input class="form-control" id="q-dest" name="q" type="text" placeholder="e.g. Maasai Mara, Diani…"
+               autocomplete="off" role="combobox" aria-expanded="false"
+               aria-autocomplete="list" aria-controls="q-dest-suggest"
+               hx-get="<?= url_to('packages-suggest') ?>"
+               hx-trigger="input changed delay:250ms"
+               hx-target="#q-dest-suggest"
+               hx-swap="innerHTML"
+               hx-sync="this:replace">
+        <div class="bb-suggest" id="q-dest-suggest" role="listbox" aria-label="Trip suggestions" hidden></div>
       </div>
       <div class="col-lg-3 cell px-3 py-2">
         <label class="form-label" for="q-type">Trip type</label>

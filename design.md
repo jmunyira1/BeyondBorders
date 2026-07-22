@@ -106,6 +106,13 @@ sections tighter (`--space-2xl`), statement bands generous (`--space-3xl`).
 - Silent success — the swapped-in success panel is the confirmation; no toasts.
 - Focus rings appear instantly: `outline: 2px solid var(--color-focus); offset 3px`.
 - Hover affordances all have focus equivalents; hit targets ≥ 44px on touch.
+- Search-as-you-type (`.bb-suggest-wrap` combobox): htmx fetches
+  `packages/suggest` on input with a 250 ms debounce (`hx-sync: this:replace`),
+  minimum 2 characters. The dropdown appears instantly (no entrance animation),
+  supports Arrow/Enter/Escape with `aria-activedescendant`, and closes on
+  outside click. Options are plain links — without JS the input is a normal
+  text field and the form submits as usual. Empty result = honest empty state
+  with a custom-trip escape hatch, never a bare dead end.
 
 ## CTA voice
 

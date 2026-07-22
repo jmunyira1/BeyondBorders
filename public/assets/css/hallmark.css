@@ -278,6 +278,53 @@ section { padding-block: var(--space-xl); }
   .bb-search .cell:last-of-type { border-right: 0; }
 }
 
+/* Search suggestions — combobox dropdown under the destination field.
+   Appears instantly (editorial: no entrance animation). */
+.bb-suggest-wrap { position: relative; }
+.bb-suggest {
+  position: absolute;
+  top: calc(100% - var(--space-2xs));
+  left: 0;
+  right: 0;
+  z-index: var(--z-dropdown);
+  background: var(--color-paper);
+  border: var(--rule-hair) solid var(--color-rule);
+  box-shadow: var(--shadow-whisper);
+  max-height: 21rem;
+  overflow-y: auto;
+}
+.bb-suggest[hidden] { display: none; }
+.bb-suggest__list { list-style: none; margin: 0; padding: var(--space-2xs) 0; }
+.bb-suggest__group {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  padding: var(--space-xs) var(--space-md) var(--space-2xs);
+}
+.bb-suggest__option {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-md);
+  padding: var(--space-xs) var(--space-md);
+  min-height: 44px;
+  color: var(--color-ink);
+  text-decoration: none;
+}
+.bb-suggest__option:hover,
+.bb-suggest__option.is-active {
+  background: var(--color-paper-2);
+  color: var(--color-ink);
+}
+.bb-suggest__option.is-active .bb-suggest__name { text-decoration: underline; text-underline-offset: 0.2em; }
+.bb-suggest__name { font-weight: 500; min-width: 0; }
+.bb-suggest__meta { font-size: var(--text-xs); color: var(--color-muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.bb-suggest__empty { padding: var(--space-md); color: var(--color-ink-2); font-size: var(--text-sm); }
+.bb-suggest__hint { color: var(--color-muted); font-size: var(--text-xs); }
+.bb-suggest__empty .bb-suggest__option { padding: var(--space-2xs) 0; min-height: auto; color: var(--color-accent); }
+
 /* ------------------------------------------------------------
    Page head — listings + content pages (no photo banner)
    ------------------------------------------------------------ */

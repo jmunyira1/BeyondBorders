@@ -38,13 +38,19 @@
 </div>
 
 <?php if ($packages === []): ?>
+  <?php // Name what didn't match, then offer the two ways forward.
+        $wanted = implode(' · ', array_column($activeFilters, 'label')); ?>
   <div class="bba-empty text-center p-5">
-    <p class="mb-2">No ready-made packages match what you're looking for.</p>
-    <p class="text-body-secondary mb-3">Try widening the filters — or let us build the trip around you instead.</p>
+    <?php if ($wanted !== ''): ?>
+      <p class="mb-2">We don't have a ready-made package for <strong><?= esc($wanted) ?></strong> yet.</p>
+    <?php else: ?>
+      <p class="mb-2">We don't have a ready-made package for that yet.</p>
+    <?php endif; ?>
+    <p class="text-body-secondary mb-3">Tell us where you want to go and we'll design the trip around you — or browse everything that's ready to book right now.</p>
     <div class="d-flex flex-wrap gap-2 justify-content-center">
+      <a href="<?= url_to('custom-trips') ?>" class="btn btn-bba-gold btn-sm">Plan a custom trip</a>
       <a href="<?= url_to('packages') ?>" class="btn btn-bba-outline btn-sm"
-         hx-get="<?= url_to('packages-filter') ?>" hx-target="#packages-results" hx-push-url="<?= url_to('packages') ?>">Clear filters</a>
-      <a href="<?= url_to('custom-trips') ?>" class="btn btn-bba-gold btn-sm">Plan a Custom Trip instead</a>
+         hx-get="<?= url_to('packages-filter') ?>" hx-target="#packages-results" hx-push-url="<?= url_to('packages') ?>">View all packages</a>
     </div>
   </div>
 <?php else: ?>
