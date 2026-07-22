@@ -1,4 +1,12 @@
 [
+  { "date": "2026-07-22",
+    "scope": "app",
+    "macrostructure": "(unchanged) Marquee Hero / Catalogue / Long Document",
+    "theme": "custom",
+    "theme_axes": "light / roman-serif / warm (40)",
+    "vibe": "golden-hour grassland, warm dust, big sky",
+    "enrichment": "none",
+    "brief": "Mobile-first refactor: base=phone, min-width scale-ups, svh fold, 44px touch targets, safe areas" },
   { "date": "2026-07-21",
     "scope": "app",
     "macrostructure": "Marquee Hero (marketing) / Catalogue (listings) / Long Document (content)",

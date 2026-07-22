@@ -187,9 +187,9 @@ button.bba-cat { width: 100%; border: 1px solid var(--bba-line); background: #ff
 .bba-inclusions .no  { color: var(--bba-muted); }
 
 .bba-booking-card {
-  position: sticky; top: 5.5rem;
+  /* position: sticky lives in hallmark.css, gated to ≥60rem (mobile-first) */
   border: 1px solid var(--bba-line); border-radius: var(--bs-border-radius-lg);
-  background: #fff; box-shadow: var(--bba-shadow);
+  background: var(--bba-surface); box-shadow: var(--bba-shadow);
 }
 .bba-booking-card .price-row {
   border-bottom: 1px solid var(--bba-line);

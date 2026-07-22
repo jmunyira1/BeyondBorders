@@ -77,6 +77,21 @@ contact line, copyright.
 named tokens, never raw px. Section rhythm is deliberately uneven: catalogue
 sections tighter (`--space-2xl`), statement bands generous (`--space-3xl`).
 
+## Responsive — mobile-first (locked 2026-07-22)
+
+- Base styles ARE the phone. Every deviation scales **up** via `min-width`
+  queries (36rem CTAs inline · 40rem two-column collapses · 60rem full rhythm).
+  `max-width` queries are banned as a primary direction.
+- Section rhythm: `--space-xl` base, `--space-2xl`/`--space-3xl` from 60rem.
+- Hero fold uses `svh` (never `dvh`/`vh`) so mobile browser chrome can't
+  make it jump. Fold and band CTAs are full-width below 36rem.
+- Touch: 44px minimum hit targets on coarse pointers (nav links, footer
+  links, typographic CTAs); `viewport-fit=cover` + `env(safe-area-inset-*)`
+  on the footer and the WhatsApp launcher.
+- Sticky behaviour (booking card) exists only from 60rem — phones scroll flat.
+- Bootstrap's own grid utilities (`col-lg-*`, `navbar-expand-lg`) stay on
+  Bootstrap's px breakpoints; Hallmark rules use rem breakpoints.
+
 ## Motion
 
 - Easings: `--ease-out: cubic-bezier(0.16, 1, 0.3, 1)`, `--ease-in: cubic-bezier(0.7, 0, 0.84, 0)`.

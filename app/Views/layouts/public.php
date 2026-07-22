@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title><?= esc($title ?? site('companyName')) ?></title>
 <meta name="description" content="<?= esc($metaDescription ?? 'Discover the magic of Kenya with Beyond Borders Adventures — safaris, beach holidays, mountain treks, cultural experiences and tailor-made trips.') ?>">
 <?php // security.regenerate is off, so this token stays valid for the whole
