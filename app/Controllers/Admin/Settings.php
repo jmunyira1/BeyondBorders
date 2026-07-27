@@ -10,11 +10,12 @@ class Settings extends AdminController
 {
     /**
      * The editable fields, grouped for the UI.
-     * type: text | textarea | url | email | tel | bool
+     * type: text | textarea | url | email | tel | bool | image
      */
     private const FIELDS = [
         'Identity' => [
             'companyName' => ['Company name', 'text'],
+            'logo'        => ['Logo', 'image', 'Shown in the site header. PNG or WebP with a transparent background works best — around 200×80px. Leave empty to use the bundled logo.'],
             'tagline'     => ['Tagline', 'text', 'Shown under the logo in the footer.'],
             'strapline'   => ['Strapline / motto', 'textarea', 'The quoted line on the homepage and about page.'],
         ],
@@ -89,6 +90,15 @@ class Settings extends AdminController
                     continue;
                 }
 
+                if ($type === 'image') {
+                    if (! $this->saveImageSetting($key)) {
+                        return redirect()->to(site_url('admin/settings'))
+                            ->with('error', $this->uploadError ?? 'That image could not be saved.');
+                    }
+
+                    continue;
+                }
+
                 // A field absent from the POST is one the form did not render;
                 // leave it alone rather than blanking it.
                 $value = $this->request->getPost($key);
@@ -101,5 +111,65 @@ class Settings extends AdminController
         }
 
         return redirect()->to(site_url('admin/settings'))->with('message', 'Settings saved.');
+    }
+
+    private ?string $uploadError = null;
+
+    /**
+     * Image settings carry three controls: a file input, a "remove" checkbox,
+     * and a URL field for pointing at an externally-hosted image. A new upload
+     * or an explicit removal replaces whatever was there, deleting the old
+     * file so uploads don't pile up.
+     *
+     * @return bool false when the upload failed and the redirect should report it.
+     */
+    private function saveImageSetting(string $key): bool
+    {
+        $current = (string) setting('Site.' . $key);
+
+        if ((bool) $this->request->getPost($key . '_remove')) {
+            $this->deleteUpload($current);
+            setting('Site.' . $key, '');
+
+            return true;
+        }
+
+        try {
+            $path = $this->handleUpload($key . '_file', 'branding');
+        } catch (\RuntimeException $e) {
+            $this->uploadError = $e->getMessage();
+
+            return false;
+        }
+
+        if ($path !== null) {
+            $this->deleteUpload($current);
+            setting('Site.' . $key, $path);
+
+            return true;
+        }
+
+        // No file chosen — fall back to the URL field.
+        //
+        // An *empty* URL field never clears the setting: it renders blank
+        // whenever the current logo is an upload rather than a link, so
+        // treating empty as "remove" would wipe the logo every time an
+        // unrelated setting was saved. Clearing is the checkbox's job.
+        $url = trim((string) ($this->request->getPost($key . '_url') ?? ''));
+
+        if ($url === '' || $url === $current) {
+            return true;
+        }
+
+        if (! preg_match('~^(https?:)?//~', $url)) {
+            $this->uploadError = 'The logo URL must start with http:// or https://.';
+
+            return false;
+        }
+
+        $this->deleteUpload($current);
+        setting('Site.' . $key, $url);
+
+        return true;
     }
 }

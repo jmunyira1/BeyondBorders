@@ -17,7 +17,7 @@
 <div class="bba-login-wrap">
   <div class="bba-login-card">
     <div class="bba-login-head">
-      <img src="<?= base_url('assets/img/logo-nav.png') ?>" alt="">
+      <img src="<?= esc(media_url(site('logo'), 'assets/img/logo-nav.png'), 'attr') ?>" alt="">
       <h1>Beyond Borders Admin</h1>
       <p>Sign in to manage the site</p>
     </div>

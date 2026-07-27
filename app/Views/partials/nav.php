@@ -16,7 +16,9 @@ $links = [
 <nav class="navbar navbar-expand-lg bb-mast py-2">
   <div class="container">
     <a class="navbar-brand" href="<?= url_to('home') ?>">
-      <img class="bb-logo" src="<?= base_url('assets/img/logo-nav.png') ?>" alt="<?= esc(site('companyName')) ?> logo">
+      <?php // Admin → Settings can replace this; blank falls back to the bundled file. ?>
+      <img class="bb-logo" src="<?= esc(media_url(site('logo'), 'assets/img/logo-nav.png'), 'attr') ?>"
+           alt="<?= esc(site('companyName')) ?> logo">
       <span class="bb-wordmark">Beyond Borders<small>Adventures</small></span>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">

@@ -23,7 +23,7 @@ $newCount = $newEnquiries ?? 0;
 
   <aside class="bba-side" id="bba-side">
     <div class="bba-side-brand">
-      <img src="<?= base_url('assets/img/logo-nav.png') ?>" alt="">
+      <img src="<?= esc(media_url(site('logo'), 'assets/img/logo-nav.png'), 'attr') ?>" alt="">
       <span>Beyond Borders<small>Admin</small></span>
     </div>
 

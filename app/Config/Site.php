@@ -16,6 +16,12 @@ class Site extends BaseConfig
 {
     // --- Identity -----------------------------------------------------------
     public string $companyName = 'Beyond Borders Adventures';
+    /**
+     * Nav logo. Either a path relative to public/ (what Admin → Settings
+     * uploads produce) or an absolute URL. Blank falls back to the bundled
+     * assets/img/logo-nav.png.
+     */
+    public string $logo        = '';
     public string $tagline     = 'Explore and Enjoy';
     public string $strapline   = "We don't just do trips — we make memories that translate to stories worth telling.";
 

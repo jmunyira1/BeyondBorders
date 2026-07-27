@@ -2,8 +2,12 @@
 
 <?= $this->section('content') ?>
 
-<form method="post" action="<?= site_url('admin/settings') ?>">
+<form method="post" action="<?= site_url('admin/settings') ?>" enctype="multipart/form-data">
   <?= csrf_field() ?>
+
+  <?php if (session('error')): ?>
+    <div class="bba-alert bba-alert-error mb-3" role="alert"><?= esc(session('error')) ?></div>
+  <?php endif; ?>
 
   <div class="row g-3">
     <?php foreach ($groups as $groupName => $fields): ?>
@@ -23,6 +27,30 @@
                     <input class="form-check-input" type="checkbox" id="<?= $id ?>" name="<?= esc($key, 'attr') ?>" value="1"
                            <?= $values[$key] ? 'checked' : '' ?>>
                     <label class="form-check-label" for="<?= $id ?>"><?= esc($label) ?></label>
+                  </div>
+                <?php elseif ($type === 'image'): ?>
+                  <span class="form-label d-block"><?= esc($label) ?></span>
+                  <div class="bba-logo-field">
+                    <span class="bba-logo-preview">
+                      <img src="<?= esc(media_url($value ?: 'assets/img/logo-nav.png'), 'attr') ?>"
+                           alt="<?= $value === '' ? 'Current bundled logo' : 'Current logo' ?>">
+                    </span>
+                    <div class="bba-logo-controls">
+                      <input class="form-control form-control-sm" type="file" id="<?= $id ?>"
+                             name="<?= esc($key, 'attr') ?>_file" accept="image/png,image/jpeg,image/webp,image/gif">
+                      <label class="form-label mt-2 mb-1 small" for="<?= $id ?>-url">…or link to an image</label>
+                      <input class="form-control form-control-sm" id="<?= $id ?>-url"
+                             name="<?= esc($key, 'attr') ?>_url" type="url"
+                             value="<?= esc(str_starts_with($value, 'http') ? $value : '', 'attr') ?>"
+                             placeholder="https://…">
+                      <?php if ($value !== ''): ?>
+                        <div class="form-check mt-2">
+                          <input class="form-check-input" type="checkbox" value="1"
+                                 id="<?= $id ?>-remove" name="<?= esc($key, 'attr') ?>_remove">
+                          <label class="form-check-label small" for="<?= $id ?>-remove">Remove and use the bundled logo</label>
+                        </div>
+                      <?php endif; ?>
+                    </div>
                   </div>
                 <?php elseif ($type === 'textarea'): ?>
                   <label class="form-label" for="<?= $id ?>"><?= esc($label) ?></label>
