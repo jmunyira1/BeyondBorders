@@ -18,6 +18,7 @@ $budgets   = ['Under KES 10,000 per person', 'KES 10,000 – 30,000 per person',
       hx-post="<?= url_to('custom-trips') ?>"
       hx-target="#custom-trip-form"
       hx-swap="outerHTML"
+      data-validate
       aria-label="Custom trip enquiry">
   <?= csrf_field() ?>
 

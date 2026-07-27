@@ -43,10 +43,11 @@ class Site extends BaseConfig
     public bool $whatsappEnabled   = true;
 
     // --- Social -------------------------------------------------------------
-    public string $instagram = '#';
-    public string $facebook  = '#';
-    public string $tiktok    = '#';
-    public string $twitter   = '#';
+    // Blank means "hide this icon". The nav/footer skip empty values.
+    public string $instagram = '';
+    public string $facebook  = '';
+    public string $tiktok    = '';
+    public string $twitter   = '';
 
     // --- Homepage hero ------------------------------------------------------
     public string $heroEyebrow  = "Kenya's Finest Adventures Await";

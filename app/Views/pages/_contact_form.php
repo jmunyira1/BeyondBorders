@@ -17,6 +17,7 @@ $subjects = ['General enquiry', 'Booking a package', 'Custom trip', 'Corporate r
       hx-post="<?= url_to('contact') ?>"
       hx-target="#contact-form"
       hx-swap="outerHTML"
+      data-validate
       aria-label="Contact form">
   <?= csrf_field() ?>
 

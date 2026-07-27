@@ -231,3 +231,10 @@ tr.htmx-swapping { background: rgba(179, 38, 30, 0.06) !important; }
 }
 .bba-logo-preview img { max-width: 100%; max-height: 3.5rem; object-fit: contain; }
 .bba-logo-controls { flex: 1 1 14rem; min-width: 0; }
+
+/* Inline field errors (client + server) */
+.bba-field-error {
+  display: block; margin-top: 0.3rem;
+  font-size: 0.8rem; color: #b3261e;
+}
+.form-control.is-invalid, .form-select.is-invalid { border-color: #b3261e; }

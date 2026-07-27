@@ -24,7 +24,7 @@ $newCount = $newEnquiries ?? 0;
   <aside class="bba-side" id="bba-side">
     <div class="bba-side-brand">
       <img src="<?= esc(media_url(site('logo'), 'assets/img/logo-nav.png'), 'attr') ?>" alt="">
-      <span>Beyond Borders<small>Admin</small></span>
+      <span><?= wordmark('Admin') ?></span>
     </div>
 
     <nav class="bba-side-nav">
@@ -111,6 +111,7 @@ $newCount = $newEnquiries ?? 0;
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="<?= base_url('assets/js/htmx.min.js') ?>"></script>
+<script src="<?= base_url('assets/js/validate.js') ?>"></script>
 <script src="<?= base_url('assets/js/admin.js') ?>"></script>
 <?= $this->renderSection('scripts') ?>
 </body>

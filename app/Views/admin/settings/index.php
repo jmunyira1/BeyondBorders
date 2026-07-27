@@ -2,7 +2,7 @@
 
 <?= $this->section('content') ?>
 
-<form method="post" action="<?= site_url('admin/settings') ?>" enctype="multipart/form-data">
+<form method="post" action="<?= site_url('admin/settings') ?>" enctype="multipart/form-data" data-validate>
   <?= csrf_field() ?>
 
   <?php if (session('error')): ?>
@@ -55,10 +55,16 @@
                 <?php elseif ($type === 'textarea'): ?>
                   <label class="form-label" for="<?= $id ?>"><?= esc($label) ?></label>
                   <textarea class="form-control" id="<?= $id ?>" name="<?= esc($key, 'attr') ?>" rows="4"><?= esc($value) ?></textarea>
-                <?php else: ?>
-                  <label class="form-label" for="<?= $id ?>"><?= esc($label) ?></label>
+                <?php else:
+                    // "#" is the legacy hidden-sentinel for social links — show it as blank.
+                    $shown    = $value === '#' ? '' : $value;
+                    $required = $key === 'companyName';
+                ?>
+                  <label class="form-label" for="<?= $id ?>"><?= esc($label) ?><?= $required ? ' <span class="text-danger" aria-hidden="true">*</span>' : '' ?></label>
                   <input class="form-control" id="<?= $id ?>" name="<?= esc($key, 'attr') ?>"
-                         type="<?= esc($type, 'attr') ?>" value="<?= esc($value, 'attr') ?>">
+                         type="<?= esc($type, 'attr') ?>" value="<?= esc($shown, 'attr') ?>"
+                         <?= $required ? 'required' : '' ?>
+                         <?= $type === 'url' ? 'inputmode="url"' : '' ?>>
                 <?php endif; ?>
 
                 <?php if ($help !== null): ?>

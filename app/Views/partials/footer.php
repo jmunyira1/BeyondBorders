@@ -5,7 +5,7 @@
 
     <div class="bb-foot__grid">
       <div class="bb-foot__col me-auto">
-        <span class="bb-wordmark d-block mb-2">Beyond Borders<small>Adventures</small></span>
+        <span class="bb-wordmark d-block mb-2"><?= wordmark() ?></span>
         <ul>
           <li><a href="tel:<?= esc(site('phoneLink'), 'attr') ?>"><i class="bi bi-telephone me-2" aria-hidden="true"></i><?= esc(site('phone')) ?></a></li>
           <li><a href="mailto:<?= esc(site('email'), 'attr') ?>"><i class="bi bi-envelope me-2" aria-hidden="true"></i><?= esc(site('email')) ?></a></li>

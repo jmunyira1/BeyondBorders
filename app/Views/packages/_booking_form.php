@@ -19,6 +19,7 @@ $bad    = static fn (string $k): string => isset($errors[$k]) ? ' is-invalid' : 
       hx-post="<?= url_to('package-enquire', $package['slug']) ?>"
       hx-target="#booking-form"
       hx-swap="outerHTML"
+      data-validate
       aria-label="Booking enquiry">
   <?= csrf_field() ?>
 

@@ -46,6 +46,39 @@ if (! function_exists('site')) {
     }
 }
 
+if (! function_exists('wordmark')) {
+    /**
+     * The branded logotype, built from the editable company name so changing
+     * it in Admin → Settings updates every instance (nav, footer, admin).
+     *
+     * With no suffix, the last word is set small — "Beyond Borders <small>Adventures</small>".
+     * Pass a suffix to append a fixed small label instead — wordmark('Admin')
+     * gives the full name plus a small "Admin".
+     *
+     * Returns safe HTML (dynamic parts escaped); echo it raw.
+     */
+    function wordmark(?string $suffix = null): string
+    {
+        $name = trim((string) site('companyName', 'Beyond Borders Adventures'));
+        if ($name === '') {
+            $name = 'Beyond Borders Adventures';
+        }
+
+        if ($suffix !== null && $suffix !== '') {
+            return esc($name) . '<small>' . esc($suffix) . '</small>';
+        }
+
+        $words = preg_split('/\s+/', $name);
+        if (count($words) < 2) {
+            return esc($name);
+        }
+
+        $small = array_pop($words);
+
+        return esc(implode(' ', $words)) . '<small>' . esc($small) . '</small>';
+    }
+}
+
 if (! function_exists('whatsapp_link')) {
     /**
      * Builds a wa.me deep link. Strips everything but digits from the number,

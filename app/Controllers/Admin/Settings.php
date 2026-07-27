@@ -36,10 +36,10 @@ class Settings extends AdminController
             'whatsappPrefill'  => ['Pre-filled message', 'textarea', "Added ahead of whatever the visitor types."],
         ],
         'Social links' => [
-            'instagram' => ['Instagram URL', 'url', 'Leave as # to hide the icon.'],
-            'facebook'  => ['Facebook URL', 'url'],
-            'tiktok'    => ['TikTok URL', 'url'],
-            'twitter'   => ['X / Twitter URL', 'url'],
+            'instagram' => ['Instagram URL', 'url', 'Optional — leave blank to hide the icon.'],
+            'facebook'  => ['Facebook URL', 'url', 'Optional — leave blank to hide the icon.'],
+            'tiktok'    => ['TikTok URL', 'url', 'Optional — leave blank to hide the icon.'],
+            'twitter'   => ['X / Twitter URL', 'url', 'Optional — leave blank to hide the icon.'],
         ],
         'Homepage hero' => [
             'heroEyebrow' => ['Eyebrow line', 'text'],
@@ -106,7 +106,10 @@ class Settings extends AdminController
                     continue;
                 }
 
-                setting('Site.' . $key, trim((string) $value));
+                // "#" was the old "hidden" sentinel for social links; treat it
+                // as blank so nothing tries to validate or link to it.
+                $value = trim((string) $value);
+                setting('Site.' . $key, $value === '#' ? '' : $value);
             }
         }
 
