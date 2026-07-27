@@ -22,6 +22,8 @@ class Site extends BaseConfig
      * assets/img/logo-nav.png.
      */
     public string $logo        = '';
+    /** The small line under the name in the header logo, e.g. "Adventures". */
+    public string $wordmarkSubtitle = '';
     public string $tagline     = 'Explore and Enjoy';
     public string $strapline   = "We don't just do trips — we make memories that translate to stories worth telling.";
 

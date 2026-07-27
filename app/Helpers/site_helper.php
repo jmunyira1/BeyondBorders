@@ -68,6 +68,25 @@ if (! function_exists('wordmark')) {
             return esc($name) . '<small>' . esc($suffix) . '</small>';
         }
 
+        // An admin-defined subtitle sets the small line explicitly. The big
+        // line is the company name with that subtitle trimmed off the end when
+        // it appears there — so companyName "MOROP GAA Tours and Travel" with
+        // subtitle "Tours and Travel" renders "MOROP GAA" over "Tours and Travel".
+        $subtitle = trim((string) site('wordmarkSubtitle', ''));
+        if ($subtitle !== '') {
+            $main = $name;
+            $tail = mb_substr($name, -mb_strlen($subtitle));
+            if (mb_strtolower($tail) === mb_strtolower($subtitle)) {
+                $main = rtrim(mb_substr($name, 0, mb_strlen($name) - mb_strlen($subtitle)));
+            }
+            if ($main === '') {
+                $main = $name;
+            }
+
+            return esc($main) . '<small>' . esc($subtitle) . '</small>';
+        }
+
+        // Default: set the last word small.
         $words = preg_split('/\s+/', $name);
         if (count($words) < 2) {
             return esc($name);

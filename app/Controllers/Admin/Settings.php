@@ -14,9 +14,10 @@ class Settings extends AdminController
      */
     private const FIELDS = [
         'Identity' => [
-            'companyName' => ['Company name', 'text'],
-            'logo'        => ['Logo', 'image', 'Shown in the site header. PNG or WebP with a transparent background works best — around 200×80px. Leave empty to use the bundled logo.'],
-            'tagline'     => ['Tagline', 'text', 'Shown under the logo in the footer.'],
+            'companyName'      => ['Company name', 'text'],
+            'logo'             => ['Logo', 'image', 'Shown in the site header. PNG or WebP with a transparent background works best — around 200×80px. Leave empty to use the bundled logo.'],
+            'wordmarkSubtitle' => ['Logo subtitle', 'text', 'The small line under the name in the header, e.g. "Tours and Travel". Leave blank to use the last word of the company name.'],
+            'tagline'          => ['Tagline', 'text', 'Shown under the logo in the footer.'],
             'strapline'   => ['Strapline / motto', 'textarea', 'The quoted line on the homepage and about page.'],
         ],
         'Contact details' => [
