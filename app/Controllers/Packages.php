@@ -236,7 +236,8 @@ class Packages extends BaseController
             ]);
         }
 
-        (new EnquiryModel())->insert([
+        $enquiries = new EnquiryModel();
+        $enquiries->insert([
             'type'         => 'booking',
             'package_id'   => $package['id'],
             'name'         => $this->request->getPost('name'),
@@ -251,11 +252,20 @@ class Packages extends BaseController
             'user_agent'   => substr((string) $this->request->getUserAgent(), 0, 255),
         ]);
 
-        return view('partials/form_success', [
-            'heading' => 'Enquiry sent',
-            'message' => 'Thank you — we have your enquiry for <strong>' . esc($package['title'])
-                . '</strong> and will come back to you with availability and a written quote within 24 hours.',
-            'raw'     => true,
+        // A human-readable booking reference derived from the row id — stable,
+        // no schema change. The receipt is a confirmation of the request, not a
+        // payment receipt: no money changes hands until a gateway is added.
+        $reference = 'BBA-' . date('Y') . '-'
+            . str_pad((string) $enquiries->getInsertID(), 4, '0', STR_PAD_LEFT);
+
+        return view('packages/_receipt', [
+            'package'   => $package,
+            'reference' => $reference,
+            'name'      => (string) $this->request->getPost('name'),
+            'email'     => (string) $this->request->getPost('email'),
+            'phone'     => (string) $this->request->getPost('phone'),
+            'people'    => (string) $this->request->getPost('people'),
+            'dates'     => (string) $this->request->getPost('travel_dates'),
         ]);
     }
 }

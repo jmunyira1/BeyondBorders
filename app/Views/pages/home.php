@@ -97,6 +97,32 @@
 </section>
 <?php endif; ?>
 
+<!-- Ways to explore — photographic campaign tiles -->
+<?php if ($categories !== []): ?>
+<section class="pt-0">
+  <div class="container">
+    <div class="bb-rowhead">
+      <h2>Ways to explore Kenya</h2>
+      <a href="<?= url_to('packages') ?>" class="bb-link">All trips&nbsp;→</a>
+    </div>
+    <div class="bb-campaign<?= count($categories) === 3 ? ' bb-campaign--3' : '' ?>">
+      <?php foreach (array_slice($categories, 0, 4) as $category): ?>
+        <a class="bb-tile" href="<?= url_to('packages') ?>?category=<?= esc($category['slug'], 'url') ?>">
+          <?php // Placeholder photography, seeded per category for stability,
+                // until real category images are uploaded. ?>
+          <img src="https://picsum.photos/seed/bba-<?= esc($category['slug'], 'attr') ?>/800/1000"
+               alt="<?= esc($category['name']) ?> trips in Kenya" loading="lazy" width="800" height="1000">
+          <span class="bb-tile__label">
+            <span class="bb-tile__name"><?= esc($category['name']) ?></span>
+            <span class="bb-tile__go">Explore <i class="bi bi-arrow-right" aria-hidden="true"></i></span>
+          </span>
+        </a>
+      <?php endforeach; ?>
+    </div>
+  </div>
+</section>
+<?php endif; ?>
+
 <!-- Intro — who we are, after the trips have made the case -->
 <section class="section-sand">
   <div class="container">

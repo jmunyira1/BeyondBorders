@@ -70,8 +70,13 @@ class Security extends BaseConfig
      * --------------------------------------------------------------------------
      *
      * Regenerate CSRF Token on every submission.
+     *
+     * Off: one token stays valid for the session, so htmx can reuse it across
+     * the many swaps on a single admin page (gallery, testimonials, FAQs…).
+     * With this on, the DOM token goes stale after the first swap and every
+     * subsequent action is rejected (403).
      */
-    public bool $regenerate = true;
+    public bool $regenerate = false;
 
     /**
      * --------------------------------------------------------------------------

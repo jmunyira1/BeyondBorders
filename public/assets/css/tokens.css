@@ -34,8 +34,10 @@
   --color-scrim:        linear-gradient(180deg, oklch(22% 0.02 55 / 0.18), oklch(16% 0.02 55 / 0.62));
 
   /* ---- Type -------------------------------------------------- */
-  --font-display: "Fraunces", ui-serif, Georgia, serif;
-  --font-body:    "Switzer", ui-sans-serif, system-ui, sans-serif;
+  /* Kenya Wonder re-theme: single rounded humanist sans, weight-contrasted —
+     the Magical-Kenya feel without the banned Poppins default. */
+  --font-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-body:    "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
 
   --text-xs:   0.8rem;
   --text-sm:   0.875rem;

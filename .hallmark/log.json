@@ -1,5 +1,25 @@
 [
  {
+  "date": "2026-07-27",
+  "scope": "app",
+  "macrostructure": "Photographic (marketing) / Photo-Catalogue (listings) / Long Document (content)",
+  "theme": "custom",
+  "theme_axes": "light / rounded-sans / warm (40)",
+  "vibe": "Kenya Wonder - image-forward destination marketing",
+  "enrichment": "photographic hero + campaign tiles",
+  "studied": "https://magicalkenya.com (spirit only)",
+  "brief": "Full re-theme to magicalkenya.com spirit: Plus Jakarta Sans (not Poppins), promo bar, amplified photo hero, campaign tiles; kept terracotta + two-row masthead (menu own row, horizontal to 768px, not hamburger), giant 112px hero headline, uppercase section titles + mobile bottom tab bar (no hamburger, 5 icon tabs like Magical Kenya)"
+ },
+ {
+  "date": "2026-07-22",
+  "scope": "app",
+  "macrostructure": "(unchanged) Long Document \u2014 package detail",
+  "theme": "custom",
+  "theme_axes": "light / roman-serif / warm (40)",
+  "enrichment": "none",
+  "brief": "Package detail: un-stuck the booking card (was sticky, blocked content); added payment-methods placeholder + printable booking receipt with BBA-year-id reference on submit"
+ },
+ {
   "date": "2026-07-22",
   "scope": "app",
   "macrostructure": "(unchanged) Marquee Hero / Catalogue / Long Document",

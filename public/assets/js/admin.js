@@ -19,10 +19,14 @@
   }
   if (backdrop) backdrop.addEventListener('click', closeSide);
 
-  /* ---------------- CSRF on every htmx request ---------------- */
+  /* ---------------- CSRF on every htmx request ----------------
+     Sent via the X-CSRF-TOKEN header, which CodeIgniter validates
+     regardless of the configured token field name. The admin edit
+     forms carry no hidden CSRF field, so this injection is what
+     authenticates every add / edit / delete. */
   document.body.addEventListener('htmx:configRequest', function (evt) {
     var meta = document.querySelector('meta[name="csrf-token"]');
-    if (meta) evt.detail.parameters['csrf_token'] = meta.content;
+    if (meta) evt.detail.headers['X-CSRF-TOKEN'] = meta.content;
   });
 
   /* ---------------- Toasts ----------------

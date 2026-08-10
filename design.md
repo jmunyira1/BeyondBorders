@@ -11,12 +11,17 @@ its own look.
 
 ## Genre
 
-editorial — a Kenyan travel journal, not a SaaS template. Stillness is the brand:
-no scroll reveals, no card lifts, no decorative motion.
+photographic-marketing — image-forward Kenyan destination site (re-themed
+2026-07-27 to the *spirit* of magicalkenya.com: big full-bleed hero, promo bar,
+campaign tiles, editorial photo-card grids). Studied from that URL for structure
+only — no content, photos, or branding copied. Refused from the reference:
+Poppins, uncontrolled auto-sliders, Elementor tiles.
 
-## Theme — "Sunset Savanna" (custom)
+## Theme — "Kenya Wonder" (custom · re-theme of Sunset Savanna)
 
-Vibe: golden-hour grassland, warm dust, big sky.
+Vibe: golden-hour grassland, warm dust, big sky — now sans-set and image-forward.
+The palette below is unchanged (terracotta kept per the redesign brief); the type
+and structure carry the re-theme.
 
 - `--color-paper`      `oklch(96% 0.015 75)` — warm ivory
 - `--color-paper-2`    `oklch(93.5% 0.017 75)` — panels, image mats
@@ -39,31 +44,38 @@ Vibe: golden-hour grassland, warm dust, big sky.
 
 WhatsApp widget only: `--color-whatsapp: #25d366`, `--color-whatsapp-ink: #ffffff`.
 
-Axes: **light / roman-serif / warm (40°)**. Accent footprint ≤ 5% per viewport —
+Axes: **light / rounded-sans / warm (40°)**. Accent footprint ≤ 5% per viewport —
 one filled primary CTA per view, active states, link underlines. WhatsApp brand
 green (`#25d366`) is exempt inside the WhatsApp widget only.
 
 ## Macrostructure family
 
-- Marketing pages (home, custom trips, about): **Marquee Hero** — H6 photographic
-  fold on home; the below-fold becomes catalogue grids and prose. Sub-pages open
-  with a quiet masthead-style page head (title + one line), not a photo banner.
-- Listing pages (packages, gallery, blog): **Catalogue** — uniform grids, hairline
-  rules, no hero. The inventory is the design.
+- Marketing pages (home, custom trips, about): **Photographic** — amplified
+  full-bleed photo hero (`.bb-fold`, ~82svh), a promo announcement bar above the
+  nav, and **campaign tiles** (`.bb-campaign` / `.bb-tile` — photo + overlaid
+  label) plus image-forward card grids. Sub-pages open with a masthead page head.
+- Listing pages (packages, gallery, blog): **Photo-Catalogue** — image-forward
+  card grids (`.bb-item`), pill category filters, hairline rules.
 - Content pages (package detail, post detail, contact, legal): **Long Document** —
-  65ch measure, inline heads, generous line-height, spec-sheet meta tables.
+  65ch measure, inline heads, spec-sheet meta tables.
 
-Nav: **N6 newspaper-masthead adapted** — sticky bar, Fraunces wordmark, small-caps
-link row, double-rule underline; Bootstrap collapse retained for mobile.
-Footer: **Ft5 Statement** on basalt — one Fraunces closing sentence, slim link row,
-contact line, copyright.
+Nav: **two-row masthead** (Magical-Kenya shape) — a promo strip (scrolls away),
+then Row A (logo left · phone + Book-now right) and Row B (the full horizontal
+menu as its own centered row beneath). The menu stays horizontal down to 48rem
+(768px); the whole header sticks as one unit. **On phones (<48rem) there is no
+hamburger** — navigation is a fixed **bottom tab bar** (`.bb-tabbar`, Magical-
+Kenya style: 5 icon-over-label tabs — Home · Tours · Custom · Gallery · Contact —
+active tab in accent). Body gets bottom padding to clear it and the WhatsApp
+launcher floats above it. Hero uses a **giant display headline** (clamp up to 7rem, weight 800)
+over the full-bleed image. Section row-heads are **uppercase, weight 800**.
+Footer: **Ft5 Statement** on basalt.
 
 ## Typography
 
-- Display: **Fraunces** (Google, variable opsz/wght), weight 500–600, style normal.
-  Italic headers are banned; the strapline pull-quote is roman too.
-- Body: **Switzer** (Fontshare), 400; UI/labels 500.
-- No third family. Prices and figures use `font-variant-numeric: tabular-nums`.
+- Single family: **Plus Jakarta Sans** (Google), weight-contrasted — 800 for
+  display heads, 700 for headings, 500 for UI/labels, 400 body. Rounded humanist
+  sans: the Magical-Kenya feel without the banned **Poppins** default. Roman only
+  (italic headers banned). Prices/figures use `font-variant-numeric: tabular-nums`.
 - Display tracking: −0.02em. Small-caps labels: 0.1em tracking, uppercase.
 - Scale (1.25): 0.8 / 1 / 1.25 / 1.5625 / 1.9531 / 2.4414 rem.
   `--text-display: clamp(2.75rem, 5vw + 1rem, 5rem)`,
@@ -88,7 +100,9 @@ sections tighter (`--space-2xl`), statement bands generous (`--space-3xl`).
 - Touch: 44px minimum hit targets on coarse pointers (nav links, footer
   links, typographic CTAs); `viewport-fit=cover` + `env(safe-area-inset-*)`
   on the footer and the WhatsApp launcher.
-- Sticky behaviour (booking card) exists only from 60rem — phones scroll flat.
+- The booking card is not sticky — it holds the full booking form (taller than
+  a laptop viewport), so it scrolls with the page rather than pinning and
+  covering adjacent content.
 - Bootstrap's own grid utilities (`col-lg-*`, `navbar-expand-lg`) stay on
   Bootstrap's px breakpoints; Hallmark rules use rem breakpoints.
 
@@ -139,6 +153,20 @@ sections tighter (`--space-2xl`), statement bands generous (`--space-3xl`).
   radius, 44px height, paper fill; hover = paper-2 fill + darker border;
   active = ink fill with paper text. They must read as pressable — never
   bare text links. Harmonise with the `.bba-chip` active-filter pills.
+
+## Payment & receipts (placeholder — real gateway pending)
+
+- The package page shows a **payment-methods placeholder** in the booking card
+  (M-Pesa · Bank transfer · Card) with an honest "no payment now" line. No card
+  data is collected in-page; a real gateway (M-Pesa Daraja / Pesapal / Stripe)
+  is a later addition and must collect card details on the provider's hosted
+  page, never ours.
+- On a successful booking submit, the form swaps to a **printable receipt**
+  (`packages/_receipt`): a booking reference `BBA-<year>-<id>`, package/price/
+  traveller details, editable pay instructions (`Site.paymentInstructions`), and
+  a print button (`[data-print]` → `window.print()`, isolated via `@media print`).
+- The receipt is labelled a **booking-request confirmation, not a payment
+  receipt** — it must never claim money was received until a real charge occurs.
 
 ## Per-page allowances
 

@@ -36,6 +36,15 @@ class Settings extends AdminController
             'whatsappGreeting' => ['Greeting message', 'textarea', 'The bubble shown when the card opens.'],
             'whatsappPrefill'  => ['Pre-filled message', 'textarea', "Added ahead of whatever the visitor types."],
         ],
+        'Announcement bar' => [
+            'promoEnabled'  => ['Show the announcement bar', 'bool'],
+            'promoText'     => ['Announcement text', 'text', 'The slim strip above the menu. Leave blank to hide it.'],
+            'promoLinkText' => ['Button label', 'text'],
+            'promoLink'     => ['Button link', 'url', 'Full URL. Leave blank to link to the packages page.'],
+        ],
+        'Payment' => [
+            'paymentInstructions' => ['How to pay', 'textarea', 'Shown on the booking receipt — e.g. "M-Pesa Paybill 123456, account: your name" or bank details. Leave blank for a generic "we\'ll send details" message. (A real payment gateway comes later.)'],
+        ],
         'Social links' => [
             'instagram' => ['Instagram URL', 'url', 'Optional — leave blank to hide the icon.'],
             'facebook'  => ['Facebook URL', 'url', 'Optional — leave blank to hide the icon.'],

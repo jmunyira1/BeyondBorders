@@ -96,6 +96,15 @@
               <?php endif; ?>
             </ul>
           </div>
+          <div class="p-4 bb-paymethods">
+            <p class="bb-meta mb-2">Payment</p>
+            <ul class="bb-paymethods__list">
+              <li><i class="bi bi-phone" aria-hidden="true"></i>M-Pesa</li>
+              <li><i class="bi bi-bank" aria-hidden="true"></i>Bank transfer</li>
+              <li><i class="bi bi-credit-card" aria-hidden="true"></i>Card</li>
+            </ul>
+            <p class="bb-paymethods__note mb-0">No payment now — we confirm availability first, then send payment details with your quote.</p>
+          </div>
         </div>
 
         <div class="mt-4">

@@ -62,6 +62,21 @@ class Site extends BaseConfig
     public string $vision       = "To become Kenya's most trusted and preferred travel and adventure company, showcasing Kenya as a destination of endless beauty, unforgettable experiences, and world-class adventures.";
     public string $mission      = 'To deliver world-class travel experiences through exceptional service, unforgettable adventures, and sustainable tourism while creating lasting memories for every traveler.';
 
+    // --- Announcement bar ---------------------------------------------------
+    /** Slim promo strip above the nav. Hidden when disabled or the text is blank. */
+    public bool $promoEnabled     = true;
+    public string $promoText      = 'Ready-to-book Kenyan safaris, beaches and treks — clearly priced.';
+    public string $promoLinkText  = 'Explore packages';
+    /** Full URL. Blank links to the packages page. */
+    public string $promoLink      = '';
+
+    // --- Payment ------------------------------------------------------------
+    /**
+     * Shown on the booking receipt and package page. Placeholder for now — a
+     * real gateway comes later. e.g. "M-Pesa Paybill 123456, account: your name".
+     */
+    public string $paymentInstructions = '';
+
     // --- Notifications ------------------------------------------------------
     /** Where new enquiry notifications are sent. Blank disables the email. */
     public string $notifyEmail = 'info@beyondbordersadventures.co.ke';

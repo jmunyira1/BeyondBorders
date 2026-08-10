@@ -325,6 +325,17 @@
   })();
 
   /* ----------------------------------------------------------
+     Print — for the booking receipt's "Print / save" button.
+     Delegated, so it works on the fragment htmx swaps in.
+     ---------------------------------------------------------- */
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('[data-print]')) {
+      e.preventDefault();
+      window.print();
+    }
+  });
+
+  /* ----------------------------------------------------------
      Forms — disable submit while a request is in flight
      ---------------------------------------------------------- */
   document.body.addEventListener('htmx:beforeRequest', function (e) {
