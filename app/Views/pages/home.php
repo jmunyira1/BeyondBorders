@@ -63,7 +63,48 @@
         JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT
     ) ?></script>
 
-    <?php // Category shortcuts belong to the search — one discovery block. ?>
+      <!-- How it works -->
+      <section class="mt-6" aria-labelledby="how-it-works-title">
+          <h2 id="how-it-works-title">How it works</h2>
+
+          <ol class="mt-4 space-y-4">
+              <li>
+                  <strong>Tell us your preferences</strong>
+                  <p class="bb-meta mt-1">
+                      We tailor-make a good trip for you and send you a quote.
+                  </p>
+                  <a href="mailto:your-email@example.com">Email us →</a>
+              </li>
+
+              <li>
+                  <strong>Buy a ticket for a trip already planned</strong>
+                  <p class="bb-meta mt-1">
+                      Choose from one of our already planned trips and book your ticket.
+                  </p>
+                  <a href="<?= url_to('packages') ?>">Buy tickets →</a>
+              </li>
+
+              <li>
+                  <strong>Subscribe to our social media platforms</strong>
+                  <p class="bb-meta mt-1">
+                      Stay updated with our latest trips, offers and adventures.
+                  </p>
+
+                  <div class="bb-index mt-2">
+                      <a href="#">Facebook</a>
+                      <a href="#">Instagram</a>
+                      <a href="#">TikTok</a>
+                      <a href="#">X</a>
+                  </div>
+              </li>
+          </ol>
+
+          <div class="mt-4">
+              <a href="https://wa.me/YOURNUMBER" class="bb-button">
+                  WhatsApp us
+              </a>
+          </div>
+      </section>
     <?php if ($categories !== []): ?>
       <nav class="mt-4" aria-label="Browse by category">
         <p class="bb-meta mb-2">Or browse by category</p>
