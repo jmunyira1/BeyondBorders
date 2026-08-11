@@ -63,6 +63,26 @@
   </div>
 </section>
 
+<!-- Experience highlights (client design) — what every trip delivers -->
+<section>
+  <div class="container">
+    <div class="bb-highlights">
+      <?php foreach ([
+          ['bi-camera',     'Beautiful photos'],
+          ['bi-binoculars', 'Scenic views'],
+          ['bi-tree',       'Short nature hikes'],
+          ['bi-cup-hot',    'Amazing food'],
+          ['bi-buildings',  'Unforgettable hotels'],
+      ] as [$icon, $label]): ?>
+        <div class="bb-highlight">
+          <span class="bb-highlight__icon"><i class="bi <?= $icon ?>" aria-hidden="true"></i></span>
+          <span class="bb-highlight__label"><?= esc($label) ?></span>
+        </div>
+      <?php endforeach; ?>
+    </div>
+  </div>
+</section>
+
 <!-- Ways to explore — photographic category tiles -->
 <?php if ($categories !== []): ?>
 <section>
@@ -126,27 +146,37 @@
       <div class="col-md-4">
         <div class="bb-step">
           <span class="num">01</span>
-          <h3>Tell us your plan</h3>
-          <p class="text-body-secondary">Where, when, how many people and roughly what budget — through the form, WhatsApp or a quick call. We tailor-make it and send a clear quote within 24 hours.</p>
-          <a class="bb-link" href="<?= url_to('custom-trips') ?>">Plan a custom trip&nbsp;→</a>
+          <h3>Tell us your preferences</h3>
+          <p class="text-body-secondary">We tailor-make a good trip for you and send you a clear, all-inclusive quote — usually within 24 hours.</p>
+          <a class="bb-link" href="<?= url_to('contact') ?>">Email us&nbsp;→</a>
         </div>
       </div>
       <div class="col-md-4">
         <div class="bb-step">
           <span class="num">02</span>
-          <h3>Or pick a ready-made trip</h3>
-          <p class="text-body-secondary">Browse our clearly-priced packages — every inclusion spelled out — and choose the journey that fits your dates and budget.</p>
-          <a class="bb-link" href="<?= url_to('packages') ?>">Browse packages&nbsp;→</a>
+          <h3>Buy a ticket for a planned trip</h3>
+          <p class="text-body-secondary">Prefer something ready to go? Choose from our clearly-priced, already-planned trips and book your place.</p>
+          <a class="bb-link" href="<?= url_to('packages') ?>">Buy ticket&nbsp;→</a>
         </div>
       </div>
       <div class="col-md-4">
         <div class="bb-step">
           <span class="num">03</span>
-          <h3>Confirm and travel</h3>
-          <p class="text-body-secondary">Pay securely by M-Pesa or bank transfer with written confirmation. We handle transport, stays and activities — you just show up.</p>
-          <button type="button" class="bb-link bb-link--btn" data-wa-open="Hi Beyond Borders, I'd like to plan a trip.">Chat on WhatsApp&nbsp;→</button>
+          <h3>Subscribe on social media</h3>
+          <p class="text-body-secondary">Stay updated with our latest trips, offers and adventures.</p>
+          <div class="bb-socials mt-1">
+            <a href="<?= esc(site('facebook', '#'), 'attr') ?>" target="_blank" rel="noopener"><i class="bi bi-facebook" aria-hidden="true"></i>Facebook</a>
+            <a href="<?= esc(site('instagram', '#'), 'attr') ?>" target="_blank" rel="noopener"><i class="bi bi-instagram" aria-hidden="true"></i>Instagram</a>
+            <a href="<?= esc(site('tiktok', '#'), 'attr') ?>" target="_blank" rel="noopener"><i class="bi bi-tiktok" aria-hidden="true"></i>TikTok</a>
+            <a href="<?= esc(site('twitter', '#'), 'attr') ?>" target="_blank" rel="noopener"><i class="bi bi-twitter-x" aria-hidden="true"></i>X</a>
+          </div>
         </div>
       </div>
+    </div>
+    <div class="mt-4 mt-lg-5">
+      <button type="button" class="btn btn-bba-green" data-wa-open="Hi, I'd like to plan a trip.">
+        <i class="bi bi-whatsapp me-2" aria-hidden="true"></i>Chat with us on WhatsApp
+      </button>
     </div>
   </div>
 </section>
@@ -183,16 +213,20 @@
   </div>
 </section>
 
-<!-- Statement band -->
+<!-- Contact band (client design) — "stories worth telling" -->
 <section class="bb-band">
   <div class="container">
-    <h2>Ready for the adventure of a lifetime?</h2>
-    <p>Private safaris, honeymoons, corporate staff retreats and cultural events — tell us the occasion, the group and the budget, and we plan the whole journey end to end.</p>
+    <h2>Allow us to make your stories worth telling.</h2>
+    <p>Buy a ticket, sit back and relax, and let us plan your whole experience — beautiful photos, scenic views, short nature hikes, amazing food and unforgettable hotels.</p>
     <div class="d-flex flex-wrap gap-3 mb-4">
-      <a href="<?= url_to('custom-trips') ?>" class="btn btn-bba-gold">Plan a custom trip</a>
-      <a href="<?= url_to('contact') ?>" class="btn btn-bba-outline-light">Talk to us</a>
+      <a href="<?= url_to('custom-trips') ?>" class="btn btn-bba-gold">Plan my trip</a>
+      <a href="sms:<?= esc(site('phoneLink'), 'attr') ?>" class="btn btn-bba-outline-light"><i class="bi bi-chat-text me-2" aria-hidden="true"></i>Text us</a>
+      <button type="button" class="btn btn-bba-outline-light" data-wa-open="Hi, I'd like to plan a trip."><i class="bi bi-whatsapp me-2" aria-hidden="true"></i>WhatsApp</button>
     </div>
-    <p class="bb-meta mb-0"><i class="bi bi-telephone me-2" aria-hidden="true"></i><a href="tel:<?= esc(site('phoneLink'), 'attr') ?>"><?= esc(site('phone')) ?></a></p>
+    <p class="bb-meta mb-0 d-flex flex-wrap gap-3">
+      <a href="mailto:<?= esc(site('email'), 'attr') ?>"><i class="bi bi-envelope me-2" aria-hidden="true"></i><?= esc(site('email')) ?></a>
+      <a href="tel:<?= esc(site('phoneLink'), 'attr') ?>"><i class="bi bi-telephone me-2" aria-hidden="true"></i><?= esc(site('phone')) ?></a>
+    </p>
   </div>
 </section>
 

@@ -562,6 +562,36 @@ section { padding-block: var(--space-xl); }
 }
 
 /* ------------------------------------------------------------
+   Experience highlights strip — icon + label (client home design)
+   ------------------------------------------------------------ */
+.bb-highlights {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-lg) var(--space-md);
+}
+@media (min-width: 36rem) { .bb-highlights { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 60rem) { .bb-highlights { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+.bb-highlight { display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--space-xs); }
+.bb-highlight__icon {
+  width: 3.5rem; height: 3.5rem; display: grid; place-items: center;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary-tint); color: var(--color-primary);
+  font-size: 1.4rem;
+}
+.bb-highlight__label { font-weight: 600; font-size: var(--text-sm); color: var(--color-ink); line-height: 1.25; }
+
+/* Inline social row (how-it-works step 3, contact band) */
+.bb-socials { display: flex; flex-wrap: wrap; gap: var(--space-sm) var(--space-lg); }
+.bb-socials a {
+  display: inline-flex; align-items: center; gap: var(--space-2xs);
+  color: var(--color-ink-2); text-decoration: none; font-weight: 600; font-size: var(--text-sm);
+}
+.bb-socials a:hover { color: var(--color-primary); }
+.bb-socials i { color: var(--color-accent); font-size: 1.1rem; }
+/* On a dark band, lift the social colours. */
+.bb-band .bb-socials a { color: var(--color-basalt-ink); }
+.bb-band .bb-socials a:hover { color: var(--color-accent); }
+
+/* ------------------------------------------------------------
    Statement band (basalt) — CTA close
    ------------------------------------------------------------ */
 .bb-band { background: var(--color-basalt); color: var(--color-basalt-muted); padding-block: var(--space-2xl); }

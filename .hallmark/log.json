@@ -2,6 +2,14 @@
  {
   "date": "2026-08-10",
   "scope": "app",
+  "macrostructure": "Photographic (home, client-directed)",
+  "theme": "custom Safari Fresh",
+  "enrichment": "photographic hero + campaign tiles + highlights strip",
+  "brief": "Home rebuilt to client hand-sketch: hero Karibu Kenya + tagline; 5 experience highlights (photos/views/hikes/food/hotels); How-it-works exact 3 steps (preferences+quote, buy ticket, subscribe social FB/IG/TikTok/X); stories-worth-telling contact band with Text(sms)+WhatsApp+email/phone. WCAG-verified, mobile clean"
+ },
+ {
+  "date": "2026-08-10",
+  "scope": "app",
   "macrostructure": "Photographic (home refined)",
   "theme": "custom Safari Fresh",
   "enrichment": "photographic hero + campaign tiles",
