@@ -123,6 +123,34 @@ $checked = static fn (string $k, bool $default): string => (
       </div>
 
       <div class="bba-panel mb-3">
+        <div class="bba-panel-head"><h2>Availability &amp; booking</h2></div>
+        <div class="bba-panel-body">
+          <div class="mb-3">
+            <label class="form-label" for="f-availability">Availability</label>
+            <select class="form-select" id="f-availability" name="availability">
+              <?php foreach (\App\Models\PackageModel::AVAILABILITY as $key => $label): ?>
+                <option value="<?= esc($key, 'attr') ?>" <?= ($package['availability'] ?? 'available') === $key ? 'selected' : '' ?>><?= esc($label) ?></option>
+              <?php endforeach; ?>
+            </select>
+            <div class="form-text">“Sold out” and “Coming soon” turn the booking form into a waitlist / interest form.</div>
+          </div>
+          <div class="row g-2 mb-0">
+            <div class="col-6">
+              <label class="form-label" for="f-spots">Spots left</label>
+              <input class="form-control" id="f-spots" name="spots_available" type="number" min="0"
+                     value="<?= $v('spots_available') ?>" placeholder="Optional">
+            </div>
+            <div class="col-6">
+              <label class="form-label" for="f-deposit">Deposit (KES)</label>
+              <input class="form-control" id="f-deposit" name="deposit_amount" type="number" step="0.01" min="0"
+                     value="<?= $v('deposit_amount') ?>" placeholder="e.g. 5000">
+            </div>
+          </div>
+          <div class="form-text mt-1">Deposit = minimum payment to secure a spot. Payment details come from Settings → Payment.</div>
+        </div>
+      </div>
+
+      <div class="bba-panel mb-3">
         <div class="bba-panel-head"><h2>Location &amp; lodging</h2></div>
         <div class="bba-panel-body">
           <div class="row g-2 mb-3">

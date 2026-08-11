@@ -14,6 +14,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-4">
+        <p class="bb-meta mb-1">How it works</p>
         <h2 class="mb-4">Three steps to your trip</h2>
       </div>
       <div class="col-lg-8">
@@ -49,6 +50,7 @@
   <div class="container">
     <div class="row g-4 g-lg-5 align-items-start">
       <div class="col-lg-5">
+        <p class="bb-meta mb-1">What we plan</p>
         <h2 class="mb-4">Any occasion, any group size</h2>
         <ul class="list-unstyled d-grid gap-3">
           <li class="d-flex gap-3"><i class="bi bi-binoculars" aria-hidden="true"></i>Private and family safaris, at your own pace</li>

@@ -42,6 +42,9 @@ $payInfo = trim((string) site('paymentInstructions'));
     <div><dt>Email</dt><dd class="bb-receipt__wrap"><?= esc($email) ?></dd></div>
     <div><dt>Phone</dt><dd><?= esc($phone) ?></dd></div>
     <div><dt>Received</dt><dd><?= esc(date('j M Y, H:i')) ?></dd></div>
+    <?php if (! empty($package['deposit_amount']) && (float) $package['deposit_amount'] > 0): ?>
+      <div><dt>Deposit to book</dt><dd class="tabular-nums"><?= esc(money($package['deposit_amount'], $package['currency'])) ?></dd></div>
+    <?php endif; ?>
     <div><dt>Payment</dt><dd>To be arranged</dd></div>
   </dl>
 

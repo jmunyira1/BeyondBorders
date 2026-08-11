@@ -64,12 +64,9 @@
   </div>
 </section>
 
-<section class="bb-band">
-  <div class="container">
-    <h2>Read enough? Time to travel.</h2>
-    <p>Every trip on this site was designed by the same people who write these posts.</p>
-    <a href="<?= url_to('packages') ?>" class="btn btn-bba-gold">Explore packages</a>
-  </div>
-</section>
+<?= view('partials/cta_band', [
+    'ctaHeading' => 'Read enough? Time to travel.',
+    'ctaText'    => 'Every trip on this site was designed by the same people who write these posts.',
+]) ?>
 
 <?= $this->endSection() ?>

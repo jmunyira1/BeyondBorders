@@ -173,6 +173,10 @@ class Packages extends AdminController
             'hotel_rate'      => $money('hotel_rate'),
             'nearby_cottage'  => $text('nearby_cottage'),
             'cottage_rate'    => $money('cottage_rate'),
+            'availability'    => array_key_exists((string) $this->request->getPost('availability'), PackageModel::AVAILABILITY)
+                ? $this->request->getPost('availability') : 'available',
+            'spots_available' => ($s = trim((string) $this->request->getPost('spots_available'))) !== '' ? (int) $s : null,
+            'deposit_amount'  => $money('deposit_amount'),
             'is_featured'     => $this->request->getPost('is_featured') ? 1 : 0,
             'is_active'       => $this->request->getPost('is_active') ? 1 : 0,
             'sort_order'      => (int) ($this->request->getPost('sort_order') ?: 0),

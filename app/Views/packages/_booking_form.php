@@ -11,6 +11,22 @@ $errors ??= [];
 $old    ??= [];
 $val    = static fn (string $k, string $d = ''): string => (string) ($old[$k] ?? $d);
 $bad    = static fn (string $k): string => isset($errors[$k]) ? ' is-invalid' : '';
+
+$avail   = $package['availability'] ?? 'available';
+$deposit = $package['deposit_amount'] ?? null;
+if ($avail === 'sold_out') {
+    $heading = 'Join the waitlist';
+    $intro   = "This trip is fully booked — leave your details and we'll tell you the moment a spot opens up.";
+    $submit  = 'Join the waitlist';
+} elseif ($avail === 'coming_soon') {
+    $heading = 'Register your interest';
+    $intro   = 'This trip opens for booking soon — be the first to know when it does.';
+    $submit  = 'Register interest';
+} else {
+    $heading = 'Enquire about this trip';
+    $intro   = "No payment now — we'll confirm availability and send a written quote.";
+    $submit  = 'Send enquiry';
+}
 ?>
 <form class="bba-form p-4"
       id="booking-form"
@@ -23,8 +39,15 @@ $bad    = static fn (string $k): string => isset($errors[$k]) ? ' is-invalid' : 
       aria-label="Booking enquiry">
   <?= csrf_field() ?>
 
-  <h2 class="h5 mb-1">Enquire about this trip</h2>
-  <p class="text-body-secondary small mb-4">No payment now — we'll confirm availability and send a written quote.</p>
+  <h2 class="h5 mb-1"><?= esc($heading) ?></h2>
+  <p class="text-body-secondary small mb-3"><?= esc($intro) ?></p>
+
+  <?php if ($avail !== 'sold_out' && $avail !== 'coming_soon' && $deposit !== null && (float) $deposit > 0): ?>
+    <div class="bba-alert bb-deposit-note mb-4">
+      <i class="bi bi-shield-check me-1" aria-hidden="true"></i>
+      Secure your spot with a <strong><?= esc(money($deposit, $package['currency'])) ?></strong> deposit. We'll send payment details once we confirm availability.
+    </div>
+  <?php endif; ?>
 
   <?php if ($errors !== []): ?>
     <div class="bba-alert bba-alert-error mb-3" role="alert">
@@ -83,7 +106,7 @@ $bad    = static fn (string $k): string => isset($errors[$k]) ? ' is-invalid' : 
 
   <div class="d-grid gap-2">
     <button class="btn btn-bba-green" type="submit">
-      <span class="bba-btn-label">Send enquiry</span>
+      <span class="bba-btn-label"><?= esc($submit) ?></span>
       <span class="spinner-border spinner-border-sm ms-2 bba-btn-spin" aria-hidden="true"></span>
     </button>
     <a class="btn btn-bba-outline"

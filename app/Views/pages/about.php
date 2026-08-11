@@ -14,6 +14,7 @@
   <div class="container">
     <div class="row g-4 g-lg-5 align-items-center">
       <div class="col-lg-6">
+        <p class="bb-meta mb-1">Our story</p>
         <h2 class="mb-4">A Kenyan company, for travelers everywhere</h2>
         <p>We are a Kenyan travel and adventure company dedicated to creating unforgettable experiences for both local and international travelers. We help you discover Kenya's breathtaking landscapes, incredible wildlife, vibrant cultures and pristine beaches through authentic, safe and memorable journeys.</p>
         <p>Whether you're looking for an exciting safari, a relaxing weekend getaway, a budget-friendly escape, a nature adventure, mountain trekking or an immersive cultural experience, we have the expertise to make your dream adventure a reality.</p>
@@ -62,6 +63,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-4">
+        <p class="bb-meta mb-1">Why book with us</p>
         <h2 class="mb-4">Travel, handled properly.</h2>
       </div>
       <div class="col-lg-8">
@@ -93,7 +95,10 @@
 <section>
   <div class="container">
     <div class="bb-rowhead">
-      <h2>What travelers say</h2>
+      <div>
+        <p class="bb-meta mb-1">Guest words</p>
+        <h2>What travelers say</h2>
+      </div>
     </div>
     <div class="row g-4">
       <?php foreach ($testimonials as $testimonial): ?>
@@ -109,16 +114,6 @@
 </section>
 <?php endif; ?>
 
-<!-- Statement band -->
-<section class="bb-band">
-  <div class="container">
-    <h2>Your next great adventure starts with us.</h2>
-    <p>Browse our ready-to-book journeys, or tell us what you have in mind and we'll design it around you.</p>
-    <div class="d-flex flex-wrap gap-3">
-      <a href="<?= url_to('packages') ?>" class="btn btn-bba-gold">Explore packages</a>
-      <a href="<?= url_to('contact') ?>" class="btn btn-bba-outline-light">Talk to us</a>
-    </div>
-  </div>
-</section>
+<?= view('partials/cta_band', ['ctaHeading' => 'Your next great adventure starts with us.']) ?>
 
 <?= $this->endSection() ?>

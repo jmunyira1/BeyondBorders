@@ -72,15 +72,6 @@
   </div>
 </section>
 
-<section class="bb-band">
-  <div class="container">
-    <h2>Ready when you are.</h2>
-    <p>Browse our ready-to-book packages, or let us design something around your dates and your budget.</p>
-    <div class="d-flex flex-wrap gap-3">
-      <a href="<?= url_to('packages') ?>" class="btn btn-bba-gold">Explore packages</a>
-      <a href="<?= url_to('custom-trips') ?>" class="btn btn-bba-outline-light">Plan a custom trip</a>
-    </div>
-  </div>
-</section>
+<?= view('partials/cta_band', ['ctaHeading' => 'Ready when you are.']) ?>
 
 <?= $this->endSection() ?>

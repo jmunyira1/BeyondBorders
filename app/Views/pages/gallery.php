@@ -31,12 +31,9 @@
   </div>
 </section>
 
-<section class="bb-band">
-  <div class="container">
-    <h2>Picture yourself here.</h2>
-    <p>Every one of these was somebody's ordinary Tuesday. Pick a trip and make it yours.</p>
-    <a href="<?= url_to('packages') ?>" class="btn btn-bba-gold">Explore packages</a>
-  </div>
-</section>
+<?= view('partials/cta_band', [
+    'ctaHeading' => 'Picture yourself here.',
+    'ctaText'    => "Every one of these was somebody's ordinary Tuesday. Pick a trip and make it yours.",
+]) ?>
 
 <?= $this->endSection() ?>

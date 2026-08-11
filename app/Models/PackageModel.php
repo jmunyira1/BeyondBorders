@@ -18,8 +18,23 @@ class PackageModel extends Model
         'price', 'currency', 'group_size',
         'region', 'county', 'entrance_fee',
         'nearby_hotel', 'hotel_rate', 'nearby_cottage', 'cottage_rate',
+        'availability', 'spots_available', 'deposit_amount',
         'is_featured', 'is_active', 'sort_order',
     ];
+
+    /** Booking availability states. Keyed by the value stored in `availability`. */
+    public const AVAILABILITY = [
+        'available'   => 'Available',
+        'limited'     => 'Limited spots',
+        'sold_out'    => 'Sold out',
+        'coming_soon' => 'Coming soon',
+    ];
+
+    /** True when the trip can be booked now (available or limited). */
+    public static function isBookable(?string $availability): bool
+    {
+        return ! in_array($availability, ['sold_out', 'coming_soon'], true);
+    }
 
     protected $validationRules = [
         // Required so the {id} placeholder in the is_unique rule below resolves.

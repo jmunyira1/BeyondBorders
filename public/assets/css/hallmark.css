@@ -340,11 +340,10 @@ section { padding-block: var(--space-xl); }
   text-transform: uppercase;
 }
 
-/* Search band — lifts up onto the bottom of the hero photo on desktop. */
+/* Search band — a raised card just below the hero. (No negative-margin lift:
+   the hero content is bottom-aligned, so a lift collided with its CTAs on wide
+   screens. It sits cleanly below the fold on every viewport now.) */
 .bb-search-section { position: relative; z-index: var(--z-raised); padding-top: var(--space-lg); }
-@media (min-width: 60rem) {
-  .bb-search-section { margin-top: calc(-1 * var(--space-2xl)); padding-top: 0; }
-}
 .bb-search {
   background: var(--color-paper);
   border: var(--rule-hair) solid var(--color-rule);
@@ -447,9 +446,38 @@ section { padding-block: var(--space-xl); }
 .bb-item h3 .stretched-link { color: inherit; text-decoration: none; }
 .bb-item__media {
   display: block;
+  position: relative;
   aspect-ratio: 4 / 3;
   overflow: hidden;
   background: var(--color-paper-2);
+}
+
+/* Availability badge (over a card image or in the booking card) */
+.bb-badge {
+  display: inline-flex; align-items: center; gap: var(--space-3xs);
+  padding: 0.2rem var(--space-sm);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.02em;
+  line-height: 1.2; white-space: nowrap;
+}
+.bb-item__media .bb-badge {
+  position: absolute; top: var(--space-sm); left: var(--space-sm); z-index: 1;
+  box-shadow: var(--shadow-whisper);
+}
+.bb-badge--limited     { background: var(--color-accent);  color: var(--color-accent-ink); }
+.bb-badge--sold-out    { background: var(--color-ink);     color: var(--color-paper); }
+.bb-badge--coming-soon { background: var(--color-primary); color: var(--color-primary-ink); }
+.bb-badge--available   { background: var(--color-primary-tint); color: var(--color-primary); }
+/* "X spots left" — green primary passes AA on white as small text. */
+.bb-spots { font-size: var(--text-xs); font-weight: 600; color: var(--color-primary); }
+/* Deposit line (booking card) + note (booking form) */
+.bb-deposit { font-size: var(--text-sm); color: var(--color-ink); }
+.bb-deposit i, .bb-deposit-note i { color: var(--color-primary); }
+.bb-deposit-note {
+  background: var(--color-primary-tint);
+  border-color: var(--color-primary);
+  color: var(--color-ink);
+  font-size: var(--text-sm);
 }
 .bb-item__media img {
   width: 100%; height: 100%; object-fit: cover;

@@ -1,5 +1,21 @@
 [
  {
+  "date": "2026-08-11",
+  "scope": "app",
+  "macrostructure": "feature",
+  "theme": "custom Safari Fresh",
+  "enrichment": "none",
+  "brief": "Availability + booking deposit for packages: migration (availability status, spots_available, deposit_amount); admin Availability&booking panel; card badges (Limited/Sold out/Coming soon, AA-verified) + spots-left; detail deposit line + spots; booking form adapts (sold_out->waitlist, coming_soon->register interest) + deposit note; receipt deposit line. Payment stays off-site (bank now, M-Pesa later)"
+ },
+ {
+  "date": "2026-08-10",
+  "scope": "app",
+  "macrostructure": "site-wide consistency pass",
+  "theme": "custom Safari Fresh",
+  "enrichment": "none",
+  "brief": "Fixed desktop search (removed negative-margin lift that collided with hero CTAs on wide screens). Aligned all-page workflow to the how-it-works 3 paths via shared partials/cta_band (Plan custom trip / Buy a ticket / WhatsApp + email+phone) on about/packages/gallery/blog/contact. Added eyebrow section-heads to about + custom-trips for consistency. WCAG-verified, mobile clean"
+ },
+ {
   "date": "2026-08-10",
   "scope": "app",
   "macrostructure": "Photographic (home, client-directed)",

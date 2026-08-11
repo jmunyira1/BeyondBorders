@@ -71,11 +71,26 @@
       </div>
 
       <div class="col-lg-4">
+        <?php
+        $avail    = $package['availability'] ?? 'available';
+        $bookable = \App\Models\PackageModel::isBookable($avail);
+        $spots    = $package['spots_available'] ?? null;
+        $deposit  = $package['deposit_amount'] ?? null;
+        ?>
         <div class="bba-booking-card">
           <div class="price-row p-4">
+            <?php if ($avail !== 'available'): ?>
+              <span class="bb-badge bb-badge--<?= esc(str_replace('_', '-', $avail), 'attr') ?> mb-2"><?= esc(\App\Models\PackageModel::AVAILABILITY[$avail] ?? '') ?></span>
+            <?php endif; ?>
             <p class="bb-meta mb-1">From</p>
             <p class="amount mb-0"><?= esc(money($package['price'], $package['currency'])) ?></p>
             <p class="text-body-secondary small mb-0">per person, sharing</p>
+            <?php if ($deposit !== null && (float) $deposit > 0): ?>
+              <p class="bb-deposit mt-2 mb-0"><i class="bi bi-shield-check me-1" aria-hidden="true"></i>Secure your spot from <strong><?= esc(money($deposit, $package['currency'])) ?></strong> deposit</p>
+            <?php endif; ?>
+            <?php if ($bookable && $spots !== null && (int) $spots > 0): ?>
+              <p class="bb-spots mt-1 mb-0"><?= (int) $spots ?> spot<?= (int) $spots === 1 ? '' : 's' ?> left</p>
+            <?php endif; ?>
           </div>
           <div class="p-4">
             <ul class="bba-meta-list mb-0">

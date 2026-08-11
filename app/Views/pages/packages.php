@@ -136,13 +136,10 @@
   </div>
 </section>
 
-<section class="bb-band">
-  <div class="container">
-    <h2>Don't see the trip you had in mind?</h2>
-    <p>Every journey here can be adjusted — dates, group size, comfort level — or we can design one from scratch around your plans.</p>
-    <a href="<?= url_to('custom-trips') ?>" class="btn btn-bba-gold">Plan a custom trip</a>
-  </div>
-</section>
+<?= view('partials/cta_band', [
+    'ctaHeading' => "Don't see the trip you had in mind?",
+    'ctaText'    => 'Every journey here can be adjusted — dates, group size, comfort level — or we can design one from scratch around your plans.',
+]) ?>
 
 <?= $this->endSection() ?>
 
