@@ -82,6 +82,12 @@
               <?php if ($package['duration_label']): ?>
                 <li><span class="k">Duration</span><span class="v"><?= esc($package['duration_label']) ?></span></li>
               <?php endif; ?>
+              <?php if (! empty($package['region'])): ?>
+                <li><span class="k">Region</span><span class="v"><?= esc($package['region']) ?></span></li>
+              <?php endif; ?>
+              <?php if (! empty($package['county'])): ?>
+                <li><span class="k">County</span><span class="v"><?= esc($package['county']) ?></span></li>
+              <?php endif; ?>
               <?php if ($package['destination_name']): ?>
                 <li><span class="k">Destination</span><span class="v"><?= esc($package['destination_name']) ?></span></li>
               <?php endif; ?>
@@ -90,6 +96,21 @@
               <?php endif; ?>
               <?php if ($package['tour_type_name']): ?>
                 <li><span class="k">Tour type</span><span class="v"><?= esc($package['tour_type_name']) ?></span></li>
+              <?php endif; ?>
+              <?php if (isset($package['entrance_fee']) && $package['entrance_fee'] !== null && (float) $package['entrance_fee'] > 0): ?>
+                <li><span class="k">Entrance fee</span><span class="v"><?= esc(money($package['entrance_fee'], $package['currency'])) ?></span></li>
+              <?php endif; ?>
+              <?php if (! empty($package['nearby_hotel'])): ?>
+                <li><span class="k">Nearby hotel</span><span class="v"><?= esc($package['nearby_hotel']) ?></span></li>
+              <?php endif; ?>
+              <?php if (isset($package['hotel_rate']) && $package['hotel_rate'] !== null && (float) $package['hotel_rate'] > 0): ?>
+                <li><span class="k">Hotel rate</span><span class="v"><?= esc(money($package['hotel_rate'], $package['currency'])) ?> <small class="text-body-secondary">/ night</small></span></li>
+              <?php endif; ?>
+              <?php if (! empty($package['nearby_cottage'])): ?>
+                <li><span class="k">Nearby cottage</span><span class="v"><?= esc($package['nearby_cottage']) ?></span></li>
+              <?php endif; ?>
+              <?php if (isset($package['cottage_rate']) && $package['cottage_rate'] !== null && (float) $package['cottage_rate'] > 0): ?>
+                <li><span class="k">Cottage rate</span><span class="v"><?= esc(money($package['cottage_rate'], $package['currency'])) ?> <small class="text-body-secondary">/ night</small></span></li>
               <?php endif; ?>
               <?php if ($package['group_size']): ?>
                 <li><span class="k">Group size</span><span class="v"><?= esc($package['group_size']) ?></span></li>

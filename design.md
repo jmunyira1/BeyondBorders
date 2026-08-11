@@ -17,11 +17,22 @@ campaign tiles, editorial photo-card grids). Studied from that URL for structure
 only — no content, photos, or branding copied. Refused from the reference:
 Poppins, uncontrolled auto-sliders, Elementor tiles.
 
-## Theme — "Kenya Wonder" (custom · re-theme of Sunset Savanna)
+## Theme — "Safari Fresh" (custom · recolour 2026-08-10)
 
-Vibe: golden-hour grassland, warm dust, big sky — now sans-set and image-forward.
-The palette below is unchanged (terracotta kept per the redesign brief); the type
-and structure carry the re-theme.
+Bright, friendly tourism palette (client brief: "more tourism like", Travel-Panda
+reference). **Leaf-green primary + sunset-orange accent on warm white; deep-forest
+dark bands.** The token *names* below are unchanged (so the whole system re-colours
+from `tokens.css`); the *values* are Safari Fresh:
+
+- paper `oklch(98% 0.006 90)` warm white · ink `oklch(24% 0.02 155)` green-slate
+- **accent** `oklch(64% 0.16 45)` sunset orange — CTA fills, active bars, links-on-fill.
+  Bright, so text ON it is DARK (`--color-accent-ink oklch(20% 0.03 55)`, ≥4.5:1).
+- **primary** `oklch(52% 0.13 150)` leaf green — secondary/`btn-bba-green`, nav
+  hover/active text, body links (`--bs-link-color`), tab-active. Passes on white.
+- basalt `oklch(30% 0.05 155)` deep forest — promo bar, bands, footer.
+- Contrast rule learned: bright orange fails as small text on white and as white
+  text on orange — so orange is a **fill/bar** colour with dark text; **green**
+  carries link/active text. Verified every text pair ≥ WCAG AA in-browser.
 
 - `--color-paper`      `oklch(96% 0.015 75)` — warm ivory
 - `--color-paper-2`    `oklch(93.5% 0.017 75)` — panels, image mats
@@ -44,7 +55,7 @@ and structure carry the re-theme.
 
 WhatsApp widget only: `--color-whatsapp: #25d366`, `--color-whatsapp-ink: #ffffff`.
 
-Axes: **light / rounded-sans / warm (40°)**. Accent footprint ≤ 5% per viewport —
+Axes: **light / rounded-sans / green-primary + warm-orange-accent**. Accent footprint ≤ 5% per viewport —
 one filled primary CTA per view, active states, link underlines. WhatsApp brand
 green (`#25d366`) is exempt inside the WhatsApp widget only.
 

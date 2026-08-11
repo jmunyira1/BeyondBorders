@@ -123,6 +123,48 @@ $checked = static fn (string $k, bool $default): string => (
       </div>
 
       <div class="bba-panel mb-3">
+        <div class="bba-panel-head"><h2>Location &amp; lodging</h2></div>
+        <div class="bba-panel-body">
+          <div class="row g-2 mb-3">
+            <div class="col-6">
+              <label class="form-label" for="f-region">Region</label>
+              <input class="form-control" id="f-region" name="region" type="text" value="<?= $v('region') ?>" placeholder="Rift Valley">
+            </div>
+            <div class="col-6">
+              <label class="form-label" for="f-county">County</label>
+              <input class="form-control" id="f-county" name="county" type="text" value="<?= $v('county') ?>" placeholder="Narok">
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="f-entrance">Entrance fee (KES)</label>
+            <input class="form-control" id="f-entrance" name="entrance_fee" type="number" step="0.01" min="0"
+                   value="<?= $v('entrance_fee') ?>" placeholder="e.g. 3000">
+            <div class="form-text">Per-person park / site entry. Leave blank if none.</div>
+          </div>
+          <div class="row g-2 mb-2">
+            <div class="col-7">
+              <label class="form-label" for="f-hotel">Nearby hotel</label>
+              <input class="form-control" id="f-hotel" name="nearby_hotel" type="text" value="<?= $v('nearby_hotel') ?>" placeholder="Mara Serena">
+            </div>
+            <div class="col-5">
+              <label class="form-label" for="f-hotel-rate">Rate (KES)</label>
+              <input class="form-control" id="f-hotel-rate" name="hotel_rate" type="number" step="0.01" min="0" value="<?= $v('hotel_rate') ?>" placeholder="per night">
+            </div>
+          </div>
+          <div class="row g-2 mb-0">
+            <div class="col-7">
+              <label class="form-label" for="f-cottage">Nearby cottage</label>
+              <input class="form-control" id="f-cottage" name="nearby_cottage" type="text" value="<?= $v('nearby_cottage') ?>" placeholder="Mara Eden Cottages">
+            </div>
+            <div class="col-5">
+              <label class="form-label" for="f-cottage-rate">Rate (KES)</label>
+              <input class="form-control" id="f-cottage-rate" name="cottage_rate" type="number" step="0.01" min="0" value="<?= $v('cottage_rate') ?>" placeholder="per night">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bba-panel mb-3">
         <div class="bba-panel-head"><h2>Price &amp; duration</h2></div>
         <div class="bba-panel-body">
           <div class="row g-2 mb-3">

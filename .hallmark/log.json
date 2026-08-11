@@ -1,5 +1,23 @@
 [
  {
+  "date": "2026-08-10",
+  "scope": "app",
+  "macrostructure": "Photographic (home refined)",
+  "theme": "custom Safari Fresh",
+  "enrichment": "photographic hero + campaign tiles",
+  "brief": "Home page rebuild: removed broken injected How-it-works (placeholder links/undefined classes); new flow (hero+search -> ways to explore -> featured -> how it works 3 steps -> why book -> CTA -> testimonials -> gallery -> journal -> about); search lifts onto hero; green eyebrows (AA), green step rules; WhatsApp step wired to widget"
+ },
+ {
+  "date": "2026-08-10",
+  "scope": "app",
+  "macrostructure": "(unchanged) Photographic / Photo-Catalogue / Long Document",
+  "theme": "custom",
+  "theme_axes": "light / rounded-sans / green + orange",
+  "vibe": "Safari Fresh - bright tourism (Travel Panda ref)",
+  "enrichment": "none",
+  "brief": "Recolour to Safari Fresh (leaf-green primary + sunset-orange accent, warm white, forest bands); WCAG-verified. + New trip-detail fields: region, county, entrance_fee, nearby_hotel/rate, nearby_cottage/rate (migration + model + admin form + detail display)"
+ },
+ {
   "date": "2026-07-27",
   "scope": "app",
   "macrostructure": "Photographic (marketing) / Photo-Catalogue (listings) / Long Document (content)",

@@ -6,32 +6,47 @@
  */
 
 :root {
-  /* ---- Colour ------------------------------------------------ */
-  --color-paper:        oklch(96% 0.015 75);
-  --color-paper-2:      oklch(93.5% 0.017 75);
-  --color-paper-3:      oklch(90% 0.018 75);
-  --color-ink:          oklch(21% 0.012 60);
-  --color-ink-2:        oklch(38% 0.012 60);
-  --color-muted:        oklch(44% 0.012 65);
-  --color-rule:         oklch(84% 0.015 75);
-  --color-rule-2:       oklch(88% 0.015 75);
-  --color-accent:       oklch(52% 0.15 40);
-  --color-accent-hover: oklch(45% 0.14 40);
-  --color-accent-ink:   oklch(96.5% 0.012 75);
-  --color-accent-tint:  oklch(52% 0.15 40 / 0.1);
-  --color-focus:        oklch(54% 0.2 40);
+  /* ---- Colour — "Safari Fresh": leaf-green primary + sunset-orange
+          accent on warm white; deep-forest dark bands. --------------- */
+  --color-paper:        oklch(98% 0.006 90);
+  --color-paper-2:      oklch(96% 0.009 125);
+  --color-paper-3:      oklch(93.5% 0.011 130);
+  --color-ink:          oklch(24% 0.02 155);
+  --color-ink-2:        oklch(40% 0.02 155);
+  --color-muted:        oklch(50% 0.016 150);
+  --color-rule:         oklch(88% 0.012 135);
+  --color-rule-2:       oklch(92% 0.008 135);
+
+  /* Sunset-orange accent — CTA fills, active bars, highlights. Bright, so
+     text ON it is DARK (accent-ink) to clear WCAG; orange-as-text on white
+     fails contrast, so body links use the green primary instead. */
+  --color-accent:       oklch(64% 0.16 45);
+  --color-accent-hover: oklch(58% 0.16 43);
+  --color-accent-ink:   oklch(20% 0.03 55);
+  --color-accent-tint:  oklch(64% 0.16 45 / 0.14);
+  --color-focus:        oklch(55% 0.18 45);
+
+  /* Leaf-green primary — structural / secondary buttons, brand touches. */
+  --color-primary:       oklch(52% 0.13 150);
+  --color-primary-hover: oklch(45% 0.12 150);
+  --color-primary-ink:   oklch(99% 0.01 130);
+  --color-primary-tint:  oklch(52% 0.13 150 / 0.12);
+
   --color-whatsapp:     #25d366; /* WhatsApp brand green — widget only, palette-exempt */
   --color-whatsapp-ink: #ffffff;
-  --color-basalt:       oklch(20% 0.015 50);
-  --color-basalt-2:     oklch(24% 0.016 50);
-  --color-basalt-ink:   oklch(93% 0.012 75);
-  --color-basalt-muted: oklch(72% 0.012 70);
-  --color-basalt-rule:  oklch(32% 0.014 55);
-  --color-good:         oklch(45% 0.09 150);
-  --color-good-tint:    oklch(45% 0.09 150 / 0.08);
-  --color-bad:          oklch(45% 0.16 30);
-  --color-bad-tint:     oklch(45% 0.16 30 / 0.07);
-  --color-scrim:        linear-gradient(180deg, oklch(22% 0.02 55 / 0.18), oklch(16% 0.02 55 / 0.62));
+
+  /* Dark bands / footer — deep forest green. */
+  --color-basalt:       oklch(30% 0.05 155);
+  --color-basalt-2:     oklch(34% 0.052 155);
+  --color-basalt-ink:   oklch(96% 0.01 130);
+  --color-basalt-muted: oklch(80% 0.03 140);
+  --color-basalt-rule:  oklch(42% 0.045 150);
+
+  --color-good:         oklch(52% 0.12 150);
+  --color-good-tint:    oklch(52% 0.12 150 / 0.1);
+  --color-bad:          oklch(50% 0.17 28);
+  --color-bad-tint:     oklch(50% 0.17 28 / 0.08);
+  --color-scrim:        linear-gradient(180deg, oklch(24% 0.03 155 / 0.2), oklch(18% 0.03 155 / 0.66));
 
   /* ---- Type -------------------------------------------------- */
   /* Kenya Wonder re-theme: single rounded humanist sans, weight-contrasted —
@@ -95,8 +110,8 @@
   --bs-border-radius-lg: var(--radius-input);
   --bs-border-color: var(--color-rule);
   --bs-heading-color: var(--color-ink);
-  --bs-link-color: var(--color-accent);
-  --bs-link-hover-color: var(--color-accent-hover);
+  --bs-link-color: var(--color-primary);
+  --bs-link-hover-color: var(--color-primary-hover);
   --bs-secondary-color: var(--color-ink-2);
 
   /* ---- Legacy --bba-* bridge (app.css: WhatsApp widget, chips,
@@ -104,7 +119,7 @@
   --bba-bg: var(--color-paper);
   --bba-surface: var(--color-paper);
   --bba-sand: var(--color-paper-2);
-  --bba-green: var(--color-ink);
+  --bba-green: var(--color-primary);
   --bba-green-deep: var(--color-basalt);
   --bba-ink: var(--color-ink);
   --bba-body: var(--color-ink);

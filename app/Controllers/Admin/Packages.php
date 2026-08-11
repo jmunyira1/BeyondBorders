@@ -148,6 +148,10 @@ class Packages extends AdminController
         $days   = (int) ($this->request->getPost('duration_days') ?: 1);
         $nights = (int) ($this->request->getPost('duration_nights') ?: 0);
 
+        // Trim-or-null for text; number-or-null for the fee/rate money fields.
+        $text = fn (string $k): ?string => ($v = trim((string) $this->request->getPost($k))) !== '' ? $v : null;
+        $money = fn (string $k): ?float => ($v = trim((string) $this->request->getPost($k))) !== '' ? (float) $v : null;
+
         $data = [
             'title'           => $this->request->getPost('title'),
             'category_id'     => $this->request->getPost('category_id') ?: null,
@@ -162,6 +166,13 @@ class Packages extends AdminController
             'price'           => (float) ($this->request->getPost('price') ?: 0),
             'currency'        => $this->request->getPost('currency') ?: 'KES',
             'group_size'      => $this->request->getPost('group_size'),
+            'region'          => $text('region'),
+            'county'          => $text('county'),
+            'entrance_fee'    => $money('entrance_fee'),
+            'nearby_hotel'    => $text('nearby_hotel'),
+            'hotel_rate'      => $money('hotel_rate'),
+            'nearby_cottage'  => $text('nearby_cottage'),
+            'cottage_rate'    => $money('cottage_rate'),
             'is_featured'     => $this->request->getPost('is_featured') ? 1 : 0,
             'is_active'       => $this->request->getPost('is_active') ? 1 : 0,
             'sort_order'      => (int) ($this->request->getPost('sort_order') ?: 0),

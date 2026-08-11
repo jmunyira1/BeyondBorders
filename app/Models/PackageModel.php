@@ -16,6 +16,8 @@ class PackageModel extends Model
         'summary', 'description', 'image', 'image_alt',
         'duration_days', 'duration_nights', 'duration_label',
         'price', 'currency', 'group_size',
+        'region', 'county', 'entrance_fee',
+        'nearby_hotel', 'hotel_rate', 'nearby_cottage', 'cottage_rate',
         'is_featured', 'is_active', 'sort_order',
     ];
 
