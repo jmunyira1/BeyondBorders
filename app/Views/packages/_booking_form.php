@@ -14,6 +14,8 @@ $bad    = static fn (string $k): string => isset($errors[$k]) ? ' is-invalid' : 
 
 $avail   = $package['availability'] ?? 'available';
 $deposit = $package['deposit_amount'] ?? null;
+// Load once here so the form works both on first render and on error re-render.
+$departures = $departures ?? (new \App\Models\PackageDepartureModel())->upcoming((int) ($package['id'] ?? 0));
 if ($avail === 'sold_out') {
     $heading = 'Join the waitlist';
     $intro   = "This trip is fully booked — leave your details and we'll tell you the moment a spot opens up.";
@@ -84,10 +86,29 @@ if ($avail === 'sold_out') {
       <?= view('partials/field_error', ['errors' => $errors, 'field' => 'people']) ?>
     </div>
     <div class="col-6">
-      <label class="form-label" for="b-dates">Preferred dates</label>
-      <input class="form-control<?= $bad('travel_dates') ?>" id="b-dates" name="travel_dates" type="text"
-             value="<?= esc($val('travel_dates'), 'attr') ?>" placeholder="Aug 2026">
-      <?= view('partials/field_error', ['errors' => $errors, 'field' => 'travel_dates']) ?>
+      <?php if ($departures !== []): ?>
+        <label class="form-label" for="b-departure">Departure</label>
+        <select class="form-select" id="b-departure" name="departure_id">
+          <option value="">Flexible / any date</option>
+          <?php foreach ($departures as $dep):
+              $full  = $dep['spots'] !== null && (int) $dep['spots'] <= 0;
+              $label = date('j M Y', strtotime($dep['depart_date']));
+              if ($dep['return_date']) {
+                  $label .= ' – ' . date('j M Y', strtotime($dep['return_date']));
+              }
+              if ($dep['spots'] !== null) {
+                  $label .= $full ? ' — full' : ' — ' . (int) $dep['spots'] . ' left';
+              }
+          ?>
+            <option value="<?= (int) $dep['id'] ?>" <?= $full ? 'disabled' : '' ?> <?= (string) $val('departure_id') === (string) $dep['id'] ? 'selected' : '' ?>><?= esc($label) ?></option>
+          <?php endforeach; ?>
+        </select>
+      <?php else: ?>
+        <label class="form-label" for="b-dates">Preferred dates</label>
+        <input class="form-control<?= $bad('travel_dates') ?>" id="b-dates" name="travel_dates" type="text"
+               value="<?= esc($val('travel_dates'), 'attr') ?>" placeholder="Aug 2026">
+        <?= view('partials/field_error', ['errors' => $errors, 'field' => 'travel_dates']) ?>
+      <?php endif; ?>
     </div>
   </div>
 

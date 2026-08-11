@@ -56,7 +56,7 @@ $labels = \App\Models\EnquiryModel::LABELS;
               <div class="btn-group">
                 <button class="btn btn-bba-outline btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" aria-label="More actions"></button>
                 <ul class="dropdown-menu dropdown-menu-end">
-                  <?php foreach (['replied' => 'Mark replied', 'closed' => 'Mark closed', 'new' => 'Mark unread'] as $status => $label): ?>
+                  <?php foreach (['booked' => 'Mark booked', 'replied' => 'Mark replied', 'closed' => 'Mark closed', 'new' => 'Mark unread'] as $status => $label): ?>
                     <li>
                       <button class="dropdown-item"
                               hx-post="<?= site_url('admin/enquiries/' . $row['id'] . '/status') ?>"

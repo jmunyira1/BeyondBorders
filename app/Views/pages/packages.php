@@ -110,7 +110,12 @@
           </select>
         </div>
 
-        <div class="col-12 col-lg-6 d-flex gap-2 justify-content-lg-end">
+        <div class="col-12 col-lg-6 d-flex gap-2 align-items-center justify-content-lg-end flex-wrap">
+          <div class="form-check form-switch me-lg-auto mb-0">
+            <input class="form-check-input" type="checkbox" role="switch" id="f-available" name="available" value="1"
+                   <?= ! empty($filters['available']) ? 'checked' : '' ?>>
+            <label class="form-check-label" for="f-available">Available only</label>
+          </div>
           <?php // Without JS this is the button that runs the filter. ?>
           <button type="submit" class="btn btn-bba-green flex-grow-1 flex-lg-grow-0">
             <i class="bi bi-search me-2" aria-hidden="true"></i>Filter

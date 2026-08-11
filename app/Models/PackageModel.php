@@ -151,6 +151,11 @@ class PackageModel extends Model
                 ->groupEnd();
         }
 
+        // "Available only" — hide sold-out and coming-soon trips.
+        if (! empty($filters['available'])) {
+            $builder->whereNotIn('packages.availability', ['sold_out', 'coming_soon']);
+        }
+
         return $this->applySort($builder, $filters['sort'] ?? 'recommended');
     }
 

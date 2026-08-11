@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Models\CategoryModel;
 use App\Models\DestinationModel;
+use App\Models\PackageDepartureModel;
 use App\Models\PackageInclusionModel;
 use App\Models\PackageModel;
 use App\Models\TourTypeModel;
@@ -77,6 +78,7 @@ class Packages extends AdminController
             'activeAdmin' => 'packages',
             'package'     => null,
             'inclusions'  => [],
+            'departures'  => [],
             'errors'      => [],
         ]));
     }
@@ -96,6 +98,7 @@ class Packages extends AdminController
             'activeAdmin' => 'packages',
             'package'     => $package,
             'inclusions'  => (new PackageInclusionModel())->forPackage($id),
+            'departures'  => (new PackageDepartureModel())->forPackage($id),
             'errors'      => [],
         ]));
     }
@@ -141,6 +144,7 @@ class Packages extends AdminController
                 'activeAdmin' => 'packages',
                 'package'     => array_merge($existing ?? [], $this->request->getPost()),
                 'inclusions'  => $this->postedInclusions(),
+                'departures'  => $this->postedDepartures(),
                 'errors'      => $this->validator->getErrors(),
             ]));
         }
@@ -212,8 +216,50 @@ class Packages extends AdminController
         }
 
         $this->saveInclusions($id);
+        $this->saveDepartures($id);
 
         return redirect()->to(site_url('admin/packages'))->with('message', $message);
+    }
+
+    /** Reads the repeatable departure rows off the posted form. */
+    private function postedDepartures(): array
+    {
+        $dates   = (array) $this->request->getPost('departure_date');
+        $returns = (array) $this->request->getPost('departure_return');
+        $spots   = (array) $this->request->getPost('departure_spots');
+        $notes   = (array) $this->request->getPost('departure_note');
+        $rows    = [];
+
+        foreach ($dates as $i => $date) {
+            $date = trim((string) $date);
+            if ($date === '') {
+                continue;
+            }
+            $rows[] = [
+                'depart_date' => $date,
+                'return_date' => trim((string) ($returns[$i] ?? '')) ?: null,
+                'spots'       => ($s = trim((string) ($spots[$i] ?? ''))) !== '' ? (int) $s : null,
+                'note'        => trim((string) ($notes[$i] ?? '')) ?: null,
+            ];
+        }
+
+        return $rows;
+    }
+
+    /** Departures are replaced wholesale, like inclusions. */
+    private function saveDepartures(int $packageId): void
+    {
+        $model = new PackageDepartureModel();
+        $model->where('package_id', $packageId)->delete();
+
+        $rows = [];
+        foreach ($this->postedDepartures() as $i => $row) {
+            $rows[] = $row + ['package_id' => $packageId, 'sort_order' => $i + 1];
+        }
+
+        if ($rows !== []) {
+            $model->insertBatch($rows);
+        }
     }
 
     /** Reads the repeatable inclusion rows off the posted form. */

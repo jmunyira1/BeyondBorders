@@ -3,6 +3,8 @@
 namespace App\Controllers\Admin;
 
 use App\Models\EnquiryModel;
+use App\Models\PackageDepartureModel;
+use App\Models\PackageModel;
 
 class Enquiries extends AdminController
 {
@@ -67,15 +69,69 @@ class Enquiries extends AdminController
     {
         $status = (string) $this->request->getPost('status');
 
-        if (! in_array($status, ['new', 'read', 'replied', 'closed'], true)) {
+        if (! in_array($status, ['new', 'read', 'replied', 'booked', 'closed'], true)) {
             return $this->response->setStatusCode(400)->setBody('Unknown status.');
         }
 
-        (new EnquiryModel())->update($id, ['status' => $status]);
+        $model = new EnquiryModel();
+        $enq   = $model->find($id);
 
-        $this->toast('Marked as ' . $status . '.');
+        if ($enq === null) {
+            return $this->response->setStatusCode(404)->setBody('Not found.');
+        }
+
+        $old = $enq['status'];
+        $model->update($id, ['status' => $status]);
+
+        // Booking a trip takes a spot; un-booking gives it back.
+        if ($status === 'booked' && $old !== 'booked') {
+            $this->adjustSpots($enq, -1);
+        } elseif ($old === 'booked' && $status !== 'booked') {
+            $this->adjustSpots($enq, +1);
+        }
+
+        $this->toast($status === 'booked' ? 'Marked as booked — a spot was taken.' : 'Marked as ' . $status . '.');
 
         return view('admin/enquiries/_table', $this->listData());
+    }
+
+    /**
+     * Moves the spot count on the departure the enquiry was for, or — when no
+     * departure was chosen — on the package itself. Only touches counts that
+     * are actually being managed (non-null); auto-flips a package to sold-out
+     * at zero and back to available when a booking is reversed.
+     */
+    private function adjustSpots(array $enq, int $delta): void
+    {
+        if (! empty($enq['departure_id'])) {
+            $dm  = new PackageDepartureModel();
+            $dep = $dm->find((int) $enq['departure_id']);
+            if ($dep !== null && $dep['spots'] !== null) {
+                $dm->update($dep['id'], ['spots' => max(0, (int) $dep['spots'] + $delta)]);
+            }
+
+            return;
+        }
+
+        if (empty($enq['package_id'])) {
+            return;
+        }
+
+        $pm      = new PackageModel();
+        $package = $pm->find((int) $enq['package_id']);
+        if ($package === null || $package['spots_available'] === null) {
+            return;
+        }
+
+        $spots  = max(0, (int) $package['spots_available'] + $delta);
+        $update = ['spots_available' => $spots];
+        if ($spots === 0) {
+            $update['availability'] = 'sold_out';
+        } elseif ($package['availability'] === 'sold_out') {
+            $update['availability'] = 'available';
+        }
+
+        $pm->update((int) $enq['package_id'], $update);
     }
 
     public function notes(int $id)

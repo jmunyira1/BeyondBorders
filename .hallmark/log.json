@@ -5,6 +5,14 @@
   "macrostructure": "feature",
   "theme": "custom Safari Fresh",
   "enrichment": "none",
+  "brief": "Three linked features: (1) admin Mark-as-booked -> auto-decrements the chosen departure or package spots (auto sold-out at 0, reversible); (2) Available-only filter on packages (query + switch + chip); (3) departure dates (package_departures table + admin repeatable rows + public Upcoming departures list + booking-form departure selector; enquiries gain departure_id). WCAG/mobile verified; admin decrement action needs owner login to click-test"
+ },
+ {
+  "date": "2026-08-11",
+  "scope": "app",
+  "macrostructure": "feature",
+  "theme": "custom Safari Fresh",
+  "enrichment": "none",
   "brief": "Availability + booking deposit for packages: migration (availability status, spots_available, deposit_amount); admin Availability&booking panel; card badges (Limited/Sold out/Coming soon, AA-verified) + spots-left; detail deposit line + spots; booking form adapts (sold_out->waitlist, coming_soon->register interest) + deposit note; receipt deposit line. Payment stays off-site (bank now, M-Pesa later)"
  },
  {

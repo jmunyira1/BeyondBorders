@@ -68,6 +68,25 @@
             <?php endif; ?>
           </div>
         <?php endif; ?>
+
+        <?php if (($departures ?? []) !== []): ?>
+          <h2 class="h4 mt-5 mb-3">Upcoming departures</h2>
+          <ul class="bb-departures">
+            <?php foreach ($departures as $dep):
+                $full = $dep['spots'] !== null && (int) $dep['spots'] <= 0; ?>
+              <li class="bb-departure<?= $full ? ' is-full' : '' ?>">
+                <span class="bb-departure__date">
+                  <?= esc(date('D, j M Y', strtotime($dep['depart_date']))) ?>
+                  <?php if ($dep['return_date']): ?><span class="bb-departure__return">→ <?= esc(date('j M Y', strtotime($dep['return_date']))) ?></span><?php endif; ?>
+                  <?php if ($dep['note']): ?><span class="bb-departure__note"><?= esc($dep['note']) ?></span><?php endif; ?>
+                </span>
+                <?php if ($dep['spots'] !== null): ?>
+                  <span class="bb-departure__spots"><?= $full ? 'Fully booked' : (int) $dep['spots'] . ' spot' . ((int) $dep['spots'] === 1 ? '' : 's') . ' left' ?></span>
+                <?php endif; ?>
+              </li>
+            <?php endforeach; ?>
+          </ul>
+        <?php endif; ?>
       </div>
 
       <div class="col-lg-4">
@@ -144,7 +163,7 @@
         </div>
 
         <div class="mt-4">
-          <?= view('packages/_booking_form', ['package' => $package]) ?>
+          <?= view('packages/_booking_form', ['package' => $package, 'departures' => $departures ?? []]) ?>
         </div>
       </div>
 

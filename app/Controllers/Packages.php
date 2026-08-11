@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\CategoryModel;
 use App\Models\DestinationModel;
 use App\Models\EnquiryModel;
+use App\Models\PackageDepartureModel;
 use App\Models\PackageImageModel;
 use App\Models\PackageInclusionModel;
 use App\Models\PackageModel;
@@ -15,7 +16,7 @@ class Packages extends BaseController
     private const PER_PAGE = 9;
 
     /** Query-string keys the filter understands. */
-    private const FILTER_KEYS = ['category', 'destination', 'tour_type', 'price', 'duration', 'q', 'sort'];
+    private const FILTER_KEYS = ['category', 'destination', 'tour_type', 'price', 'duration', 'q', 'sort', 'available'];
 
     /**
      * Full packages page. The results region is also reachable on its own at
@@ -129,6 +130,10 @@ class Packages extends BaseController
             $chips[] = ['key' => 'q', 'label' => '“' . $filters['q'] . '”'];
         }
 
+        if (! empty($filters['available'])) {
+            $chips[] = ['key' => 'available', 'label' => 'Available only'];
+        }
+
         // Attach the "remove this one" URL now that we know the full set.
         foreach ($chips as $i => $chip) {
             $remaining = $filters;
@@ -202,6 +207,7 @@ class Packages extends BaseController
             'package'         => $package,
             'inclusions'      => (new PackageInclusionModel())->grouped((int) $package['id']),
             'images'          => (new PackageImageModel())->forPackage((int) $package['id']),
+            'departures'      => (new PackageDepartureModel())->upcoming((int) $package['id']),
             'related'         => (new PackageModel())->related($package, 3),
         ]);
     }
@@ -237,16 +243,31 @@ class Packages extends BaseController
         }
 
         $enquiries = new EnquiryModel();
+        // If the visitor chose a scheduled departure, record it and use its date
+        // as the travel-dates text (so the admin sees the exact departure).
+        $departureId = (int) $this->request->getPost('departure_id') ?: null;
+        $travelDates = (string) $this->request->getPost('travel_dates');
+        if ($departureId !== null) {
+            $dep = (new PackageDepartureModel())->find($departureId);
+            if ($dep !== null && (int) $dep['package_id'] === (int) $package['id']) {
+                $travelDates = date('j M Y', strtotime($dep['depart_date']))
+                    . ($dep['return_date'] ? ' – ' . date('j M Y', strtotime($dep['return_date'])) : '');
+            } else {
+                $departureId = null; // ignore a mismatched / stale id
+            }
+        }
+
         $enquiries->insert([
             'type'         => 'booking',
             'package_id'   => $package['id'],
+            'departure_id' => $departureId,
             'name'         => $this->request->getPost('name'),
             'email'        => $this->request->getPost('email'),
             'phone'        => $this->request->getPost('phone'),
             'subject'      => 'Booking enquiry: ' . $package['title'],
             'message'      => $this->request->getPost('message'),
             'people'       => $this->request->getPost('people') ?: null,
-            'travel_dates' => $this->request->getPost('travel_dates'),
+            'travel_dates' => $travelDates,
             'status'       => 'new',
             'ip_address'   => $this->request->getIPAddress(),
             'user_agent'   => substr((string) $this->request->getUserAgent(), 0, 255),
@@ -265,7 +286,7 @@ class Packages extends BaseController
             'email'     => (string) $this->request->getPost('email'),
             'phone'     => (string) $this->request->getPost('phone'),
             'people'    => (string) $this->request->getPost('people'),
-            'dates'     => (string) $this->request->getPost('travel_dates'),
+            'dates'     => $travelDates,
         ]);
     }
 }

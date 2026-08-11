@@ -238,3 +238,6 @@ tr.htmx-swapping { background: rgba(179, 38, 30, 0.06) !important; }
   font-size: 0.8rem; color: #b3261e;
 }
 .form-control.is-invalid, .form-select.is-invalid { border-color: #b3261e; }
+
+/* Booked enquiry status pill */
+.bba-pill-booked { background: rgba(46, 82, 51, 0.16); color: var(--bba-green); font-weight: 600; }

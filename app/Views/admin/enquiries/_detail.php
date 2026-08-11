@@ -78,7 +78,7 @@ $fields = array_filter([
   <span class="small text-body-secondary">
     <?= esc($row['ip_address'] ?: '') ?>
   </span>
-  <div class="d-flex gap-2">
+  <div class="d-flex gap-2 flex-wrap">
     <?php foreach (['replied' => 'Mark replied', 'closed' => 'Mark closed'] as $status => $label): ?>
       <button class="btn btn-bba-outline btn-sm"
               hx-post="<?= site_url('admin/enquiries/' . $row['id'] . '/status') ?>"
@@ -86,5 +86,13 @@ $fields = array_filter([
               hx-target="#enquiry-table"
               data-bs-dismiss="modal"><?= esc($label) ?></button>
     <?php endforeach; ?>
+    <?php if ($row['status'] !== 'booked'): ?>
+      <button class="btn btn-bba-green btn-sm"
+              hx-post="<?= site_url('admin/enquiries/' . $row['id'] . '/status') ?>"
+              hx-vals='<?= json_encode(['status' => 'booked']) ?>'
+              hx-target="#enquiry-table"
+              data-confirm="Mark as booked? This takes one spot off the trip's availability."
+              data-bs-dismiss="modal"><i class="bi bi-check2-circle me-1" aria-hidden="true"></i>Mark booked</button>
+    <?php endif; ?>
   </div>
 </div>

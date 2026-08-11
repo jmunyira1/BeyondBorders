@@ -79,6 +79,38 @@ $checked = static fn (string $k, bool $default): string => (
           </div>
         </div>
       </div>
+
+      <!-- Departures -->
+      <div class="bba-panel mb-3">
+        <div class="bba-panel-head">
+          <h2>Departure dates</h2>
+          <button type="button" class="btn btn-bba-outline btn-sm" id="add-departure"><i class="bi bi-plus-lg me-1"></i>Add date</button>
+        </div>
+        <div class="bba-panel-body">
+          <p class="small text-body-secondary">Scheduled departures shown on the public page. Set spots per date; “Mark booked” on an enquiry takes a spot off the chosen date. Leave empty for flexible-date trips.</p>
+          <div id="departure-rows">
+            <?php foreach ($departures ?: [['depart_date' => '', 'return_date' => '', 'spots' => '', 'note' => '']] as $row): ?>
+              <div class="row g-2 align-items-center mb-2 departure-row">
+                <div class="col-6 col-md-3">
+                  <input class="form-control form-control-sm" name="departure_date[]" type="date" value="<?= esc((string) ($row['depart_date'] ?? ''), 'attr') ?>" aria-label="Departure date">
+                </div>
+                <div class="col-6 col-md-3">
+                  <input class="form-control form-control-sm" name="departure_return[]" type="date" value="<?= esc((string) ($row['return_date'] ?? ''), 'attr') ?>" aria-label="Return date" title="Return (optional)">
+                </div>
+                <div class="col-4 col-md-2">
+                  <input class="form-control form-control-sm" name="departure_spots[]" type="number" min="0" value="<?= esc((string) ($row['spots'] ?? ''), 'attr') ?>" placeholder="Spots" aria-label="Spots">
+                </div>
+                <div class="col-6 col-md-3">
+                  <input class="form-control form-control-sm" name="departure_note[]" type="text" value="<?= esc((string) ($row['note'] ?? ''), 'attr') ?>" placeholder="Note (optional)" aria-label="Note">
+                </div>
+                <div class="col-2 col-md-1">
+                  <button type="button" class="btn btn-sm btn-outline-danger remove-departure w-100" aria-label="Remove"><i class="bi bi-trash"></i></button>
+                </div>
+              </div>
+            <?php endforeach; ?>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Sidebar -->
@@ -292,6 +324,26 @@ document.getElementById('inclusion-rows').addEventListener('click', function (e)
     rows[0].querySelector('input').value = '';
   } else {
     btn.closest('.inclusion-row').remove();
+  }
+});
+
+// Repeatable departure rows.
+document.getElementById('add-departure').addEventListener('click', function () {
+  var rows = document.getElementById('departure-rows');
+  var clone = rows.querySelector('.departure-row').cloneNode(true);
+  clone.querySelectorAll('input').forEach(function (i) { i.value = ''; });
+  rows.appendChild(clone);
+  clone.querySelector('input').focus();
+});
+
+document.getElementById('departure-rows').addEventListener('click', function (e) {
+  var btn = e.target.closest('.remove-departure');
+  if (!btn) return;
+  var rows = document.querySelectorAll('.departure-row');
+  if (rows.length === 1) {
+    rows[0].querySelectorAll('input').forEach(function (i) { i.value = ''; });
+  } else {
+    btn.closest('.departure-row').remove();
   }
 });
 </script>

@@ -23,7 +23,7 @@
 
       <select class="form-select form-select-sm w-auto" name="status">
         <option value="">All statuses</option>
-        <?php foreach (['new' => 'New', 'read' => 'Read', 'replied' => 'Replied', 'closed' => 'Closed'] as $key => $label): ?>
+        <?php foreach (['new' => 'New', 'read' => 'Read', 'replied' => 'Replied', 'booked' => 'Booked', 'closed' => 'Closed'] as $key => $label): ?>
           <option value="<?= esc($key, 'attr') ?>" <?= $filters['status'] === $key ? 'selected' : '' ?>><?= esc($label) ?></option>
         <?php endforeach; ?>
       </select>

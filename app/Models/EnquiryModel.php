@@ -12,7 +12,7 @@ class EnquiryModel extends Model
     protected $useTimestamps  = true;
     protected $returnType     = 'array';
     protected $allowedFields  = [
-        'type', 'package_id', 'name', 'email', 'phone', 'subject', 'message',
+        'type', 'package_id', 'departure_id', 'name', 'email', 'phone', 'subject', 'message',
         'trip_type', 'people', 'travel_dates', 'budget',
         'status', 'admin_notes', 'ip_address', 'user_agent',
     ];
