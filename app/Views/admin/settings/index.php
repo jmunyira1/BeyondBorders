@@ -78,7 +78,7 @@
     <?php endforeach; ?>
   </div>
 
-  <div class="d-flex gap-2 mt-3 position-sticky bottom-0 py-3" style="background:#f6f4ef">
+  <div class="d-flex gap-2 mt-3 position-sticky bottom-0 py-3" style="background:#f1f5f4">
     <button type="submit" class="btn btn-bba-green">Save settings</button>
     <a class="btn btn-bba-outline" href="<?= site_url('/') ?>" target="_blank" rel="noopener">
       <i class="bi bi-box-arrow-up-right me-1"></i>View site

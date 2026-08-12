@@ -546,7 +546,11 @@ section { padding-block: var(--space-lg); }
 /* ------------------------------------------------------------
    Page head — listings + content pages (no photo banner)
    ------------------------------------------------------------ */
-.bb-pagehead { padding-block: var(--space-xl) var(--space-lg); border-bottom: var(--rule-hair) solid var(--color-rule); }
+.bb-pagehead {
+  padding-block: var(--space-xl) var(--space-lg);
+  background: var(--color-paper-2); /* mint banner — a branded, consistent page header */
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+}
 @media (min-width: 60rem) {
   .bb-pagehead { padding-block: var(--space-2xl) var(--space-xl); }
 }

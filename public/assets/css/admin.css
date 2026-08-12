@@ -3,7 +3,7 @@
    ============================================================ */
 
 body.bba-admin {
-  background: #f6f4ef;
+  background: #f1f5f4;
   font-family: var(--bba-font-body);
   color: var(--bba-body);
 }
@@ -47,13 +47,13 @@ body.bba-admin {
   font-size: 0.88rem; line-height: 1.3;
 }
 .bba-side-link:hover { background: rgba(255, 255, 255, 0.08); color: #fff; }
-.bba-side-link.active { background: var(--bba-gold); color: #22331f; font-weight: 500; }
+.bba-side-link.active { background: var(--bba-gold); color: #fff; font-weight: 500; }
 .bba-side-link i { font-size: 0.95rem; width: 1.1rem; text-align: center; }
 .bba-side-link .badge {
   margin-left: auto; background: var(--bba-sun); color: #fff;
   font-size: 0.68rem; font-weight: 500;
 }
-.bba-side-link.active .badge { background: #22331f; color: #fff; }
+.bba-side-link.active .badge { background: #00292a; color: #fff; }
 
 .bba-side-foot {
   padding: 0.85rem; border-top: 1px solid rgba(255, 255, 255, 0.12);
@@ -96,7 +96,7 @@ body.bba-admin {
    ------------------------------------------------------------ */
 .bba-panel {
   background: #fff; border: 1px solid var(--bba-line);
-  border-radius: 0.65rem; box-shadow: 0 1px 2px rgba(62, 60, 40, 0.05);
+  border-radius: 0.85rem; box-shadow: 0 1px 2px rgba(0, 40, 41, 0.05);
 }
 .bba-panel-head {
   padding: 0.9rem 1.15rem; border-bottom: 1px solid var(--bba-line);
@@ -120,14 +120,50 @@ body.bba-admin {
 }
 .bba-stat .n { font-size: 0.78rem; color: var(--bba-muted); margin-top: 0.3rem; }
 
+/* KPI cards — modern dashboard stat tiles with an icon + hover lift */
+.bba-stat-card {
+  display: flex; flex-direction: column;
+  padding: 1.1rem 1.15rem 1.2rem;
+  background: #fff; border: 1px solid var(--bba-line);
+  border-radius: 0.85rem; box-shadow: 0 1px 2px rgba(0, 40, 41, 0.05);
+  text-decoration: none; height: 100%;
+  transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+}
+.bba-stat-card:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(0, 40, 41, 0.10); border-color: var(--bba-green); }
+.bba-stat-card__icon {
+  width: 40px; height: 40px; border-radius: 11px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--bba-gold-tint); color: var(--bba-green);
+  font-size: 1.15rem; margin-bottom: 0.7rem;
+}
+.bba-stat-card__v { font-family: var(--bba-font-display); font-size: 2rem; font-weight: 600; line-height: 1; color: var(--bba-ink); }
+.bba-stat-card__k { font-size: 0.82rem; font-weight: 600; color: var(--bba-body); margin-top: 0.3rem; }
+.bba-stat-card__n { font-size: 0.75rem; color: var(--bba-muted); margin-top: 0.1rem; }
+/* Emphasis tile — the primary KPI, filled teal */
+.bba-stat-card--accent { background: var(--bba-green); border-color: var(--bba-green); }
+.bba-stat-card--accent .bba-stat-card__icon { background: rgba(255, 255, 255, 0.16); color: #fff; }
+.bba-stat-card--accent .bba-stat-card__v,
+.bba-stat-card--accent .bba-stat-card__k { color: #fff; }
+.bba-stat-card--accent .bba-stat-card__n { color: rgba(255, 255, 255, 0.72); }
+.bba-stat-card--accent:hover { box-shadow: 0 14px 28px rgba(0, 40, 41, 0.28); }
+
+/* Subtle danger button — destructive actions (delete) */
+.bba-btn-danger {
+  --bs-btn-color: #b3261e; --bs-btn-border-color: rgba(179, 38, 30, 0.4);
+  --bs-btn-bg: transparent;
+  --bs-btn-hover-bg: #b3261e; --bs-btn-hover-border-color: #b3261e; --bs-btn-hover-color: #fff;
+  --bs-btn-active-bg: #8c1d18; --bs-btn-active-border-color: #8c1d18; --bs-btn-active-color: #fff;
+  border-width: 1px; border-style: solid;
+}
+
 .bba-table { margin: 0; font-size: 0.88rem; }
 .bba-table > :not(caption) > * > * { padding: 0.7rem 0.9rem; }
 .bba-table thead th {
-  background: #faf8f4; border-bottom: 1px solid var(--bba-line);
+  background: #eef4f2; border-bottom: 1px solid var(--bba-line);
   font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
   font-weight: 500; color: var(--bba-muted); white-space: nowrap;
 }
-.bba-table tbody tr:hover { background: #fbfaf7; }
+.bba-table tbody tr:hover { background: #f5f8f7; }
 .bba-table td { vertical-align: middle; border-color: var(--bba-line); }
 .bba-thumb {
   width: 52px; height: 38px; object-fit: cover; border-radius: 0.3rem;
@@ -141,9 +177,9 @@ body.bba-admin {
 }
 .bba-pill-new      { background: rgba(216, 117, 43, 0.14); color: #a4521a; }
 .bba-pill-read     { background: rgba(63, 70, 62, 0.1);    color: var(--bba-body); }
-.bba-pill-replied  { background: rgba(46, 82, 51, 0.12);   color: var(--bba-green); }
+.bba-pill-replied  { background: rgba(0, 56, 57, 0.12);   color: var(--bba-green); }
 .bba-pill-closed   { background: rgba(63, 70, 62, 0.08);   color: var(--bba-muted); }
-.bba-pill-on       { background: rgba(46, 82, 51, 0.12);   color: var(--bba-green); }
+.bba-pill-on       { background: rgba(0, 56, 57, 0.12);   color: var(--bba-green); }
 .bba-pill-off      { background: rgba(63, 70, 62, 0.1);    color: var(--bba-muted); }
 .bba-pill-featured { background: var(--bba-gold-tint);     color: var(--bba-gold-dark); }
 
@@ -240,4 +276,4 @@ tr.htmx-swapping { background: rgba(179, 38, 30, 0.06) !important; }
 .form-control.is-invalid, .form-select.is-invalid { border-color: #b3261e; }
 
 /* Booked enquiry status pill */
-.bba-pill-booked { background: rgba(46, 82, 51, 0.16); color: var(--bba-green); font-weight: 600; }
+.bba-pill-booked { background: rgba(0, 56, 57, 0.16); color: var(--bba-green); font-weight: 600; }

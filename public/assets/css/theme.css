@@ -21,39 +21,39 @@
    Design tokens
    ------------------------------------------------------------ */
 :root {
-  /* Bootstrap overrides */
+  /* Bootstrap overrides — "Panda Teal" (matches the public site's tokens.css) */
   --bs-body-bg: #ffffff;
-  --bs-body-color: #3f463e;
-  --bs-body-font-family: "Jost", system-ui, sans-serif;
+  --bs-body-color: #4a5054;
+  --bs-body-font-family: "Inter", system-ui, sans-serif;
   --bs-body-font-weight: 400;
-  --bs-body-line-height: 1.7;
+  --bs-body-line-height: 1.65;
   --bs-border-radius: 0.5rem;
   --bs-border-radius-lg: 0.75rem;
-  --bs-border-color: #e7e3d8;
-  --bs-heading-color: #2e5233;
-  --bs-link-color: #997022;
-  --bs-link-hover-color: #7a5a1b;
-  --bs-secondary-color: rgba(63, 70, 62, 0.72);
+  --bs-border-color: #dfe5e4;
+  --bs-heading-color: #14232a;
+  --bs-link-color: #003839;
+  --bs-link-hover-color: #00292a;
+  --bs-secondary-color: rgba(74, 80, 84, 0.72);
 
-  /* Brand tokens */
+  /* Brand tokens — deep-teal brand on white, mint tints. */
   --bba-bg: #ffffff;
   --bba-surface: #ffffff;
-  --bba-sand: #ffffff;        /* all-white per client — sections separated by hairlines */
-  --bba-green: #2e5233;       /* Forest Green */
-  --bba-green-deep: #223d26;  /* Deep Forest — the footer green the client likes */
-  --bba-ink: #2e5233;
-  --bba-body: #3f463e;        /* Charcoal Olive */
-  --bba-muted: rgba(63, 70, 62, 0.65);
-  --bba-gold: #c0902f;        /* Embroidered Gold */
-  --bba-gold-dark: #997022;   /* Antique Gold */
-  --bba-gold-light: #edb96a;
-  --bba-gold-tint: rgba(192, 144, 47, 0.12);
-  --bba-sun: #d8752b;         /* Sunset Amber */
-  --bba-line: #e7e3d8;        /* Warm Hairline */
-  --bba-overlay: linear-gradient(180deg, rgba(30, 34, 20, 0.45), rgba(24, 27, 15, 0.82));
-  --bba-shadow: 0 8px 26px rgba(62, 60, 40, 0.10);
-  --bba-font-display: "Playfair Display", Georgia, serif;
-  --bba-font-body: "Jost", system-ui, sans-serif;
+  --bba-sand: #eef5f3;        /* mint — soft panels */
+  --bba-green: #003839;       /* deep teal brand */
+  --bba-green-deep: #00292a;  /* darker teal — sidebar / footer */
+  --bba-ink: #14232a;         /* slate headings */
+  --bba-body: #4a5054;        /* grey body */
+  --bba-muted: rgba(74, 80, 84, 0.65);
+  --bba-gold: #003839;        /* accent = teal (active states) */
+  --bba-gold-dark: #00292a;
+  --bba-gold-light: #bfe0da;  /* light mint — text on the dark sidebar */
+  --bba-gold-tint: rgba(0, 56, 57, 0.12);
+  --bba-sun: #003839;
+  --bba-line: #dfe5e4;
+  --bba-overlay: linear-gradient(180deg, rgba(0, 30, 31, 0.45), rgba(0, 20, 21, 0.82));
+  --bba-shadow: 0 8px 26px rgba(0, 40, 41, 0.10);
+  --bba-font-display: "El Messiri", Georgia, serif;
+  --bba-font-body: "Inter", system-ui, sans-serif;
 }
 
 /* ------------------------------------------------------------

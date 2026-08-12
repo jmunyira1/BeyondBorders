@@ -4,16 +4,17 @@
 
 <div class="row g-3 mb-3">
   <?php foreach ([
-      ['New enquiries', $stats['new'], 'Waiting for a reply', 'admin/enquiries?status=new'],
-      ['Last 7 days', $stats['week'], 'Enquiries received', 'admin/enquiries'],
-      ['Live packages', $stats['packages'], $counts['inactive'] . ' hidden', 'admin/packages'],
-      ['Published posts', $stats['posts'], 'In the journal', 'admin/posts'],
-  ] as [$label, $value, $note, $link]): ?>
+      ['New enquiries', $stats['new'], 'Waiting for a reply', 'admin/enquiries?status=new', 'bi-inbox-fill', 'accent'],
+      ['Last 7 days', $stats['week'], 'Enquiries received', 'admin/enquiries', 'bi-graph-up-arrow', ''],
+      ['Live packages', $stats['packages'], $counts['inactive'] . ' hidden', 'admin/packages', 'bi-compass', ''],
+      ['Published posts', $stats['posts'], 'In the journal', 'admin/posts', 'bi-journal-text', ''],
+  ] as [$label, $value, $note, $link, $icon, $mod]): ?>
     <div class="col-6 col-lg-3">
-      <a class="bba-panel bba-stat d-block text-decoration-none h-100" href="<?= site_url($link) ?>">
-        <p class="k mb-1"><?= esc($label) ?></p>
-        <p class="v mb-0"><?= (int) $value ?></p>
-        <p class="n mb-0"><?= esc($note) ?></p>
+      <a class="bba-stat-card<?= $mod ? ' bba-stat-card--' . $mod : '' ?>" href="<?= site_url($link) ?>">
+        <span class="bba-stat-card__icon"><i class="bi <?= $icon ?>" aria-hidden="true"></i></span>
+        <span class="bba-stat-card__v"><?= (int) $value ?></span>
+        <span class="bba-stat-card__k"><?= esc($label) ?></span>
+        <span class="bba-stat-card__n"><?= esc($note) ?></span>
       </a>
     </div>
   <?php endforeach; ?>

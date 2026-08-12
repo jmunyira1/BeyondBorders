@@ -58,7 +58,7 @@ $fields = array_filter([
 
   <?php if ($row['message']): ?>
     <p class="bba-eyebrow mb-2">Message</p>
-    <div class="bba-panel-body border rounded mb-4" style="background:#faf8f4">
+    <div class="bba-panel-body border rounded mb-4" style="background:var(--bba-sand)">
       <?= nl2paras($row['message'], 'mb-2') ?>
     </div>
   <?php endif; ?>
@@ -75,9 +75,14 @@ $fields = array_filter([
 </div>
 
 <div class="modal-footer justify-content-between">
-  <span class="small text-body-secondary">
-    <?= esc($row['ip_address'] ?: '') ?>
-  </span>
+  <div class="d-flex align-items-center gap-3">
+    <button class="btn bba-btn-danger btn-sm"
+            hx-post="<?= site_url('admin/enquiries/' . $row['id'] . '/delete') ?>"
+            hx-target="#enquiry-table"
+            data-confirm="Delete this enquiry permanently? This cannot be undone."
+            data-bs-dismiss="modal"><i class="bi bi-trash3 me-1" aria-hidden="true"></i>Delete</button>
+    <span class="small text-body-secondary"><?= esc($row['ip_address'] ?: '') ?></span>
+  </div>
   <div class="d-flex gap-2 flex-wrap">
     <?php foreach (['replied' => 'Mark replied', 'closed' => 'Mark closed'] as $status => $label): ?>
       <button class="btn btn-bba-outline btn-sm"
