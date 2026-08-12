@@ -24,22 +24,31 @@
     </div>
 
     <div class="bba-login-body">
-      <?php if (session('error') !== null): ?>
-        <div class="bba-alert bba-alert-error mb-3"><?= esc(session('error')) ?></div>
-      <?php elseif (session('errors') !== null): ?>
-        <div class="bba-alert bba-alert-error mb-3">
-          <?php if (is_array(session('errors'))): ?>
-            <?php foreach (session('errors') as $error): ?>
-              <div><?= esc($error) ?></div>
-            <?php endforeach; ?>
-          <?php else: ?>
-            <?= esc(session('errors')) ?>
-          <?php endif; ?>
+      <?php
+        // Shield sets a single generic `error` string on a failed sign-in (it
+        // deliberately does NOT say which field was wrong), and a field-keyed
+        // `errors` array on validation failures (bad email format, empty field…).
+        $authError   = session('error');
+        $fieldErrors = is_array(session('errors')) ? session('errors') : [];
+        $genericFail = $authError !== null;                       // wrong email OR password
+        $emailBad    = isset($fieldErrors['email'])    || $genericFail;
+        $passBad     = isset($fieldErrors['password']) || $genericFail;
+      ?>
+
+      <?php if ($authError !== null): ?>
+        <div class="bba-alert bba-alert-error mb-3" role="alert">
+          <i class="bi bi-exclamation-triangle-fill me-2" aria-hidden="true"></i><?= esc($authError) ?>
+        </div>
+      <?php elseif ($fieldErrors !== []): ?>
+        <div class="bba-alert bba-alert-error mb-3" role="alert">
+          <i class="bi bi-exclamation-triangle-fill me-2" aria-hidden="true"></i>Please fix the highlighted fields and try again.
         </div>
       <?php endif; ?>
 
       <?php if (session('message') !== null): ?>
-        <div class="bba-alert bba-alert-success mb-3"><?= esc(session('message')) ?></div>
+        <div class="bba-alert bba-alert-success mb-3">
+          <i class="bi bi-check-circle-fill me-2" aria-hidden="true"></i><?= esc(session('message')) ?>
+        </div>
       <?php endif; ?>
 
       <form action="<?= url_to('login') ?>" method="post">
@@ -47,14 +56,22 @@
 
         <div class="mb-3">
           <label class="form-label" for="email">Email address</label>
-          <input type="email" class="form-control" id="email" name="email" inputmode="email"
+          <input type="email" class="form-control<?= $emailBad ? ' is-invalid' : '' ?>" id="email" name="email" inputmode="email"
                  autocomplete="username" value="<?= old('email') ?>" required autofocus>
+          <?php if (isset($fieldErrors['email'])): ?>
+            <div class="invalid-feedback d-block"><?= esc($fieldErrors['email']) ?></div>
+          <?php endif; ?>
         </div>
 
         <div class="mb-3">
           <label class="form-label" for="password">Password</label>
-          <input type="password" class="form-control" id="password" name="password"
+          <input type="password" class="form-control<?= $passBad ? ' is-invalid' : '' ?>" id="password" name="password"
                  autocomplete="current-password" required>
+          <?php if (isset($fieldErrors['password'])): ?>
+            <div class="invalid-feedback d-block"><?= esc($fieldErrors['password']) ?></div>
+          <?php elseif ($genericFail): ?>
+            <div class="invalid-feedback d-block">Your email or password is incorrect.</div>
+          <?php endif; ?>
         </div>
 
         <?php if (setting('Auth.sessionConfig')['allowRemembering']): ?>
