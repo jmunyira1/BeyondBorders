@@ -21,15 +21,15 @@ body { overflow-x: clip; background: var(--color-paper); color: var(--color-ink)
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 600; /* El Messiri sits at 600, as Travel Panda uses it */
   font-style: normal;
-  letter-spacing: -0.02em;
-  line-height: 1.12;
+  letter-spacing: -0.01em;
+  line-height: 1.16;
   overflow-wrap: anywhere;
   min-width: 0;
 }
-/* Display-scale heads carry the extra weight the sans re-theme wants. */
-.bb-fold h1, .bb-pagehead h1, .bb-band h2, .bb-quote-huge { font-weight: 800; }
+/* Display-scale heads take El Messiri's top weight. */
+.bb-fold h1, .bb-pagehead h1, .bb-band h2, .bb-quote-huge { font-weight: 700; }
 
 ::selection { background: var(--color-accent-tint); }
 
@@ -61,9 +61,9 @@ a:hover { text-decoration-thickness: 2px; }
 .bba-rule-center { margin-inline: auto; }
 
 /* Section rhythm — phone base, generous space arrives with the viewport */
-section { padding-block: var(--space-xl); }
+section { padding-block: var(--space-lg); }
 @media (min-width: 60rem) {
-  section { padding-block: var(--space-2xl); }
+  section { padding-block: var(--space-xl); }
 }
 .section-sand { background: var(--color-paper-2); border-block: var(--rule-hair) solid var(--color-rule); }
 
@@ -78,7 +78,7 @@ section { padding-block: var(--space-xl); }
   --bs-btn-padding-x: 1.4rem;
   --bs-btn-padding-y: 0.7rem;
   --bs-btn-font-size: var(--text-sm);
-  --bs-btn-border-radius: var(--radius-card);
+  --bs-btn-border-radius: var(--radius-pill); /* Travel Panda pill buttons */
   font-weight: 500;
   letter-spacing: 0.01em;
   white-space: nowrap;
@@ -340,6 +340,121 @@ section { padding-block: var(--space-xl); }
   text-transform: uppercase;
 }
 
+/* ============================================================
+   Home hero — crossfading photographic slideshow (Travel-Panda
+   inspired). Real gallery photos rotate behind centred copy with
+   a subtle Ken-Burns drift. Fixed FOUR layers so the pure-CSS
+   crossfade timing stays exact; freezes under reduced-motion.
+   ------------------------------------------------------------ */
+.bb-hero {
+  position: relative;
+  min-height: 82svh;
+  display: flex;
+  align-items: center;
+  overflow: clip;
+  background: var(--color-basalt);
+}
+@media (min-width: 60rem) { .bb-hero { min-height: 90svh; } }
+.bb-hero__slides { position: absolute; inset: 0; z-index: 0; }
+.bb-hero__slide {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  will-change: opacity, transform;
+  animation: bbHeroFade 24s var(--ease-in-out) infinite;
+  animation-delay: calc(var(--i) * 6s);
+}
+.bb-hero::after { content: ""; position: absolute; inset: 0; z-index: 1; background: var(--color-scrim); }
+@keyframes bbHeroFade {
+  0%   { opacity: 0; transform: scale(1.05); }
+  4%   { opacity: 1; }
+  25%  { opacity: 1; transform: scale(1.11); }
+  30%  { opacity: 0; transform: scale(1.12); }
+  100% { opacity: 0; transform: scale(1.05); }
+}
+.bb-hero__copy {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  text-align: center;
+  padding-block: var(--space-2xl);
+}
+.bb-hero__caption {
+  color: var(--color-basalt-muted);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-sm);
+}
+.bb-hero h1 {
+  color: var(--color-basalt-ink);
+  font-weight: 700;
+  font-size: clamp(2.6rem, 7vw + 0.5rem, 5.75rem);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  max-width: 20ch;
+  margin: 0 auto var(--space-md);
+  overflow-wrap: anywhere;
+}
+.bb-hero .lead {
+  color: var(--color-basalt-ink);
+  font-weight: 500;
+  font-size: var(--text-md);
+  max-width: 46ch;
+  margin: 0 auto var(--space-lg);
+}
+.bb-hero__cta { display: flex; flex-wrap: wrap; gap: var(--space-sm); justify-content: center; }
+.bb-hero .btn { width: 100%; }
+@media (min-width: 36rem) { .bb-hero .btn { width: auto; } }
+@media (prefers-reduced-motion: reduce) {
+  .bb-hero__slide { animation: none; opacity: 0; transform: none; }
+  .bb-hero__slide:first-child { opacity: 1; }
+}
+
+/* Quick contact strip — email / WhatsApp / call, on the green primary band */
+.bb-contactstrip { background: var(--color-primary); color: var(--color-primary-ink); }
+.bb-contactstrip__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3xs) var(--space-lg);
+  padding-block: var(--space-xs);
+}
+.bb-contactstrip a,
+.bb-contactstrip__btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-xs);
+  color: var(--color-primary-ink); text-decoration: none;
+  font-weight: 600; padding: var(--space-2xs) var(--space-sm);
+  background: none; border: 0; font: inherit; cursor: pointer;
+}
+.bb-contactstrip a:hover,
+.bb-contactstrip__btn:hover { color: var(--color-primary-ink); text-decoration: underline; text-underline-offset: 3px; }
+.bb-contactstrip a:focus-visible,
+.bb-contactstrip__btn:focus-visible { outline: 2px solid var(--color-primary-ink); outline-offset: 2px; }
+.bb-contactstrip i { font-size: 1.15em; }
+.bb-contactstrip span { overflow-wrap: anywhere; }
+
+/* Stat band — honest catalogue counts, counted up on scroll-in */
+.bb-stats {
+  display: grid;
+  gap: var(--space-lg);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  text-align: center;
+}
+@media (min-width: 48rem) { .bb-stats { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.bb-stat__num {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.4rem, 5vw + 0.5rem, 3.6rem);
+  line-height: 1;
+  color: var(--color-primary);
+  font-variant-numeric: tabular-nums;
+}
+.bb-stat__label { display: block; margin-top: var(--space-2xs); color: var(--color-ink-2); font-weight: 500; }
+
 /* Search band — a raised card just below the hero. (No negative-margin lift:
    the hero content is bottom-aligned, so a lift collided with its CTAs on wide
    screens. It sits cleanly below the fold on every viewport now.) */
@@ -442,7 +557,18 @@ section { padding-block: var(--space-xl); }
 /* ------------------------------------------------------------
    Catalogue — package cards (F6), uniform on purpose
    ------------------------------------------------------------ */
-.bb-item { position: relative; display: flex; flex-direction: column; height: 100%; }
+.bb-item {
+  position: relative; display: flex; flex-direction: column; height: 100%;
+  background: var(--color-paper);
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .bb-item:hover { transform: translateY(-4px); box-shadow: 0 24px 50px oklch(28% 0.04 200 / 0.16); }
+}
 .bb-item h3 .stretched-link { color: inherit; text-decoration: none; }
 .bb-item__media {
   display: block;
@@ -504,8 +630,7 @@ section { padding-block: var(--space-xl); }
 }
 .bb-item__body {
   display: flex; flex-direction: column; flex-grow: 1; gap: var(--space-xs);
-  padding: var(--space-md) 0 var(--space-lg);
-  border-bottom: var(--rule-hair) solid var(--color-rule);
+  padding: var(--space-md) var(--space-md) var(--space-lg);
 }
 .bb-item h3 { font-size: var(--text-md); margin: 0; }
 .bb-item h3 a { color: inherit; text-decoration: none; }
@@ -519,15 +644,14 @@ section { padding-block: var(--space-xl); }
 .bb-rowhead {
   display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end;
   gap: var(--space-sm) var(--space-lg);
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-lg);
 }
 .bb-rowhead > div { min-width: 0; }
 /* Green primary, not orange — small uppercase text needs AA contrast on white. */
 .bb-rowhead .bb-meta { color: var(--color-primary); }
 .bb-rowhead h2 {
-  font-size: var(--text-xl);
-  font-weight: 800;
-  text-transform: uppercase;
+  font-size: var(--text-2xl);
+  font-weight: 600;
   letter-spacing: -0.01em;
   margin: 0;
 }
@@ -555,7 +679,7 @@ section { padding-block: var(--space-xl); }
 .bb-tile__label { display: flex; flex-direction: column; gap: var(--space-3xs); }
 .bb-tile__name { font-family: var(--font-display); font-weight: 700; font-size: var(--text-md); color: var(--color-basalt-ink); line-height: 1.15; }
 .bb-tile__go { font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.06em; color: var(--color-basalt-ink); }
-.bb-tile__go i { color: var(--color-accent); }
+.bb-tile__go i { color: var(--color-basalt-ink); }
 @media (hover: hover) and (pointer: fine) {
   .bb-tile:hover img { transform: scale(1.04); }
   .bb-tile:hover .bb-tile__go { text-decoration: underline; text-underline-offset: 0.25em; }
@@ -607,8 +731,9 @@ section { padding-block: var(--space-xl); }
    ------------------------------------------------------------ */
 .bb-highlights {
   display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-lg) var(--space-md);
+  gap: var(--space-md) var(--space-sm);
 }
+@media (min-width: 60rem) { .bb-highlights { gap: var(--space-lg) var(--space-md); } }
 @media (min-width: 36rem) { .bb-highlights { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (min-width: 60rem) { .bb-highlights { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
 .bb-highlight { display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--space-xs); }
@@ -628,16 +753,17 @@ section { padding-block: var(--space-xl); }
 }
 .bb-socials a:hover { color: var(--color-primary); }
 .bb-socials i { color: var(--color-accent); font-size: 1.1rem; }
-/* On a dark band, lift the social colours. */
+/* On a dark teal band, lift the social colours (teal-on-teal would vanish). */
 .bb-band .bb-socials a { color: var(--color-basalt-ink); }
-.bb-band .bb-socials a:hover { color: var(--color-accent); }
+.bb-band .bb-socials a:hover { color: var(--color-basalt-ink); text-decoration: underline; }
+.bb-band .bb-socials i { color: var(--color-basalt-ink); }
 
 /* ------------------------------------------------------------
    Statement band (basalt) — CTA close
    ------------------------------------------------------------ */
-.bb-band { background: var(--color-basalt); color: var(--color-basalt-muted); padding-block: var(--space-2xl); }
+.bb-band { background: var(--color-basalt); color: var(--color-basalt-muted); padding-block: var(--space-xl); }
 @media (min-width: 60rem) {
-  .bb-band { padding-block: var(--space-3xl); }
+  .bb-band { padding-block: var(--space-2xl); }
 }
 .bb-band h2 {
   color: var(--color-basalt-ink);
@@ -648,6 +774,19 @@ section { padding-block: var(--space-xl); }
 .bb-band p { max-width: 52ch; }
 .bb-band a:not(.btn) { color: var(--color-basalt-ink); }
 .bb-band .bb-meta { color: var(--color-basalt-muted); }
+/* Primary CTA sits on the dark teal band — a teal fill would vanish, so it
+   becomes a white button with teal text (Travel Panda's on-dark treatment). */
+.bb-band .btn-bba-gold {
+  --bs-btn-bg: var(--color-basalt-ink);
+  --bs-btn-border-color: var(--color-basalt-ink);
+  --bs-btn-color: var(--color-basalt);
+  --bs-btn-hover-bg: var(--color-paper);
+  --bs-btn-hover-border-color: var(--color-paper);
+  --bs-btn-hover-color: var(--color-basalt);
+  --bs-btn-active-bg: var(--color-paper);
+  --bs-btn-active-border-color: var(--color-paper);
+  --bs-btn-active-color: var(--color-basalt);
+}
 
 /* ------------------------------------------------------------
    Quotes — one huge (T3), supporting small (T1-ish)

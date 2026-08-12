@@ -1,58 +1,60 @@
 /* Hallmark · design-system: design.md · designed-as-app
- * theme: custom "Sunset Savanna" · vibe: "golden-hour grassland, warm dust, big sky"
- * paper: oklch(96% 0.015 75) · accent: oklch(55% 0.15 40)
- * display: Fraunces · body: Switzer · axes: light / roman-serif / warm (40°)
- * studied: no · context: user-confirmed · Beyond Borders Adventures
+ * theme: studied-DNA "Panda Teal" · studied: yes
+ * DNA-source: url https://travelerspanda.com/ (visual system, at client's request — no content/photos copied)
+ * observed: deep-teal #003839 brand · mint #eaf3f1 soft sections · white paper · grey body #7a7a7a
+ *           · El Messiri headings (600) + Inter body · pill buttons (50px) · rounded cards (15px)
+ * adopted: all of the above, populated with Beyond Borders' own copy & photos
+ * axes: light / humanist-display / cool-teal (194°)
+ * context: user-confirmed clone base ("copy to be like Travel Panda, I'll customize") · Beyond Borders Adventures
  */
 
 :root {
-  /* ---- Colour — "Safari Fresh": leaf-green primary + sunset-orange
-          accent on warm white; deep-forest dark bands. --------------- */
-  --color-paper:        oklch(98% 0.006 90);
-  --color-paper-2:      oklch(96% 0.009 125);
-  --color-paper-3:      oklch(93.5% 0.011 130);
-  --color-ink:          oklch(24% 0.02 155);
-  --color-ink-2:        oklch(40% 0.02 155);
-  --color-muted:        oklch(50% 0.016 150);
-  --color-rule:         oklch(88% 0.012 135);
-  --color-rule-2:       oklch(92% 0.008 135);
+  /* ---- Colour — "Panda Teal" (Travel Panda DNA): deep-teal brand on
+          white with mint soft sections; grey body, slate headings. ---- */
+  --color-paper:        oklch(99% 0.003 195);   /* white */
+  --color-paper-2:      oklch(95.5% 0.012 178); /* mint #eaf3f1 — alternate sections */
+  --color-paper-3:      oklch(92.5% 0.016 180); /* deeper mint */
+  --color-ink:          oklch(24% 0.035 255);   /* slate headings #0f172a */
+  --color-ink-2:        oklch(48% 0.012 220);   /* grey body (AA-safe take on #7a7a7a) */
+  --color-muted:        oklch(56% 0.01 210);    /* lighter grey — meta labels */
+  --color-rule:         oklch(90% 0.01 190);
+  --color-rule-2:       oklch(94% 0.008 190);
 
-  /* Sunset-orange accent — CTA fills, active bars, highlights. Bright, so
-     text ON it is DARK (accent-ink) to clear WCAG; orange-as-text on white
-     fails contrast, so body links use the green primary instead. */
-  --color-accent:       oklch(64% 0.16 45);
-  --color-accent-hover: oklch(58% 0.16 43);
-  --color-accent-ink:   oklch(20% 0.03 55);
-  --color-accent-tint:  oklch(64% 0.16 45 / 0.14);
-  --color-focus:        oklch(55% 0.18 45);
+  /* Deep-teal brand #003839 — CTA fills, links, active bars. Dark, so text
+     ON it is WHITE (accent-ink); teal-as-text on white clears WCAG easily. */
+  --color-accent:       oklch(31% 0.045 194);
+  --color-accent-hover: oklch(26% 0.045 194);
+  --color-accent-ink:   oklch(99% 0.003 195);
+  --color-accent-tint:  oklch(31% 0.045 194 / 0.12);
+  --color-focus:        oklch(45% 0.07 194);
 
-  /* Leaf-green primary — structural / secondary buttons, brand touches. */
-  --color-primary:       oklch(52% 0.13 150);
-  --color-primary-hover: oklch(45% 0.12 150);
-  --color-primary-ink:   oklch(99% 0.01 130);
-  --color-primary-tint:  oklch(52% 0.13 150 / 0.12);
+  /* Same deep teal as the structural / secondary brand colour. */
+  --color-primary:       oklch(31% 0.045 194);
+  --color-primary-hover: oklch(26% 0.045 194);
+  --color-primary-ink:   oklch(99% 0.003 195);
+  --color-primary-tint:  oklch(31% 0.045 194 / 0.1);
 
   --color-whatsapp:     #25d366; /* WhatsApp brand green — widget only, palette-exempt */
   --color-whatsapp-ink: #ffffff;
 
-  /* Dark bands / footer — deep forest green. */
-  --color-basalt:       oklch(30% 0.05 155);
-  --color-basalt-2:     oklch(34% 0.052 155);
-  --color-basalt-ink:   oklch(96% 0.01 130);
-  --color-basalt-muted: oklch(80% 0.03 140);
-  --color-basalt-rule:  oklch(42% 0.045 150);
+  /* Dark bands / footer — deep teal. */
+  --color-basalt:       oklch(28% 0.045 194);
+  --color-basalt-2:     oklch(33% 0.045 194);
+  --color-basalt-ink:   oklch(97% 0.006 185);
+  --color-basalt-muted: oklch(80% 0.03 185);
+  --color-basalt-rule:  oklch(42% 0.04 190);
 
-  --color-good:         oklch(52% 0.12 150);
-  --color-good-tint:    oklch(52% 0.12 150 / 0.1);
+  --color-good:         oklch(31% 0.045 194);
+  --color-good-tint:    oklch(31% 0.045 194 / 0.1);
   --color-bad:          oklch(50% 0.17 28);
   --color-bad-tint:     oklch(50% 0.17 28 / 0.08);
-  --color-scrim:        linear-gradient(180deg, oklch(24% 0.03 155 / 0.2), oklch(18% 0.03 155 / 0.66));
+  --color-scrim:        linear-gradient(180deg, oklch(20% 0.03 200 / 0.2), oklch(14% 0.03 200 / 0.66));
 
   /* ---- Type -------------------------------------------------- */
-  /* Kenya Wonder re-theme: single rounded humanist sans, weight-contrasted —
-     the Magical-Kenya feel without the banned Poppins default. */
-  --font-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-body:    "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  /* Panda Teal: El Messiri display (elegant humanist, weight 600–700) over
+     Inter body — the Travel Panda pairing. */
+  --font-display: "El Messiri", ui-sans-serif, system-ui, sans-serif;
+  --font-body:    "Inter", ui-sans-serif, system-ui, sans-serif;
 
   --text-xs:   0.8rem;
   --text-sm:   0.875rem;
@@ -78,10 +80,11 @@
 
   /* ---- Rules, radii, depth ----------------------------------- */
   --rule-hair: 1px;
-  --radius-card:  0;
-  --radius-input: 2px;
+  --radius-card:  15px; /* Travel Panda rounded cards / tiles / images */
+  --radius-input: 8px;
   --radius-pill:  999px;
   --shadow-whisper: 0 1px 2px oklch(20% 0.01 60 / 0.05);
+  --shadow-card:  0 18px 40px oklch(28% 0.04 200 / 0.10); /* soft lift under cards */
 
   /* ---- Motion ------------------------------------------------ */
   --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
@@ -102,17 +105,17 @@
 
   /* ---- Bootstrap 5.3 bridge ---------------------------------- */
   --bs-body-bg: var(--color-paper);
-  --bs-body-color: var(--color-ink);
+  --bs-body-color: var(--color-ink-2); /* grey body copy, Travel Panda style; headings stay slate */
   --bs-body-font-family: var(--font-body);
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.65;
   --bs-border-radius: var(--radius-input);
-  --bs-border-radius-lg: var(--radius-input);
+  --bs-border-radius-lg: var(--radius-card);
   --bs-border-color: var(--color-rule);
   --bs-heading-color: var(--color-ink);
   --bs-link-color: var(--color-primary);
   --bs-link-hover-color: var(--color-primary-hover);
-  --bs-secondary-color: var(--color-ink-2);
+  --bs-secondary-color: var(--color-muted);
 
   /* ---- Legacy --bba-* bridge (app.css: WhatsApp widget, chips,
           htmx feedback, pager) — aliased, never redefined below -- */

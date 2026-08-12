@@ -10,13 +10,15 @@
 <meta name="csrf-token" content="<?= csrf_hash() ?>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
-<link href="<?= base_url('assets/css/tokens.css') ?>" rel="stylesheet">
-<link href="<?= base_url('assets/css/hallmark.css') ?>" rel="stylesheet">
-<link href="<?= base_url('assets/css/app.css') ?>" rel="stylesheet">
+<?php // Cache-bust stylesheets by file mtime so edits show up without a hard refresh.
+      $cssV = static fn (string $f): string => base_url($f) . '?v=' . (@filemtime(FCPATH . $f) ?: 1); ?>
+<link href="<?= $cssV('assets/css/tokens.css') ?>" rel="stylesheet">
+<link href="<?= $cssV('assets/css/hallmark.css') ?>" rel="stylesheet">
+<link href="<?= $cssV('assets/css/app.css') ?>" rel="stylesheet">
 <?= $this->renderSection('head') ?>
 </head>
 <body>

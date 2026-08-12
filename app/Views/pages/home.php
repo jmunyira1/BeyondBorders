@@ -2,22 +2,181 @@
 
 <?= $this->section('content') ?>
 
-<!-- Hero — photographic fold: the hero IS the page above the fold -->
-<header class="bb-fold">
-  <img class="bb-fold__img" src="https://picsum.photos/seed/grove-18/1800/1100"
-       alt="Golden-hour light over the Kenyan savanna" width="1800" height="1100" fetchpriority="high">
-  <div class="container bb-fold__copy">
-    <p class="bb-fold__caption mb-3"><?= esc(site('heroEyebrow')) ?></p>
+<?php
+// Rotating hero backdrop. Prefer real uploaded gallery photos; fall back to
+// seeded placeholders until the client uploads their own. Always exactly four
+// layers so the pure-CSS crossfade timing stays exact (cycles the pool if the
+// gallery has fewer than four images).
+$pool = [];
+foreach ($gallery as $g) {
+    $pool[] = [
+        'src' => media_url($g['path']),
+        'alt' => $g['alt'] ?: ($g['caption'] ?: 'A Beyond Borders travel moment'),
+    ];
+}
+if (count($pool) < 2) {
+    $pool = array_map(
+        static fn (string $seed): array => [
+            'src' => 'https://picsum.photos/seed/bbahero-' . $seed . '/1900/1200',
+            'alt' => 'Kenya landscape',
+        ],
+        ['savanna', 'mara', 'diani', 'amboseli']
+    );
+}
+$heroSlides = [];
+for ($i = 0; $i < 4; $i++) {
+    $heroSlides[] = $pool[$i % count($pool)];
+}
+?>
+
+<!-- Hero — crossfading photographic slideshow with centred copy -->
+<header class="bb-hero">
+  <div class="bb-hero__slides" aria-hidden="true">
+    <?php foreach ($heroSlides as $i => $slide): ?>
+      <img class="bb-hero__slide" style="--i: <?= $i ?>"
+           src="<?= esc($slide['src'], 'attr') ?>"
+           alt="<?= esc($slide['alt'], 'attr') ?>"
+           width="1900" height="1200"
+           <?= $i === 0 ? 'fetchpriority="high"' : 'loading="lazy"' ?>>
+    <?php endforeach; ?>
+  </div>
+  <div class="container bb-hero__copy">
+    <p class="bb-hero__caption"><?= esc(site('heroEyebrow')) ?></p>
     <h1><?= site('heroHeading') /* allows <br> from settings */ ?></h1>
     <p class="lead"><?= esc(site('heroLead')) ?></p>
-    <div class="d-flex flex-wrap gap-3">
+    <div class="bb-hero__cta">
       <a href="<?= url_to('packages') ?>" class="btn btn-bba-gold">Explore packages</a>
       <a href="<?= url_to('custom-trips') ?>" class="btn btn-bba-outline-light">Plan a custom trip</a>
     </div>
   </div>
 </header>
 
-<!-- Trip search — lifts onto the hero seam, submits into the packages filter -->
+<!-- Quick contact strip — reach us the way you prefer -->
+<section class="bb-contactstrip">
+  <div class="container">
+    <div class="bb-contactstrip__row">
+      <a href="mailto:<?= esc(site('email'), 'attr') ?>">
+        <i class="bi bi-envelope" aria-hidden="true"></i><span><?= esc(site('email')) ?></span>
+      </a>
+      <button type="button" class="bb-contactstrip__btn" data-wa-open="Hi, I'd like to plan a trip.">
+        <i class="bi bi-whatsapp" aria-hidden="true"></i><span>Chat on WhatsApp</span>
+      </button>
+      <a href="tel:<?= esc(site('phoneLink'), 'attr') ?>">
+        <i class="bi bi-telephone" aria-hidden="true"></i><span><?= esc(site('phone')) ?></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- What you can look forward to — the emotional hook, up top -->
+<section>
+  <div class="container">
+    <div class="bb-rowhead">
+      <div>
+        <p class="bb-meta mb-1">Every trip, done well</p>
+        <h2>What you can look forward to</h2>
+      </div>
+    </div>
+    <div class="bb-highlights">
+      <?php foreach ([
+          ['bi-camera',     'Beautiful photos'],
+          ['bi-binoculars', 'Scenic views'],
+          ['bi-tree',       'Short nature hikes'],
+          ['bi-cup-hot',    'Amazing food'],
+          ['bi-buildings',  'Unforgettable hotels'],
+      ] as [$icon, $label]): ?>
+        <div class="bb-highlight">
+          <span class="bb-highlight__icon"><i class="bi <?= $icon ?>" aria-hidden="true"></i></span>
+          <span class="bb-highlight__label"><?= esc($label) ?></span>
+        </div>
+      <?php endforeach; ?>
+    </div>
+  </div>
+</section>
+
+<!-- Stories worth telling — the big emotional CTA, brought up high -->
+<section class="bb-band">
+  <div class="container">
+    <h2>Allow us to make your stories worth telling.</h2>
+    <p>Buy a ticket, sit back and relax, and let us plan your whole experience — beautiful photos, scenic views, short nature hikes, amazing food and unforgettable hotels.</p>
+    <div class="d-flex flex-wrap gap-3 mb-4">
+      <a href="<?= url_to('custom-trips') ?>" class="btn btn-bba-gold">Plan my trip</a>
+      <a href="sms:<?= esc(site('phoneLink'), 'attr') ?>" class="btn btn-bba-outline-light"><i class="bi bi-chat-text me-2" aria-hidden="true"></i>Text us</a>
+      <button type="button" class="btn btn-bba-outline-light" data-wa-open="Hi, I'd like to plan a trip."><i class="bi bi-whatsapp me-2" aria-hidden="true"></i>WhatsApp</button>
+    </div>
+    <p class="bb-meta mb-0 d-flex flex-wrap gap-3">
+      <a href="mailto:<?= esc(site('email'), 'attr') ?>"><i class="bi bi-envelope me-2" aria-hidden="true"></i><?= esc(site('email')) ?></a>
+      <a href="tel:<?= esc(site('phoneLink'), 'attr') ?>"><i class="bi bi-telephone me-2" aria-hidden="true"></i><?= esc(site('phone')) ?></a>
+    </p>
+  </div>
+</section>
+
+<!-- Custom-trip promise + the three-step process -->
+<section class="bb-journey section-sand">
+  <div class="container">
+    <div class="row mb-4 mb-lg-5">
+      <div class="col-lg-8">
+        <p class="bb-meta mb-1">Custom trips</p>
+        <h2 class="mb-3">Your journey, designed around you</h2>
+        <p class="bb-lede-para mb-0">Tell us the occasion, the group and the budget — we plan the whole thing end to end.</p>
+      </div>
+    </div>
+    <p class="bb-meta mb-3">Three steps to your trip</p>
+    <div class="row g-4 g-lg-5">
+      <div class="col-md-4">
+        <div class="bb-step">
+          <span class="num">01</span>
+          <h3>Tell us your plan</h3>
+          <p class="text-body-secondary mb-0">Where, when, how many people and roughly what budget — through the search below, WhatsApp or a call.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="bb-step">
+          <span class="num">02</span>
+          <h3>Get your itinerary &amp; quote</h3>
+          <p class="text-body-secondary mb-0">Within 24 hours we send a day-by-day itinerary with a clear, all-inclusive price. Adjust it until it fits.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="bb-step">
+          <span class="num">03</span>
+          <h3>Confirm and travel</h3>
+          <p class="text-body-secondary mb-0">Pay securely by M-Pesa or bank transfer. We handle transport, stays and activities — you just show up.</p>
+        </div>
+      </div>
+    </div>
+    <div class="mt-4 mt-lg-5">
+      <button type="button" class="btn btn-bba-green" data-wa-open="Hi, I'd like to plan a trip.">
+        <i class="bi bi-whatsapp me-2" aria-hidden="true"></i>Start on WhatsApp
+      </button>
+    </div>
+  </div>
+</section>
+
+<?php // Honest catalogue counts — never invented figures. Hide any that are zero. ?>
+<?php $statItems = array_values(array_filter([
+    ['n' => (int) ($stats['packages']     ?? 0), 'label' => 'Trips ready to book'],
+    ['n' => (int) ($stats['destinations'] ?? 0), 'label' => 'Destinations covered'],
+    ['n' => (int) ($stats['categories']   ?? 0), 'label' => 'Ways to travel'],
+    ['n' => (int) ($stats['reviews']      ?? 0), 'label' => 'Traveller reviews'],
+], static fn (array $s): bool => $s['n'] > 0)); ?>
+<?php if ($statItems !== []): ?>
+<!-- Stat band — real numbers, counted up on scroll-in -->
+<section>
+  <div class="container">
+    <div class="bb-stats">
+      <?php foreach ($statItems as $stat): ?>
+        <div class="bb-stat">
+          <span class="bb-stat__num" data-count="<?= $stat['n'] ?>"><?= $stat['n'] ?></span>
+          <span class="bb-stat__label"><?= esc($stat['label']) ?></span>
+        </div>
+      <?php endforeach; ?>
+    </div>
+  </div>
+</section>
+<?php endif; ?>
+
+<!-- Trip search — sits directly above the featured trips -->
 <section class="bb-search-section pb-0">
   <div class="container">
     <form class="bb-search row g-0 align-items-center p-3" action="<?= url_to('packages') ?>" method="get" aria-label="Search trips">
@@ -63,25 +222,27 @@
   </div>
 </section>
 
-<!-- Experience highlights (client design) — what every trip delivers -->
-<section>
+<!-- Featured packages — three curated trips -->
+<?php if ($featured !== []): ?>
+<section class="section-sand">
   <div class="container">
-    <div class="bb-highlights">
-      <?php foreach ([
-          ['bi-camera',     'Beautiful photos'],
-          ['bi-binoculars', 'Scenic views'],
-          ['bi-tree',       'Short nature hikes'],
-          ['bi-cup-hot',    'Amazing food'],
-          ['bi-buildings',  'Unforgettable hotels'],
-      ] as [$icon, $label]): ?>
-        <div class="bb-highlight">
-          <span class="bb-highlight__icon"><i class="bi <?= $icon ?>" aria-hidden="true"></i></span>
-          <span class="bb-highlight__label"><?= esc($label) ?></span>
+    <div class="bb-rowhead">
+      <div>
+        <p class="bb-meta mb-1">Ready to book</p>
+        <h2>Featured packages</h2>
+      </div>
+      <a href="<?= url_to('packages') ?>" class="bb-link">View all packages&nbsp;→</a>
+    </div>
+    <div class="row g-4">
+      <?php foreach (array_slice($featured, 0, 3) as $package): ?>
+        <div class="col-md-6 col-lg-4">
+          <?= view('partials/package_card', ['package' => $package]) ?>
         </div>
       <?php endforeach; ?>
     </div>
   </div>
 </section>
+<?php endif; ?>
 
 <!-- Ways to explore — photographic category tiles -->
 <?php if ($categories !== []): ?>
@@ -110,76 +271,6 @@
   </div>
 </section>
 <?php endif; ?>
-
-<!-- Featured packages -->
-<?php if ($featured !== []): ?>
-<section class="section-sand">
-  <div class="container">
-    <div class="bb-rowhead">
-      <div>
-        <p class="bb-meta mb-1">Ready to book</p>
-        <h2>Featured packages</h2>
-      </div>
-      <a href="<?= url_to('packages') ?>" class="bb-link">View all packages&nbsp;→</a>
-    </div>
-    <div class="row g-4">
-      <?php foreach ($featured as $package): ?>
-        <div class="col-md-6 col-lg-4">
-          <?= view('partials/package_card', ['package' => $package]) ?>
-        </div>
-      <?php endforeach; ?>
-    </div>
-  </div>
-</section>
-<?php endif; ?>
-
-<!-- How it works — three steps, honest and useful -->
-<section>
-  <div class="container">
-    <div class="bb-rowhead">
-      <div>
-        <p class="bb-meta mb-1">Simple &amp; transparent</p>
-        <h2>How it works</h2>
-      </div>
-    </div>
-    <div class="row g-4 g-lg-5">
-      <div class="col-md-4">
-        <div class="bb-step">
-          <span class="num">01</span>
-          <h3>Tell us your preferences</h3>
-          <p class="text-body-secondary">We tailor-make a good trip for you and send you a clear, all-inclusive quote — usually within 24 hours.</p>
-          <a class="bb-link" href="<?= url_to('contact') ?>">Email us&nbsp;→</a>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="bb-step">
-          <span class="num">02</span>
-          <h3>Buy a ticket for a planned trip</h3>
-          <p class="text-body-secondary">Prefer something ready to go? Choose from our clearly-priced, already-planned trips and book your place.</p>
-          <a class="bb-link" href="<?= url_to('packages') ?>">Buy ticket&nbsp;→</a>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="bb-step">
-          <span class="num">03</span>
-          <h3>Subscribe on social media</h3>
-          <p class="text-body-secondary">Stay updated with our latest trips, offers and adventures.</p>
-          <div class="bb-socials mt-1">
-            <a href="<?= esc(site('facebook', '#'), 'attr') ?>" target="_blank" rel="noopener"><i class="bi bi-facebook" aria-hidden="true"></i>Facebook</a>
-            <a href="<?= esc(site('instagram', '#'), 'attr') ?>" target="_blank" rel="noopener"><i class="bi bi-instagram" aria-hidden="true"></i>Instagram</a>
-            <a href="<?= esc(site('tiktok', '#'), 'attr') ?>" target="_blank" rel="noopener"><i class="bi bi-tiktok" aria-hidden="true"></i>TikTok</a>
-            <a href="<?= esc(site('twitter', '#'), 'attr') ?>" target="_blank" rel="noopener"><i class="bi bi-twitter-x" aria-hidden="true"></i>X</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="mt-4 mt-lg-5">
-      <button type="button" class="btn btn-bba-green" data-wa-open="Hi, I'd like to plan a trip.">
-        <i class="bi bi-whatsapp me-2" aria-hidden="true"></i>Chat with us on WhatsApp
-      </button>
-    </div>
-  </div>
-</section>
 
 <!-- Why book with us — spec rows -->
 <section class="section-sand">
@@ -213,52 +304,9 @@
   </div>
 </section>
 
-<!-- Contact band (client design) — "stories worth telling" -->
-<section class="bb-band">
-  <div class="container">
-    <h2>Allow us to make your stories worth telling.</h2>
-    <p>Buy a ticket, sit back and relax, and let us plan your whole experience — beautiful photos, scenic views, short nature hikes, amazing food and unforgettable hotels.</p>
-    <div class="d-flex flex-wrap gap-3 mb-4">
-      <a href="<?= url_to('custom-trips') ?>" class="btn btn-bba-gold">Plan my trip</a>
-      <a href="sms:<?= esc(site('phoneLink'), 'attr') ?>" class="btn btn-bba-outline-light"><i class="bi bi-chat-text me-2" aria-hidden="true"></i>Text us</a>
-      <button type="button" class="btn btn-bba-outline-light" data-wa-open="Hi, I'd like to plan a trip."><i class="bi bi-whatsapp me-2" aria-hidden="true"></i>WhatsApp</button>
-    </div>
-    <p class="bb-meta mb-0 d-flex flex-wrap gap-3">
-      <a href="mailto:<?= esc(site('email'), 'attr') ?>"><i class="bi bi-envelope me-2" aria-hidden="true"></i><?= esc(site('email')) ?></a>
-      <a href="tel:<?= esc(site('phoneLink'), 'attr') ?>"><i class="bi bi-telephone me-2" aria-hidden="true"></i><?= esc(site('phone')) ?></a>
-    </p>
-  </div>
-</section>
-
-<!-- Guest words -->
-<?php if ($testimonials !== []): ?>
-<section>
-  <div class="container">
-    <p class="bb-meta mb-3 text-center">What travellers say</p>
-    <blockquote class="mb-0 text-center bb-quote-center">
-      <p class="bb-quote-huge mx-auto">“<?= esc($testimonials[0]['quote']) ?>”</p>
-      <footer><?= esc($testimonials[0]['author_name']) ?><?= $testimonials[0]['author_location'] ? ', ' . esc($testimonials[0]['author_location']) : '' ?></footer>
-    </blockquote>
-    <?php $others = array_slice($testimonials, 1, 2); ?>
-    <?php if ($others !== []): ?>
-      <div class="row g-4 mt-4 justify-content-center">
-        <?php foreach ($others as $testimonial): ?>
-          <div class="col-md-6 col-lg-5">
-            <blockquote class="bba-quote">
-              <p>“<?= esc($testimonial['quote']) ?>”</p>
-              <footer><?= esc($testimonial['author_name']) ?><?= $testimonial['author_location'] ? ', ' . esc($testimonial['author_location']) : '' ?></footer>
-            </blockquote>
-          </div>
-        <?php endforeach; ?>
-      </div>
-    <?php endif; ?>
-  </div>
-</section>
-<?php endif; ?>
-
 <!-- Gallery teaser -->
 <?php if ($gallery !== []): ?>
-<section class="section-sand">
+<section>
   <div class="container">
     <div class="bb-rowhead">
       <div>
@@ -268,7 +316,7 @@
       <a href="<?= url_to('gallery') ?>" class="bb-link">Full gallery&nbsp;→</a>
     </div>
     <div class="row g-3 bba-gallery">
-      <?php foreach ($gallery as $image): ?>
+      <?php foreach (array_slice($gallery, 0, 4) as $image): ?>
         <div class="col-6 col-lg-3">
           <img src="<?= esc(media_url($image['path']), 'attr') ?>" alt="<?= esc($image['alt'] ?: $image['caption'], 'attr') ?>" loading="lazy" width="800" height="600">
         </div>
@@ -280,7 +328,7 @@
 
 <!-- Journal teaser -->
 <?php if ($posts !== []): ?>
-<section>
+<section class="section-sand">
   <div class="container">
     <div class="bb-rowhead">
       <div>
@@ -311,6 +359,32 @@
 </section>
 <?php endif; ?>
 
+<!-- Guest words — social proof near the close -->
+<?php if ($testimonials !== []): ?>
+<section>
+  <div class="container">
+    <p class="bb-meta mb-3 text-center">What travellers say</p>
+    <blockquote class="mb-0 text-center bb-quote-center">
+      <p class="bb-quote-huge mx-auto">“<?= esc($testimonials[0]['quote']) ?>”</p>
+      <footer><?= esc($testimonials[0]['author_name']) ?><?= $testimonials[0]['author_location'] ? ', ' . esc($testimonials[0]['author_location']) : '' ?></footer>
+    </blockquote>
+    <?php $others = array_slice($testimonials, 1, 2); ?>
+    <?php if ($others !== []): ?>
+      <div class="row g-4 mt-4 justify-content-center">
+        <?php foreach ($others as $testimonial): ?>
+          <div class="col-md-6 col-lg-5">
+            <blockquote class="bba-quote">
+              <p>“<?= esc($testimonial['quote']) ?>”</p>
+              <footer><?= esc($testimonial['author_name']) ?><?= $testimonial['author_location'] ? ', ' . esc($testimonial['author_location']) : '' ?></footer>
+            </blockquote>
+          </div>
+        <?php endforeach; ?>
+      </div>
+    <?php endif; ?>
+  </div>
+</section>
+<?php endif; ?>
+
 <!-- About — Jambo intro + vision & mission -->
 <section class="section-sand">
   <div class="container">
@@ -334,5 +408,32 @@
     </div>
   </div>
 </section>
+
+<?php // Stat count-up — animates 0 → value when the band scrolls into view. ?>
+<script>
+(function () {
+  var els = document.querySelectorAll('.bb-stat__num[data-count]');
+  if (!els.length) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // No JS / reduced motion / no observer → leave the server-rendered number as is.
+  if (reduce || !('IntersectionObserver' in window)) return;
+  var run = function (el) {
+    var target = parseInt(el.getAttribute('data-count'), 10) || 0;
+    var start = null, dur = 1100;
+    var tick = function (t) {
+      if (start === null) start = t;
+      var p = Math.min((t - start) / dur, 1);
+      el.textContent = Math.round((0.5 - Math.cos(p * Math.PI) / 2) * target);
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+  els.forEach(function (el) { el.textContent = '0'; }); // reset so the count-up starts from zero
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { run(e.target); io.unobserve(e.target); } });
+  }, { threshold: 0.4 });
+  els.forEach(function (el) { io.observe(el); });
+})();
+</script>
 
 <?= $this->endSection() ?>
