@@ -3,12 +3,13 @@
 <?= $this->section('content') ?>
 
 <?php
-// Rotating hero backdrop. Prefer real uploaded gallery photos; fall back to
-// seeded placeholders until the client uploads their own. Always exactly four
-// layers so the pure-CSS crossfade timing stays exact (cycles the pool if the
-// gallery has fewer than four images).
+// Rotating hero backdrop. Use the images the admin flagged "Show in homepage
+// hero"; if none are flagged, fall back to the active gallery; if that is empty
+// too, seeded placeholders. Always exactly four layers so the pure-CSS crossfade
+// timing stays exact (cycles the pool if there are fewer than four images).
+$heroSource = ($heroImages ?? []) !== [] ? $heroImages : $gallery;
 $pool = [];
-foreach ($gallery as $g) {
+foreach ($heroSource as $g) {
     $pool[] = [
         'src' => media_url($g['path']),
         'alt' => $g['alt'] ?: ($g['caption'] ?: 'A Beyond Borders travel moment'),

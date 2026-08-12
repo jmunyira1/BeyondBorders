@@ -31,6 +31,9 @@ class Home extends BaseController
             'searchIndex'  => (new PackageModel())->searchIndex(),
             'testimonials' => (new TestimonialModel())->active(3),
             'gallery'      => (new GalleryImageModel())->active(8),
+            // Hero slideshow: admin-flagged images if any, else falls back to the
+            // active gallery (handled in the view).
+            'heroImages'   => (new GalleryImageModel())->forHero(6),
             'posts'        => (new PostModel())->recent(3),
             'stats'        => $stats,
         ]);

@@ -65,6 +65,7 @@ class Gallery extends AdminController
             'alt'        => $this->request->getPost('alt'),
             'sort_order' => (int) $this->request->getPost('sort_order'),
             'is_active'  => $this->request->getPost('is_active') ? 1 : 0,
+            'is_hero'    => $this->request->getPost('is_hero') ? 1 : 0,
         ]);
 
         $this->toast('Image updated.');

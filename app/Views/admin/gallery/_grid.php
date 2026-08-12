@@ -16,13 +16,18 @@
           <input class="form-control form-control-sm mb-2" name="alt" type="text"
                  value="<?= esc($row['alt'], 'attr') ?>" placeholder="Image description" aria-label="Image description">
 
-          <div class="d-flex gap-2 align-items-center mt-auto">
+          <div class="d-flex gap-2 align-items-center flex-wrap mt-auto">
             <input class="form-control form-control-sm" name="sort_order" type="number" style="width:4.5rem"
                    value="<?= (int) $row['sort_order'] ?>" aria-label="Sort order" title="Sort order">
             <div class="form-check form-switch mb-0">
               <input class="form-check-input" type="checkbox" name="is_active" value="1"
                      id="ga-<?= (int) $row['id'] ?>" <?= $row['is_active'] ? 'checked' : '' ?>>
               <label class="form-check-label small" for="ga-<?= (int) $row['id'] ?>">Shown</label>
+            </div>
+            <div class="form-check form-switch mb-0" title="Rotate this photo in the homepage hero">
+              <input class="form-check-input" type="checkbox" name="is_hero" value="1"
+                     id="gh-<?= (int) $row['id'] ?>" <?= ! empty($row['is_hero']) ? 'checked' : '' ?>>
+              <label class="form-check-label small" for="gh-<?= (int) $row['id'] ?>">Hero</label>
             </div>
             <button type="submit" class="btn btn-bba-outline btn-sm ms-auto" aria-label="Save"><i class="bi bi-check-lg"></i></button>
             <button type="button" class="btn btn-sm btn-outline-danger"
