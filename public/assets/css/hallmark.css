@@ -928,7 +928,10 @@ section { padding-block: var(--space-lg); }
 /* ------------------------------------------------------------
    Gallery
    ------------------------------------------------------------ */
-.bba-gallery img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+/* height:auto is required — the images carry a height="600" attribute, and with
+   both width and height non-auto the browser ignores aspect-ratio (was cropping
+   these into tall strips on narrow columns). */
+.bba-gallery img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
 .bba-gallery figcaption { font-size: var(--text-xs); letter-spacing: 0.06em; color: var(--color-muted); margin-top: var(--space-2xs); }
 
 /* ------------------------------------------------------------
