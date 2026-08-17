@@ -4,8 +4,8 @@
 
 <header class="bb-pagehead">
   <div class="container">
-    <h1>Born in Kenya. Inspired by its beauty.</h1>
-    <p class="bb-lede">A Kenyan travel company creating authentic, safe and seamless journeys.</p>
+    <h1><?= esc(site('aboutHeroHeading')) ?></h1>
+    <p class="bb-lede"><?= esc(site('aboutHeroLede')) ?></p>
   </div>
 </header>
 
@@ -14,10 +14,9 @@
   <div class="container">
     <div class="row g-4 g-lg-5 align-items-center">
       <div class="col-lg-6">
-        <p class="bb-meta mb-1">Our story</p>
-        <h2 class="mb-4">A Kenyan company, for travelers everywhere</h2>
-        <p>We are a Kenyan travel and adventure company dedicated to creating unforgettable experiences for both local and international travelers. We help you discover Kenya's breathtaking landscapes, incredible wildlife, vibrant cultures and pristine beaches through authentic, safe and memorable journeys.</p>
-        <p>Whether you're looking for an exciting safari, a relaxing weekend getaway, a budget-friendly escape, a nature adventure, mountain trekking or an immersive cultural experience, we have the expertise to make your dream adventure a reality.</p>
+        <p class="bb-meta mb-1"><?= esc(site('aboutStoryEyebrow')) ?></p>
+        <h2 class="mb-4"><?= esc(site('aboutStoryHeading')) ?></h2>
+        <?= nl2paras(site('aboutStoryBody')) ?>
         <?= nl2paras(site('introBody')) ?>
       </div>
       <div class="col-lg-5 offset-lg-1">
@@ -63,27 +62,23 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-4">
-        <p class="bb-meta mb-1">Why book with us</p>
-        <h2 class="mb-4">Travel, handled properly.</h2>
+        <p class="bb-meta mb-1"><?= esc(site('homeWhyEyebrow')) ?></p>
+        <h2 class="mb-4"><?= esc(site('homeWhyHeading')) ?></h2>
       </div>
       <div class="col-lg-8">
         <div class="bb-facts">
-          <div class="bb-fact">
-            <h3>Transparent pricing</h3>
-            <p>Inclusions spelled out on every package — the price you see is the price you pay.</p>
-          </div>
-          <div class="bb-fact">
-            <h3>Secure payments</h3>
-            <p>Pay securely with M-Pesa or bank transfer, with written confirmation every time.</p>
-          </div>
-          <div class="bb-fact">
-            <h3>Local experts</h3>
-            <p>Journeys planned by Kenyans who know the parks, coast and seasons first-hand.</p>
-          </div>
-          <div class="bb-fact">
-            <h3>Accountable</h3>
-            <p>One point of contact from enquiry to your journey home. Licensed &amp; registered.</p>
-          </div>
+          <?php foreach ([
+              [site('homeWhy1Title'), site('homeWhy1Body')],
+              [site('homeWhy2Title'), site('homeWhy2Body')],
+              [site('homeWhy3Title'), site('homeWhy3Body')],
+              [site('homeWhy4Title'), site('homeWhy4Body')],
+          ] as [$factTitle, $factBody]): ?>
+            <?php if (trim((string) $factTitle) === '' && trim((string) $factBody) === '') { continue; } ?>
+            <div class="bb-fact">
+              <h3><?= esc($factTitle) ?></h3>
+              <p><?= esc($factBody) ?></p>
+            </div>
+          <?php endforeach; ?>
         </div>
       </div>
     </div>

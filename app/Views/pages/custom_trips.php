@@ -4,8 +4,8 @@
 
 <header class="bb-pagehead">
   <div class="container">
-    <h1>Your journey, designed around you</h1>
-    <p class="bb-lede">Tell us the occasion, the group and the budget — we plan the whole thing end to end.</p>
+    <h1><?= esc(site('customHeroHeading')) ?></h1>
+    <p class="bb-lede"><?= esc(site('customHeroLede')) ?></p>
   </div>
 </header>
 
@@ -19,27 +19,19 @@
       </div>
       <div class="col-lg-8">
         <div class="row g-4">
-          <div class="col-md-4">
-            <div class="bb-step">
-              <span class="num">01</span>
-              <h3>Tell us your plan</h3>
-              <p class="text-body-secondary mb-0">Where, when, how many people and roughly what budget — through the form below, WhatsApp or a call.</p>
+          <?php foreach ([
+              ['01', site('homeStep1Title'), site('homeStep1Body')],
+              ['02', site('homeStep2Title'), site('homeStep2Body')],
+              ['03', site('homeStep3Title'), site('homeStep3Body')],
+          ] as [$num, $stepTitle, $stepBody]): ?>
+            <div class="col-md-4">
+              <div class="bb-step">
+                <span class="num"><?= $num ?></span>
+                <h3><?= esc($stepTitle) ?></h3>
+                <p class="text-body-secondary mb-0"><?= esc($stepBody) ?></p>
+              </div>
             </div>
-          </div>
-          <div class="col-md-4">
-            <div class="bb-step">
-              <span class="num">02</span>
-              <h3>Get your itinerary &amp; quote</h3>
-              <p class="text-body-secondary mb-0">Within 24 hours we send a day-by-day itinerary with a clear, all-inclusive price. Adjust it until it fits.</p>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="bb-step">
-              <span class="num">03</span>
-              <h3>Confirm and travel</h3>
-              <p class="text-body-secondary mb-0">Pay securely by M-Pesa or bank transfer. We handle transport, stays and activities — you just show up.</p>
-            </div>
-          </div>
+          <?php endforeach; ?>
         </div>
       </div>
     </div>
@@ -50,15 +42,20 @@
   <div class="container">
     <div class="row g-4 g-lg-5 align-items-start">
       <div class="col-lg-5">
-        <p class="bb-meta mb-1">What we plan</p>
-        <h2 class="mb-4">Any occasion, any group size</h2>
+        <p class="bb-meta mb-1"><?= esc(site('customPlanEyebrow')) ?></p>
+        <h2 class="mb-4"><?= esc(site('customPlanHeading')) ?></h2>
         <ul class="list-unstyled d-grid gap-3">
-          <li class="d-flex gap-3"><i class="bi bi-binoculars" aria-hidden="true"></i>Private and family safaris, at your own pace</li>
-          <li class="d-flex gap-3"><i class="bi bi-heart" aria-hidden="true"></i>Honeymoons and anniversary escapes</li>
-          <li class="d-flex gap-3"><i class="bi bi-people" aria-hidden="true"></i>Corporate staff retreats and team-building</li>
-          <li class="d-flex gap-3"><i class="bi bi-calendar-event" aria-hidden="true"></i>Cultural events, weddings and celebrations</li>
-          <li class="d-flex gap-3"><i class="bi bi-backpack" aria-hidden="true"></i>Group getaways, chamas and student trips</li>
-          <li class="d-flex gap-3"><i class="bi bi-signpost-2" aria-hidden="true"></i>Mountain treks and multi-day adventures</li>
+          <?php foreach ([
+              ['bi-binoculars',     site('customPlan1')],
+              ['bi-heart',          site('customPlan2')],
+              ['bi-people',         site('customPlan3')],
+              ['bi-calendar-event', site('customPlan4')],
+              ['bi-backpack',       site('customPlan5')],
+              ['bi-signpost-2',     site('customPlan6')],
+          ] as [$icon, $planItem]): ?>
+            <?php if (trim((string) $planItem) === '') { continue; } ?>
+            <li class="d-flex gap-3"><i class="bi <?= $icon ?>" aria-hidden="true"></i><?= esc($planItem) ?></li>
+          <?php endforeach; ?>
         </ul>
         <p class="text-body-secondary mt-4 mb-0">Prefer to talk it through?
           <a href="#" data-wa-open="I'd like to plan a custom trip.">WhatsApp us</a> or call

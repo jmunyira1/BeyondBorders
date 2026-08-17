@@ -46,6 +46,12 @@ $routes->group('admin', [
 ], static function ($routes) {
     $routes->get('/', 'Dashboard::index', ['as' => 'admin']);
 
+    $routes->get('homepage', 'Homepage::index', ['as' => 'admin-homepage']);
+    $routes->post('homepage', 'Homepage::save');
+
+    $routes->get('pages', 'Pages::index', ['as' => 'admin-pages']);
+    $routes->post('pages', 'Pages::save');
+
     $routes->get('enquiries', 'Enquiries::index', ['as' => 'admin-enquiries']);
     $routes->get('enquiries/list', 'Enquiries::list');
     $routes->get('enquiries/(:num)', 'Enquiries::show/$1');

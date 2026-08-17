@@ -4,8 +4,8 @@
 
 <header class="bb-pagehead">
   <div class="container">
-    <h1>Talk to us</h1>
-    <p class="bb-lede">Questions about a package, a custom trip or a group booking — we're here <?= esc(site('officeHours')) ?>.</p>
+    <h1><?= esc(site('contactHeroHeading')) ?></h1>
+    <p class="bb-lede"><?= esc(site('contactHeroLede')) ?></p>
   </div>
 </header>
 
@@ -16,21 +16,21 @@
       <div class="col-md-4">
         <div class="bb-channel">
           <h3>WhatsApp</h3>
-          <p>The fastest way to reach us — usually within minutes.</p>
+          <p><?= esc(site('contactWhatsAppText')) ?></p>
           <button type="button" class="btn btn-bba-green btn-sm" data-wa-open="">Chat on WhatsApp</button>
         </div>
       </div>
       <div class="col-md-4">
         <div class="bb-channel">
           <h3>Call us</h3>
-          <p><?= esc(site('officeHours')) ?>. We're happy to talk through options.</p>
+          <p><?= esc(site('contactCallText')) ?></p>
           <a href="tel:<?= esc(site('phoneLink'), 'attr') ?>" class="bb-link"><?= esc(site('phone')) ?></a>
         </div>
       </div>
       <div class="col-md-4">
         <div class="bb-channel">
           <h3>Email</h3>
-          <p>For itineraries, quotes and anything in writing.</p>
+          <p><?= esc(site('contactEmailText')) ?></p>
           <a href="mailto:<?= esc(site('email'), 'attr') ?>" class="bb-link"><?= esc(site('email')) ?></a>
         </div>
       </div>

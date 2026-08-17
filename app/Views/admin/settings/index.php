@@ -2,7 +2,8 @@
 
 <?= $this->section('content') ?>
 
-<form method="post" action="<?= site_url('admin/settings') ?>" enctype="multipart/form-data" data-validate>
+<?php $formAction ??= 'admin/settings'; ?>
+<form method="post" action="<?= site_url($formAction) ?>" enctype="multipart/form-data" data-validate>
   <?= csrf_field() ?>
 
   <?php if (session('error')): ?>
@@ -55,6 +56,8 @@
                 <?php elseif ($type === 'textarea'): ?>
                   <label class="form-label" for="<?= $id ?>"><?= esc($label) ?></label>
                   <textarea class="form-control" id="<?= $id ?>" name="<?= esc($key, 'attr') ?>" rows="4"><?= esc($value) ?></textarea>
+                <?php elseif ($type === 'note'): ?>
+                  <span class="form-label d-block mb-1"><?= esc($label) ?></span>
                 <?php else:
                     // "#" is the legacy hidden-sentinel for social links — show it as blank.
                     $shown    = $value === '#' ? '' : $value;

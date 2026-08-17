@@ -13,12 +13,25 @@ class Settings extends AdminController
      * type: text | textarea | url | email | tel | bool | image
      */
     private const FIELDS = [
+        // Ordered top-down the way the site reads: the homepage hero first, then
+        // brand identity, then the rest of the page copy, then operational bits.
+        'Homepage hero' => [
+            'heroEyebrow' => ['Eyebrow line', 'text', 'The small line above the big headline.'],
+            'heroHeading' => ['Heading', 'textarea', 'The large headline. A <br> tag is allowed here to control the line break.'],
+            'heroLead'    => ['Lead paragraph', 'textarea', 'The sentence under the headline.'],
+        ],
         'Identity' => [
             'companyName'      => ['Company name', 'text'],
             'logo'             => ['Logo', 'image', 'Shown in the site header. PNG or WebP with a transparent background works best — around 200×80px. Leave empty to use the bundled logo.'],
             'wordmarkSubtitle' => ['Logo subtitle', 'text', 'The small line under the name in the header, e.g. "Tours and Travel". Leave blank to use the last word of the company name.'],
             'tagline'          => ['Tagline', 'text', 'Shown under the logo in the footer.'],
             'strapline'   => ['Strapline / motto', 'textarea', 'The quoted line on the homepage and about page.'],
+        ],
+        'About copy' => [
+            'introHeading' => ['Intro heading', 'text'],
+            'introBody'    => ['Intro body', 'textarea', 'Leave a blank line between paragraphs.'],
+            'vision'       => ['Our vision', 'textarea'],
+            'mission'      => ['Our mission', 'textarea'],
         ],
         'Contact details' => [
             'phone'       => ['Phone (display)', 'text', 'How the number is written on the page.'],
@@ -27,14 +40,6 @@ class Settings extends AdminController
             'address'     => ['Location', 'text'],
             'addressNote' => ['Location note', 'text'],
             'officeHours' => ['Office hours', 'text'],
-        ],
-        'WhatsApp widget' => [
-            'whatsappEnabled'  => ['Show the WhatsApp button', 'bool'],
-            'whatsappNumber'   => ['WhatsApp number', 'text', 'International format, digits only — e.g. 254712345678.'],
-            'whatsappName'     => ['Name in the chat header', 'text'],
-            'whatsappRole'     => ['Role in the chat header', 'text', 'e.g. Travel Consultant.'],
-            'whatsappGreeting' => ['Greeting message', 'textarea', 'The bubble shown when the card opens.'],
-            'whatsappPrefill'  => ['Pre-filled message', 'textarea', "Added ahead of whatever the visitor types."],
         ],
         'Announcement bar' => [
             'promoEnabled'  => ['Show the announcement bar', 'bool'],
@@ -45,22 +50,19 @@ class Settings extends AdminController
         'Payment' => [
             'paymentInstructions' => ['How to pay', 'textarea', 'Shown on the booking receipt — e.g. "M-Pesa Paybill 123456, account: your name" or bank details. Leave blank for a generic "we\'ll send details" message. (A real payment gateway comes later.)'],
         ],
+        'WhatsApp widget' => [
+            'whatsappEnabled'  => ['Show the WhatsApp button', 'bool'],
+            'whatsappNumber'   => ['WhatsApp number', 'text', 'International format, digits only — e.g. 254712345678.'],
+            'whatsappName'     => ['Name in the chat header', 'text'],
+            'whatsappRole'     => ['Role in the chat header', 'text', 'e.g. Travel Consultant.'],
+            'whatsappGreeting' => ['Greeting message', 'textarea', 'The bubble shown when the card opens.'],
+            'whatsappPrefill'  => ['Pre-filled message', 'textarea', "Added ahead of whatever the visitor types."],
+        ],
         'Social links' => [
             'instagram' => ['Instagram URL', 'url', 'Optional — leave blank to hide the icon.'],
             'facebook'  => ['Facebook URL', 'url', 'Optional — leave blank to hide the icon.'],
             'tiktok'    => ['TikTok URL', 'url', 'Optional — leave blank to hide the icon.'],
             'twitter'   => ['X / Twitter URL', 'url', 'Optional — leave blank to hide the icon.'],
-        ],
-        'Homepage hero' => [
-            'heroEyebrow' => ['Eyebrow line', 'text'],
-            'heroHeading' => ['Heading', 'textarea', 'A <br> tag is allowed here to control the line break.'],
-            'heroLead'    => ['Lead paragraph', 'textarea'],
-        ],
-        'About copy' => [
-            'introHeading' => ['Intro heading', 'text'],
-            'introBody'    => ['Intro body', 'textarea', 'Leave a blank line between paragraphs.'],
-            'vision'       => ['Our vision', 'textarea'],
-            'mission'      => ['Our mission', 'textarea'],
         ],
         'Legal pages' => [
             'termsBody'   => ['Terms & conditions', 'textarea', 'Shown at /terms. Leave blank for the placeholder.'],
@@ -81,7 +83,7 @@ class Settings extends AdminController
         return view('admin/settings/index', $this->layout([
             'title'       => 'Settings',
             'heading'     => 'Site settings',
-            'subheading'  => 'Contact details, copy and the WhatsApp widget.',
+            'subheading'  => 'Homepage hero first, then your brand, copy, contact details and widgets.',
             'activeAdmin' => 'settings',
             'groups'      => self::FIELDS,
             'values'      => $values,

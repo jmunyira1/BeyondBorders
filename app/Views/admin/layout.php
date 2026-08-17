@@ -33,6 +33,8 @@ $newCount = $newEnquiries ?? 0;
       $sections = [
           'Overview' => [
               ['dashboard', 'admin', 'bi-speedometer2', 'Dashboard', 0],
+              ['homepage', 'admin/homepage', 'bi-house-heart', 'Homepage', 0],
+              ['pages', 'admin/pages', 'bi-file-earmark-text', 'Pages', 0],
               ['enquiries', 'admin/enquiries', 'bi-inbox', 'Enquiries', $newCount],
           ],
           'Content' => [

@@ -3,6 +3,10 @@
 <?= $this->section('content') ?>
 
 <?php
+// Section visibility + content is driven by Admin → Homepage (Site.* settings,
+// with the current copy as defaults in Config\Site).
+$show = static fn (string $k): bool => (bool) setting('Site.' . $k);
+
 // Rotating hero backdrop. Use the images the admin flagged "Show in homepage
 // hero"; if none are flagged, fall back to the active gallery; if that is empty
 // too, seeded placeholders. Always exactly four layers so the pure-CSS crossfade
@@ -52,6 +56,7 @@ for ($i = 0; $i < 4; $i++) {
   </div>
 </header>
 
+<?php if ($show('homeShowContactStrip')): ?>
 <!-- Quick contact strip — reach us the way you prefer -->
 <section class="bb-contactstrip">
   <div class="container">
@@ -68,24 +73,27 @@ for ($i = 0; $i < 4; $i++) {
     </div>
   </div>
 </section>
+<?php endif; ?>
 
+<?php if ($show('homeShowHighlights')): ?>
 <!-- What you can look forward to — the emotional hook, up top -->
 <section>
   <div class="container">
     <div class="bb-rowhead">
       <div>
-        <p class="bb-meta mb-1">Every trip, done well</p>
-        <h2>What you can look forward to</h2>
+        <p class="bb-meta mb-1"><?= esc(site('homeHighlightsEyebrow')) ?></p>
+        <h2><?= esc(site('homeHighlightsHeading')) ?></h2>
       </div>
     </div>
     <div class="bb-highlights">
       <?php foreach ([
-          ['bi-camera',     'Beautiful photos'],
-          ['bi-binoculars', 'Scenic views'],
-          ['bi-tree',       'Short nature hikes'],
-          ['bi-cup-hot',    'Amazing food'],
-          ['bi-buildings',  'Unforgettable hotels'],
+          ['bi-camera',     site('homeHighlight1')],
+          ['bi-binoculars', site('homeHighlight2')],
+          ['bi-tree',       site('homeHighlight3')],
+          ['bi-cup-hot',    site('homeHighlight4')],
+          ['bi-buildings',  site('homeHighlight5')],
       ] as [$icon, $label]): ?>
+        <?php if (trim((string) $label) === '') { continue; } ?>
         <div class="bb-highlight">
           <span class="bb-highlight__icon"><i class="bi <?= $icon ?>" aria-hidden="true"></i></span>
           <span class="bb-highlight__label"><?= esc($label) ?></span>
@@ -94,12 +102,14 @@ for ($i = 0; $i < 4; $i++) {
     </div>
   </div>
 </section>
+<?php endif; ?>
 
+<?php if ($show('homeShowCtaBand')): ?>
 <!-- Stories worth telling — the big emotional CTA, brought up high -->
 <section class="bb-band">
   <div class="container">
-    <h2>Allow us to make your stories worth telling.</h2>
-    <p>Buy a ticket, sit back and relax, and let us plan your whole experience — beautiful photos, scenic views, short nature hikes, amazing food and unforgettable hotels.</p>
+    <h2><?= esc(site('homeCtaHeading')) ?></h2>
+    <p><?= esc(site('homeCtaBody')) ?></p>
     <div class="d-flex flex-wrap gap-3 mb-4">
       <a href="<?= url_to('custom-trips') ?>" class="btn btn-bba-gold">Plan my trip</a>
       <a href="sms:<?= esc(site('phoneLink'), 'attr') ?>" class="btn btn-bba-outline-light"><i class="bi bi-chat-text me-2" aria-hidden="true"></i>Text us</a>
@@ -111,40 +121,34 @@ for ($i = 0; $i < 4; $i++) {
     </p>
   </div>
 </section>
+<?php endif; ?>
 
+<?php if ($show('homeShowThreeSteps')): ?>
 <!-- Custom-trip promise + the three-step process -->
 <section class="bb-journey section-sand">
   <div class="container">
     <div class="row mb-4 mb-lg-5">
       <div class="col-lg-8">
-        <p class="bb-meta mb-1">Custom trips</p>
-        <h2 class="mb-3">Your journey, designed around you</h2>
-        <p class="bb-lede-para mb-0">Tell us the occasion, the group and the budget — we plan the whole thing end to end.</p>
+        <p class="bb-meta mb-1"><?= esc(site('homeStepsEyebrow')) ?></p>
+        <h2 class="mb-3"><?= esc(site('homeStepsHeading')) ?></h2>
+        <p class="bb-lede-para mb-0"><?= esc(site('homeStepsLede')) ?></p>
       </div>
     </div>
-    <p class="bb-meta mb-3">Three steps to your trip</p>
+    <p class="bb-meta mb-3"><?= esc(site('homeStepsLabel')) ?></p>
     <div class="row g-4 g-lg-5">
-      <div class="col-md-4">
-        <div class="bb-step">
-          <span class="num">01</span>
-          <h3>Tell us your plan</h3>
-          <p class="text-body-secondary mb-0">Where, when, how many people and roughly what budget — through the search below, WhatsApp or a call.</p>
+      <?php foreach ([
+          ['01', site('homeStep1Title'), site('homeStep1Body')],
+          ['02', site('homeStep2Title'), site('homeStep2Body')],
+          ['03', site('homeStep3Title'), site('homeStep3Body')],
+      ] as [$num, $stepTitle, $stepBody]): ?>
+        <div class="col-md-4">
+          <div class="bb-step">
+            <span class="num"><?= $num ?></span>
+            <h3><?= esc($stepTitle) ?></h3>
+            <p class="text-body-secondary mb-0"><?= esc($stepBody) ?></p>
+          </div>
         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="bb-step">
-          <span class="num">02</span>
-          <h3>Get your itinerary &amp; quote</h3>
-          <p class="text-body-secondary mb-0">Within 24 hours we send a day-by-day itinerary with a clear, all-inclusive price. Adjust it until it fits.</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="bb-step">
-          <span class="num">03</span>
-          <h3>Confirm and travel</h3>
-          <p class="text-body-secondary mb-0">Pay securely by M-Pesa or bank transfer. We handle transport, stays and activities — you just show up.</p>
-        </div>
-      </div>
+      <?php endforeach; ?>
     </div>
     <div class="mt-4 mt-lg-5">
       <button type="button" class="btn btn-bba-green" data-wa-open="Hi, I'd like to plan a trip.">
@@ -153,6 +157,7 @@ for ($i = 0; $i < 4; $i++) {
     </div>
   </div>
 </section>
+<?php endif; ?>
 
 <?php // Honest catalogue counts — never invented figures. Hide any that are zero. ?>
 <?php $statItems = array_values(array_filter([
@@ -161,7 +166,7 @@ for ($i = 0; $i < 4; $i++) {
     ['n' => (int) ($stats['categories']   ?? 0), 'label' => 'Ways to travel'],
     ['n' => (int) ($stats['reviews']      ?? 0), 'label' => 'Traveller reviews'],
 ], static fn (array $s): bool => $s['n'] > 0)); ?>
-<?php if ($statItems !== []): ?>
+<?php if ($show('homeShowStats') && $statItems !== []): ?>
 <!-- Stat band — real numbers, counted up on scroll-in -->
 <section>
   <div class="container">
@@ -177,6 +182,7 @@ for ($i = 0; $i < 4; $i++) {
 </section>
 <?php endif; ?>
 
+<?php if ($show('homeShowSearch')): ?>
 <!-- Trip search — sits directly above the featured trips -->
 <section class="bb-search-section pb-0">
   <div class="container">
@@ -222,9 +228,10 @@ for ($i = 0; $i < 4; $i++) {
     ) ?></script>
   </div>
 </section>
+<?php endif; ?>
 
+<?php if ($show('homeShowFeatured') && $featured !== []): ?>
 <!-- Featured packages — three curated trips -->
-<?php if ($featured !== []): ?>
 <section class="section-sand">
   <div class="container">
     <div class="bb-rowhead">
@@ -245,8 +252,8 @@ for ($i = 0; $i < 4; $i++) {
 </section>
 <?php endif; ?>
 
+<?php if ($show('homeShowExplore') && $categories !== []): ?>
 <!-- Ways to explore — photographic category tiles -->
-<?php if ($categories !== []): ?>
 <section>
   <div class="container">
     <div class="bb-rowhead">
@@ -273,40 +280,38 @@ for ($i = 0; $i < 4; $i++) {
 </section>
 <?php endif; ?>
 
+<?php if ($show('homeShowWhyBook')): ?>
 <!-- Why book with us — spec rows -->
 <section class="section-sand">
   <div class="container">
     <div class="row">
       <div class="col-lg-4">
-        <p class="bb-meta mb-1">Why book with us</p>
-        <h2 class="mb-4">Travel, handled properly.</h2>
+        <p class="bb-meta mb-1"><?= esc(site('homeWhyEyebrow')) ?></p>
+        <h2 class="mb-4"><?= esc(site('homeWhyHeading')) ?></h2>
       </div>
       <div class="col-lg-8">
         <div class="bb-facts">
-          <div class="bb-fact">
-            <h3>Transparent pricing</h3>
-            <p>Inclusions spelled out on every package — the price you see is the price you pay.</p>
-          </div>
-          <div class="bb-fact">
-            <h3>Secure payments</h3>
-            <p>Pay securely with M-Pesa or bank transfer, with written confirmation every time.</p>
-          </div>
-          <div class="bb-fact">
-            <h3>Local experts</h3>
-            <p>Journeys planned by Kenyans who know the parks, coast and seasons first-hand.</p>
-          </div>
-          <div class="bb-fact">
-            <h3>Accountable</h3>
-            <p>One point of contact from enquiry to your journey home. Licensed &amp; registered.</p>
-          </div>
+          <?php foreach ([
+              [site('homeWhy1Title'), site('homeWhy1Body')],
+              [site('homeWhy2Title'), site('homeWhy2Body')],
+              [site('homeWhy3Title'), site('homeWhy3Body')],
+              [site('homeWhy4Title'), site('homeWhy4Body')],
+          ] as [$factTitle, $factBody]): ?>
+            <?php if (trim((string) $factTitle) === '' && trim((string) $factBody) === '') { continue; } ?>
+            <div class="bb-fact">
+              <h3><?= esc($factTitle) ?></h3>
+              <p><?= esc($factBody) ?></p>
+            </div>
+          <?php endforeach; ?>
         </div>
       </div>
     </div>
   </div>
 </section>
+<?php endif; ?>
 
+<?php if ($show('homeShowGallery') && $gallery !== []): ?>
 <!-- Gallery teaser -->
-<?php if ($gallery !== []): ?>
 <section>
   <div class="container">
     <div class="bb-rowhead">
@@ -327,8 +332,8 @@ for ($i = 0; $i < 4; $i++) {
 </section>
 <?php endif; ?>
 
+<?php if ($show('homeShowJournal') && $posts !== []): ?>
 <!-- Journal teaser -->
-<?php if ($posts !== []): ?>
 <section class="section-sand">
   <div class="container">
     <div class="bb-rowhead">
@@ -360,8 +365,8 @@ for ($i = 0; $i < 4; $i++) {
 </section>
 <?php endif; ?>
 
+<?php if ($show('homeShowTestimonials') && $testimonials !== []): ?>
 <!-- Guest words — social proof near the close -->
-<?php if ($testimonials !== []): ?>
 <section>
   <div class="container">
     <p class="bb-meta mb-3 text-center">What travellers say</p>
@@ -386,6 +391,7 @@ for ($i = 0; $i < 4; $i++) {
 </section>
 <?php endif; ?>
 
+<?php if ($show('homeShowAbout')): ?>
 <!-- About — Jambo intro + vision & mission -->
 <section class="section-sand">
   <div class="container">
@@ -409,6 +415,7 @@ for ($i = 0; $i < 4; $i++) {
     </div>
   </div>
 </section>
+<?php endif; ?>
 
 <?php // Stat count-up — animates 0 → value when the band scrolls into view. ?>
 <script>
