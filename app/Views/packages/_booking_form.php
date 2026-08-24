@@ -131,7 +131,7 @@ if ($avail === 'sold_out') {
       <span class="spinner-border spinner-border-sm ms-2 bba-btn-spin" aria-hidden="true"></span>
     </button>
     <a class="btn btn-bba-outline"
-       href="<?= esc(whatsapp_link('Hi Beyond Borders, I am interested in the ' . $package['title'] . ' package.'), 'attr') ?>"
+       href="<?= esc(whatsapp_link('Hi, I am interested in the ' . $package['title'] . ' package.'), 'attr') ?>"
        target="_blank" rel="noopener">
       <i class="bi bi-whatsapp me-2" aria-hidden="true"></i>Ask on WhatsApp
     </a>

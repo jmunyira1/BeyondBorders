@@ -30,7 +30,7 @@ $fields = array_filter([
     <?php endif; ?>
     <?php if ($row['phone']): ?>
       <a class="btn btn-bba-outline btn-sm" target="_blank" rel="noopener"
-         href="<?= esc(whatsapp_link('Hi ' . $row['name'] . ', thank you for your enquiry with Beyond Borders Adventures.', $row['phone']), 'attr') ?>">
+         href="<?= esc(whatsapp_link('Hi ' . $row['name'] . ', thank you for your enquiry with ' . site('companyName') . '.', $row['phone']), 'attr') ?>">
         <i class="bi bi-whatsapp me-1" aria-hidden="true"></i>WhatsApp
       </a>
       <a class="btn btn-bba-outline btn-sm" href="tel:<?= esc($row['phone'], 'attr') ?>">

@@ -3,8 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title><?= esc($title ?? site('companyName')) ?></title>
-<meta name="description" content="<?= esc($metaDescription ?? 'Discover the magic of Kenya with Beyond Borders Adventures — safaris, beach holidays, mountain treks, cultural experiences and tailor-made trips.') ?>">
+<?php
+  // ---- SEO / social / AI metadata --------------------------------------
+  $seoTitle = $title ?? site('companyName');
+  $seoDesc  = $metaDescription ?? 'Discover the magic of Kenya with ' . site('companyName') . ' — safaris, beach holidays, mountain treks, cultural experiences and tailor-made trips, clearly priced.';
+  $seoCanon = $canonical ?? current_url();
+  $seoImage = $metaImage ?? seo_logo_url();
+  $seoType  = $ogType ?? 'website';
+  $seoRobots = $metaRobots ?? 'index, follow, max-image-preview:large, max-snippet:-1';
+?>
+<title><?= esc($seoTitle) ?></title>
+<meta name="description" content="<?= esc($seoDesc, 'attr') ?>">
+<meta name="robots" content="<?= esc($seoRobots, 'attr') ?>">
+<link rel="canonical" href="<?= esc($seoCanon, 'attr') ?>">
+<meta name="theme-color" content="#003839">
+<meta name="author" content="<?= esc(site('companyName'), 'attr') ?>">
+
+<?php // Open Graph (Facebook, WhatsApp, LinkedIn) ?>
+<meta property="og:type" content="<?= esc($seoType, 'attr') ?>">
+<meta property="og:site_name" content="<?= esc(site('companyName'), 'attr') ?>">
+<meta property="og:title" content="<?= esc($seoTitle, 'attr') ?>">
+<meta property="og:description" content="<?= esc($seoDesc, 'attr') ?>">
+<meta property="og:url" content="<?= esc($seoCanon, 'attr') ?>">
+<meta property="og:image" content="<?= esc($seoImage, 'attr') ?>">
+<meta property="og:locale" content="en_KE">
+
+<?php // Twitter / X card ?>
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="<?= esc($seoTitle, 'attr') ?>">
+<meta name="twitter:description" content="<?= esc($seoDesc, 'attr') ?>">
+<meta name="twitter:image" content="<?= esc($seoImage, 'attr') ?>">
+
+<?php // Site-wide structured data — the business + the website search box ?>
+<?= json_ld(seo_org_schema()) ?>
+<?= json_ld(seo_website_schema()) ?>
+
 <?php // security.regenerate is off, so this token stays valid for the whole
       // session and htmx can reuse it across swaps without refreshing it. ?>
 <meta name="csrf-token" content="<?= csrf_hash() ?>">

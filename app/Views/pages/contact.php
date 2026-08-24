@@ -1,5 +1,22 @@
 <?= $this->extend('layouts/public') ?>
 
+<?php if (($faqs ?? []) !== []): ?>
+<?= $this->section('head') ?>
+<?php
+// FAQPage — lets Google and AI assistants surface these answers directly.
+$faqLd = ['@context' => 'https://schema.org', '@type' => 'FAQPage', 'mainEntity' => []];
+foreach ($faqs as $faq) {
+    $faqLd['mainEntity'][] = [
+        '@type'          => 'Question',
+        'name'           => $faq['question'],
+        'acceptedAnswer' => ['@type' => 'Answer', 'text' => $faq['answer']],
+    ];
+}
+?>
+<?= json_ld($faqLd) ?>
+<?= $this->endSection() ?>
+<?php endif; ?>
+
 <?= $this->section('content') ?>
 
 <header class="bb-pagehead">

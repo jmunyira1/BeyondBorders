@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sign in — <?= esc(setting('Site.companyName') ?: 'Beyond Borders Adventures') ?></title>
+<title>Sign in — <?= esc(setting('Site.companyName') ?: 'MOROP GAA Tours and Travel') ?></title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,9 +18,9 @@
 <div class="bba-login-wrap">
   <div class="bba-login-card">
     <div class="bba-login-head">
-      <img src="<?= esc(media_url(site('logo'), 'assets/img/logo-nav.png'), 'attr') ?>" alt="">
-      <h1>Beyond Borders Admin</h1>
-      <p>Sign in to manage the site</p>
+      <img src="<?= esc(media_url(site('logo'), 'assets/img/logo-nav.png'), 'attr') ?>" alt="<?= esc(site('companyName'), 'attr') ?>">
+      <h1><?= esc(site('companyName')) ?></h1>
+      <p>Admin — sign in to manage the site</p>
     </div>
 
     <div class="bba-login-body">

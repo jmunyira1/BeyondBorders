@@ -16,7 +16,7 @@ $pool = [];
 foreach ($heroSource as $g) {
     $pool[] = [
         'src' => media_url($g['path']),
-        'alt' => $g['alt'] ?: ($g['caption'] ?: 'A Beyond Borders travel moment'),
+        'alt' => $g['alt'] ?: ($g['caption'] ?: 'A travel moment in Kenya'),
     ];
 }
 if (count($pool) < 2) {

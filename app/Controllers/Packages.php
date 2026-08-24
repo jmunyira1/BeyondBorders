@@ -74,7 +74,7 @@ class Packages extends BaseController
 
         return [
             'title'           => 'Tours & Packages — ' . site('companyName'),
-            'metaDescription' => "Browse Beyond Borders Adventures' Kenya tours — safaris, beach holidays, adventures, cultural experiences and corporate retreats, all clearly priced.",
+            'metaDescription' => 'Browse ' . site('companyName') . "'s Kenya tours — safaris, beach holidays, adventures, cultural experiences and corporate retreats, all clearly priced.",
             'activeNav'       => 'packages',
             'packages'        => $packages,
             'pager'           => $pager,
@@ -203,6 +203,8 @@ class Packages extends BaseController
         return view('pages/package_detail', [
             'title'           => $package['title'] . ' — ' . site('companyName'),
             'metaDescription' => excerpt_of($package['summary'], 155),
+            'metaImage'       => abs_url(media_url($package['image'])),
+            'ogType'          => 'product',
             'activeNav'       => 'packages',
             'package'         => $package,
             'inclusions'      => (new PackageInclusionModel())->grouped((int) $package['id']),

@@ -19,7 +19,7 @@ class Blog extends BaseController
 
         return view('pages/blog', [
             'title'           => 'The Journal — ' . site('companyName'),
-            'metaDescription' => 'Notes from the road — safari timing, packing, planning and the Kenyan coast, from the Beyond Borders Adventures team.',
+            'metaDescription' => 'Notes from the road — safari timing, packing, planning and the Kenyan coast, from the ' . site('companyName') . ' team.',
             'activeNav'       => 'blog',
             'posts'           => $posts,
             'pager'           => $model->pager,
@@ -48,6 +48,8 @@ class Blog extends BaseController
         return view('pages/post_detail', [
             'title'           => $post['title'] . ' — ' . site('companyName'),
             'metaDescription' => excerpt_of($post['excerpt'] ?: $post['body'], 155),
+            'metaImage'       => abs_url(media_url($post['image'])),
+            'ogType'          => 'article',
             'activeNav'       => 'blog',
             'post'            => $post,
             'more'            => array_slice($more, 0, 3),

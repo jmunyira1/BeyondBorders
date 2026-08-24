@@ -13,7 +13,7 @@ class Pages extends BaseController
     {
         return view('pages/about', [
             'title'           => 'About — ' . site('companyName'),
-            'metaDescription' => 'Beyond Borders Adventures is a Kenyan travel company creating authentic, safe and seamless journeys for local and international travelers.',
+            'metaDescription' => site('companyName') . ' is a Kenyan travel company creating authentic, safe and seamless journeys for local and international travelers.',
             'activeNav'       => 'about',
             'testimonials'    => (new TestimonialModel())->active(3),
         ]);
@@ -33,7 +33,7 @@ class Pages extends BaseController
     {
         return view('pages/contact', [
             'title'           => 'Contact — ' . site('companyName'),
-            'metaDescription' => 'Talk to Beyond Borders Adventures — phone, email, WhatsApp, and answers to the questions we are asked most.',
+            'metaDescription' => 'Talk to ' . site('companyName') . ' — phone, email, WhatsApp, and answers to the questions we are asked most.',
             'activeNav'       => 'contact',
             'faqs'            => (new FaqModel())->active(),
         ]);

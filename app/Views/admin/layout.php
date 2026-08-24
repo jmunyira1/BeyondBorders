@@ -71,12 +71,10 @@ $newCount = $newEnquiries ?? 0;
       <a class="bba-side-link" href="<?= site_url('/') ?>" target="_blank" rel="noopener">
         <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i><span>View site</span>
       </a>
-      <form method="post" action="<?= site_url('logout') ?>" class="mt-1">
-        <?= csrf_field() ?>
-        <button type="submit" class="bba-side-link w-100 border-0 bg-transparent text-start">
-          <i class="bi bi-box-arrow-left" aria-hidden="true"></i><span>Sign out</span>
-        </button>
-      </form>
+      <?php // Shield registers logout as a GET route, so this is a link, not a POST form. ?>
+      <a class="bba-side-link mt-1" href="<?= site_url('logout') ?>">
+        <i class="bi bi-box-arrow-left" aria-hidden="true"></i><span>Sign out</span>
+      </a>
     </div>
   </aside>
 

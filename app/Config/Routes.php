@@ -31,6 +31,11 @@ $routes->post('contact', 'Pages::submitContact');
 $routes->get('blog', 'Blog::index', ['as' => 'blog']);
 $routes->get('blog/(:segment)', 'Blog::show/$1', ['as' => 'post']);
 
+// SEO / AI crawler files (generated, so they track the live catalogue + base URL)
+$routes->get('robots.txt', 'Seo::robots');
+$routes->get('sitemap.xml', 'Seo::sitemap');
+$routes->get('llms.txt', 'Seo::llms');
+
 // ---------------------------------------------------------------------------
 // Authentication (Shield). Registration and magic-link routes are removed in
 // Config\Auth so only the login flow is reachable.

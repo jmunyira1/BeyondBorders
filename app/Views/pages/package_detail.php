@@ -1,5 +1,40 @@
 <?= $this->extend('layouts/public') ?>
 
+<?= $this->section('head') ?>
+<?php
+// Structured data: the trip as a bookable Product (price + availability), plus
+// a breadcrumb trail. This is what drives price rich-snippets and lets AI
+// assistants quote the trip accurately.
+$bookable  = \App\Models\PackageModel::isBookable($package['availability'] ?? 'available');
+$productLd  = [
+    '@context'    => 'https://schema.org',
+    '@type'       => 'Product',
+    'name'        => $package['title'],
+    'description' => excerpt_of($package['summary'], 300),
+    'image'       => abs_url(media_url($package['image'])),
+    'category'    => $package['category_name'] ?? 'Tour',
+    'brand'       => ['@type' => 'Brand', 'name' => site('companyName')],
+];
+if (($package['price'] ?? null) !== null && (float) $package['price'] > 0) {
+    $productLd['offers'] = [
+        '@type'         => 'Offer',
+        'price'         => (string) (int) round((float) $package['price']),
+        'priceCurrency' => $package['currency'] ?: 'KES',
+        'availability'  => 'https://schema.org/' . ($bookable ? 'InStock' : 'PreOrder'),
+        'url'           => current_url(),
+        'seller'        => ['@id' => base_url() . '#organization'],
+    ];
+}
+$crumbs = ['Home' => base_url(), 'Tours & Packages' => url_to('packages')];
+if (! empty($package['category_name'])) {
+    $crumbs[$package['category_name']] = url_to('packages') . '?category=' . rawurlencode($package['category_slug']);
+}
+$crumbs[$package['title']] = current_url();
+?>
+<?= json_ld($productLd) ?>
+<?= json_ld(seo_breadcrumb_schema($crumbs)) ?>
+<?= $this->endSection() ?>
+
 <?= $this->section('content') ?>
 
 <header class="bb-pagehead">

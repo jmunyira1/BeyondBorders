@@ -1,5 +1,31 @@
 <?= $this->extend('layouts/public') ?>
 
+<?= $this->section('head') ?>
+<?php
+// BlogPosting so search + AI treat the article as authored, dated content.
+$postLd = [
+    '@context'         => 'https://schema.org',
+    '@type'            => 'BlogPosting',
+    'headline'         => $post['title'],
+    'description'      => excerpt_of($post['excerpt'] ?: $post['body'], 200),
+    'image'            => abs_url(media_url($post['image'])),
+    'datePublished'    => date('c', strtotime($post['published_at'])),
+    'dateModified'     => date('c', strtotime($post['updated_at'] ?? $post['published_at'])),
+    'author'           => ['@type' => 'Organization', 'name' => $post['author'] ?: site('companyName')],
+    'publisher'        => ['@id' => base_url() . '#organization'],
+    'mainEntityOfPage' => current_url(),
+    'url'              => current_url(),
+];
+$crumbs = ['Home' => base_url(), 'The Journal' => url_to('blog')];
+if (! empty($post['category_name'])) {
+    $crumbs[$post['category_name']] = url_to('blog') . '?category=' . rawurlencode($post['category_slug']);
+}
+$crumbs[$post['title']] = current_url();
+?>
+<?= json_ld($postLd) ?>
+<?= json_ld(seo_breadcrumb_schema($crumbs)) ?>
+<?= $this->endSection() ?>
+
 <?= $this->section('content') ?>
 
 <header class="bb-pagehead">

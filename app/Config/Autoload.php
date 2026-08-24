@@ -90,5 +90,5 @@ class Autoload extends AutoloadConfig
      */
     // 'site' is global because Shield's own controllers render admin/login.php,
     // which needs site()/media_url() for the logo.
-    public $helpers = ['auth', 'setting', 'site'];
+    public $helpers = ['auth', 'setting', 'site', 'seo'];
 }

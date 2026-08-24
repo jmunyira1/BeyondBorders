@@ -65,7 +65,7 @@ class ContentSeeder extends Seeder
                 'body'             => $body,
                 'image'            => $image,
                 'image_alt'        => $alt,
-                'author'           => 'Beyond Borders Adventures',
+                'author'           => 'MOROP GAA Tours and Travel',
                 'read_minutes'     => $minutes,
                 'is_published'     => 1,
                 'published_at'     => $publishedAt,

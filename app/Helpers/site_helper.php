@@ -59,9 +59,9 @@ if (! function_exists('wordmark')) {
      */
     function wordmark(?string $suffix = null): string
     {
-        $name = trim((string) site('companyName', 'Beyond Borders Adventures'));
+        $name = trim((string) site('companyName', 'MOROP GAA Tours and Travel'));
         if ($name === '') {
-            $name = 'Beyond Borders Adventures';
+            $name = 'MOROP GAA Tours and Travel';
         }
 
         if ($suffix !== null && $suffix !== '') {
