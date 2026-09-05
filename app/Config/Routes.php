@@ -31,6 +31,9 @@ $routes->post('contact', 'Pages::submitContact');
 $routes->get('blog', 'Blog::index', ['as' => 'blog']);
 $routes->get('blog/(:segment)', 'Blog::show/$1', ['as' => 'post']);
 
+// Adventure tickets — reached by an unguessable token
+$routes->get('ticket/(:segment)', 'Tickets::show/$1', ['as' => 'ticket']);
+
 // SEO / AI crawler files (generated, so they track the live catalogue + base URL)
 $routes->get('robots.txt', 'Seo::robots');
 $routes->get('sitemap.xml', 'Seo::sitemap');

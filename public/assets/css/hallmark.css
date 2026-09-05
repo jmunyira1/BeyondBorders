@@ -842,9 +842,20 @@ section { padding-block: var(--space-lg); }
 /* ------------------------------------------------------------
    Long Document — articles, detail pages
    ------------------------------------------------------------ */
-.bba-article { font-size: 1.0625rem; line-height: 1.7; max-width: 65ch; }
+.bba-article { font-size: 1.0625rem; line-height: 1.7; max-width: 65ch; color: var(--color-ink-2); }
 .bba-article p { margin-bottom: var(--space-lg); }
 .bba-article img { max-width: 100%; height: auto; }
+.bba-article h2 { font-size: var(--text-lg); margin: var(--space-xl) 0 var(--space-sm); }
+.bba-article h3 { font-size: var(--text-md); margin: var(--space-lg) 0 var(--space-xs); }
+.bba-article h4 { font-family: var(--font-body); font-size: var(--text-base); font-weight: 600; margin: var(--space-md) 0 var(--space-2xs); }
+.bba-article h2:first-child, .bba-article h3:first-child, .bba-article > :first-child { margin-top: 0; }
+.bba-article ul, .bba-article ol { margin: 0 0 var(--space-lg); padding-left: 1.4em; }
+.bba-article li { margin-bottom: var(--space-2xs); }
+.bba-article li::marker { color: var(--color-primary); }
+.bba-article strong { color: var(--color-ink); font-weight: 600; }
+.bba-article a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 0.15em; }
+.bba-article hr { border: 0; border-top: var(--rule-hair) solid var(--color-rule); margin: var(--space-xl) 0; }
+.bba-article blockquote { margin: 0 0 var(--space-lg); padding-left: var(--space-lg); border-left: 3px solid var(--color-primary); color: var(--color-muted); }
 
 .bb-lede-para { font-size: var(--text-md); line-height: 1.55; color: var(--color-ink-2); max-width: 58ch; }
 

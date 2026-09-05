@@ -2,11 +2,16 @@
    Admin — same brand tokens as the public site, denser layout.
    ============================================================ */
 
+html { overflow-x: clip; }
 body.bba-admin {
   background: #f1f5f4;
   font-family: var(--bba-font-body);
   color: var(--bba-body);
+  overflow-x: clip; /* nothing should scroll the whole admin sideways */
 }
+/* Never let a long word/URL/ref blow out a table cell or card on small screens */
+.bba-content, .bba-main { min-width: 0; max-width: 100%; }
+.bba-table td, .bba-table th, .bba-panel-body, .bba-content .small { overflow-wrap: anywhere; }
 
 /* ------------------------------------------------------------
    Shell
